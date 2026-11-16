@@ -1,0 +1,146 @@
+import React from 'react';
+import { ArrowUp, MessageCircle, Mail } from 'lucide-react';
+import { siteConfig, getWhatsAppUrl } from '../config/site';
+import { InstagramIcon, FacebookIcon } from './Icons';
+
+export const Footer: React.FC = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <footer className="bg-[#0B0F17] text-white pt-16 pb-12 border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Main Footer Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+          
+          {/* Brand Col */}
+          <div className="lg:col-span-4 space-y-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-9 h-9 rounded-full bg-white text-stone-950 flex items-center justify-center font-serif font-bold text-sm">
+                SR
+              </div>
+              <div>
+                <h4 className="font-serif font-bold text-lg tracking-tight uppercase">
+                  {siteConfig.artistName}
+                </h4>
+                <p className="text-[11px] font-mono text-sky-400">
+                  {siteConfig.artistSubtitle}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-stone-400 font-sans leading-relaxed max-w-sm">
+              Archival inventory, life studies on Lokta paper, and monumental stone sculptures representing four decades of Nepalese modernist research.
+            </p>
+
+            <div className="flex items-center space-x-3 pt-2">
+              <a
+                href={getWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp Studio"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-600 flex items-center justify-center text-white transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
+
+              <a
+                href={siteConfig.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-pink-600 flex items-center justify-center text-white transition-colors"
+              >
+                <InstagramIcon className="w-4 h-4" />
+              </a>
+
+              <a
+                href={siteConfig.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-blue-600 flex items-center justify-center text-white transition-colors"
+              >
+                <FacebookIcon className="w-4 h-4" />
+              </a>
+
+              <a
+                href={`mailto:${siteConfig.email}`}
+                aria-label="Email Studio"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-sky-600 flex items-center justify-center text-white transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="lg:col-span-2 space-y-3">
+            <h5 className="text-xs font-mono uppercase tracking-widest text-stone-400">
+              Navigation
+            </h5>
+            <ul className="space-y-2 text-xs text-stone-300 font-sans">
+              <li><a href="#hero" className="hover:text-white transition-colors">Overview</a></li>
+              <li><a href="#about" className="hover:text-white transition-colors">Philosophy</a></li>
+              <li><a href="#discipline" className="hover:text-white transition-colors">Dual Discipline</a></li>
+              <li><a href="#gallery" className="hover:text-white transition-colors">Archival Works</a></li>
+              <li><a href="#exhibitions" className="hover:text-white transition-colors">Provenance</a></li>
+              <li><a href="#commentary" className="hover:text-white transition-colors">Commentary</a></li>
+              <li><a href="#contact" className="hover:text-white transition-colors">Inquiries</a></li>
+            </ul>
+          </div>
+
+          {/* Studio & Location */}
+          <div className="lg:col-span-3 space-y-3">
+            <h5 className="text-xs font-mono uppercase tracking-widest text-stone-400">
+              Studio &amp; Archive
+            </h5>
+            <p className="text-xs text-stone-300 leading-relaxed font-sans">
+              {siteConfig.studioLocation}
+            </p>
+            <p className="text-xs text-stone-400 font-mono">
+              WhatsApp: +{siteConfig.whatsAppNumber}
+            </p>
+            <p className="text-xs text-stone-400 font-mono">
+              {siteConfig.email}
+            </p>
+            <p className="text-[11px] text-stone-500 font-sans italic pt-1">
+              Visits by prior curatorial appointment only.
+            </p>
+          </div>
+
+          {/* Institutional Services */}
+          <div className="lg:col-span-3 space-y-3">
+            <h5 className="text-xs font-mono uppercase tracking-widest text-stone-400">
+              Institutional Services
+            </h5>
+            <ul className="space-y-2 text-xs text-stone-300 font-sans">
+              <li>• Museum &amp; Biennial Exhibition Loans</li>
+              <li>• Public Monument Commissions</li>
+              <li>• Private Collection Acquisitions</li>
+              <li>• Academic Monograph Licensing</li>
+              <li>• Archival Authentication Certificates</li>
+            </ul>
+          </div>
+
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-4">
+          <p>© {new Date().getFullYear()} Sanjay Rai (Bantawa). All rights reserved.</p>
+
+          <button
+            onClick={scrollToTop}
+            className="flex items-center space-x-1.5 text-stone-400 hover:text-white transition-colors"
+          >
+            <span>Back to top</span>
+            <ArrowUp className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+      </div>
+    </footer>
+  );
+};
