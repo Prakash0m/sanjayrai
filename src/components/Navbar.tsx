@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
 
 interface NavbarProps {
@@ -101,11 +102,11 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 href={getWhatsAppUrl("Hello Sanjay Rai, I am inquiring regarding your artwork catalogue.")}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center space-x-2 px-4 py-2 rounded-full text-xs font-semibold bg-emerald-600/90 hover:bg-emerald-600 text-white shadow-sm transition-all hover:scale-105 active:scale-95"
+                className="group flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-xs transition-all hover:scale-105 active:scale-95"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
+                <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
                 <span>WhatsApp</span>
-                <ArrowUpRight className="w-3 h-3 opacity-70 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <ArrowUpRight className="w-3 h-3 opacity-75 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </a>
 
               <a
@@ -154,9 +155,9 @@ export const Navbar: React.FC<NavbarProps> = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-full flex items-center justify-center space-x-2 py-3.5 rounded-2xl bg-emerald-600 text-white font-medium text-sm shadow-md"
+                  className="w-full flex items-center justify-center space-x-2.5 py-3.5 rounded-2xl bg-[#25D366] hover:bg-[#20BD5A] text-white font-medium text-sm shadow-md transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <WhatsAppIcon className="w-4 h-4 text-white" />
                   <span>Chat on WhatsApp</span>
                 </a>
 

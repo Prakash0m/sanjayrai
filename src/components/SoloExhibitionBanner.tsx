@@ -1,5 +1,6 @@
 import React from 'react';
-import { Calendar, MapPin, User, Download, MessageCircle } from 'lucide-react';
+import { Calendar, MapPin, User, Download } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
 import { SmartImage } from './SmartImage';
 
@@ -79,9 +80,9 @@ export const SoloExhibitionBanner: React.FC = () => {
                 href={getWhatsAppUrl(`Hello Sanjay Rai, I would like to RSVP / Reserve an Invitation for the exhibition: ${upcomingExhibition.title}.`)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-full bg-sky-500 hover:bg-sky-400 text-stone-950 font-semibold text-xs tracking-wide shadow-lg shadow-sky-500/20 transition-all hover:scale-105 active:scale-95"
+                className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white font-semibold text-xs tracking-wide shadow-lg shadow-emerald-500/25 transition-all hover:scale-105 active:scale-95"
               >
-                <MessageCircle className="w-4 h-4 fill-current" />
+                <WhatsAppIcon className="w-4 h-4 text-white" />
                 <span>Reserve VIP Invitation on WhatsApp</span>
               </a>
 

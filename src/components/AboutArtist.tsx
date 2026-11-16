@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BookOpen, CheckCircle, ArrowRight, MessageCircle } from 'lucide-react';
+import { BookOpen, CheckCircle, ArrowRight } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { getWhatsAppUrl } from '../config/site';
 
 export const AboutArtist: React.FC = () => {
@@ -145,7 +146,7 @@ export const AboutArtist: React.FC = () => {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl bg-ink-900 hover:bg-black text-white text-xs font-medium shadow-sm transition-all"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                  <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
                   <span>Request via WhatsApp</span>
                 </a>
               </div>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ArrowUp, MessageCircle, Mail } from 'lucide-react';
+import { ArrowUp, Mail } from 'lucide-react';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
-import { InstagramIcon, FacebookIcon } from './Icons';
+import { WhatsAppIcon, InstagramIcon, FacebookIcon } from './Icons';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -45,9 +45,9 @@ export const Footer: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp Studio"
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-600 flex items-center justify-center text-white transition-colors"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#25D366] flex items-center justify-center text-white transition-colors"
               >
-                <MessageCircle className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4 text-white" />
               </a>
 
               <a

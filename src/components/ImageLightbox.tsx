@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, MessageCircle, Maximize2 } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { Artwork } from '../data/portfolio';
 import { getWhatsAppUrl } from '../config/site';
 
@@ -203,9 +204,9 @@ export const ImageLightbox: React.FC<ImageLightboxProps> = ({
           <div className="pt-2">
             <button
               onClick={handleWhatsAppInquiry}
-              className="w-full flex items-center justify-center space-x-2 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold tracking-wide shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full flex items-center justify-center space-x-2.5 py-3.5 px-4 rounded-2xl bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold tracking-wide shadow-lg shadow-emerald-500/25 transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
-              <MessageCircle className="w-4 h-4 fill-current" />
+              <WhatsAppIcon className="w-4 h-4 text-white" />
               <span>Inquire on WhatsApp</span>
             </button>
             <p className="text-[10px] text-stone-400 text-center mt-2 font-mono">

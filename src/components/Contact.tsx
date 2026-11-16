@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { MessageCircle, Mail, MapPin, Check, Phone, ArrowUpRight } from 'lucide-react';
+import { Mail, MapPin, Check, Phone, ArrowUpRight } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
 import { InstagramIcon, FacebookIcon } from './Icons';
 
@@ -90,7 +91,7 @@ export const Contact: React.FC = () => {
                 <span className="text-[10px] font-mono tracking-widest uppercase text-emerald-200">
                   Instant Response
                 </span>
-                <MessageCircle className="w-5 h-5 fill-current" />
+                <WhatsAppIcon className="w-6 h-6 text-white" />
               </div>
 
               <h4 className="font-serif text-xl font-bold text-white">
@@ -105,10 +106,11 @@ export const Contact: React.FC = () => {
                 href={getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex items-center justify-center space-x-2 w-full py-3 rounded-2xl bg-white text-emerald-900 font-semibold text-xs tracking-wide shadow transition-all hover:bg-emerald-50 active:scale-95"
+                className="mt-2 inline-flex items-center justify-center space-x-2.5 w-full py-3.5 rounded-2xl bg-white text-[#128C7E] font-semibold text-xs tracking-wide shadow-md transition-all hover:bg-stone-50 active:scale-95"
               >
-                <span>Open WhatsApp Chat</span>
-                <ArrowUpRight className="w-4 h-4" />
+                <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
+                <span>Open Instant WhatsApp Chat</span>
+                <ArrowUpRight className="w-4 h-4 text-[#128C7E]" />
               </a>
             </div>
 
@@ -231,7 +233,7 @@ export const Contact: React.FC = () => {
                     type="submit"
                     className="w-full flex items-center justify-center space-x-2 py-4 rounded-2xl bg-ink-900 hover:bg-black text-white text-xs font-semibold tracking-wider uppercase shadow-xl transition-all hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    <MessageCircle className="w-4 h-4 text-emerald-400" />
+                    <WhatsAppIcon className="w-4 h-4 text-[#25D366]" />
                     <span>Send Inquiry Directly via WhatsApp</span>
                   </button>
                   <p className="text-[11px] text-ink-400 text-center mt-2.5 font-mono">

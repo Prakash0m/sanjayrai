@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowDown, MessageCircle, FileText, Sparkles } from 'lucide-react';
+import { ArrowDown, FileText, Sparkles } from 'lucide-react';
+import { WhatsAppIcon } from './Icons';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
 
 interface HeroProps {
@@ -70,9 +71,11 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
                 href={getWhatsAppUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full glass-card hover:bg-white text-ink-800 text-sm font-medium border border-stone-200/80 shadow-sm transition-all hover:scale-[1.02]"
+                className="inline-flex items-center space-x-2.5 px-6 py-3.5 rounded-full bg-white hover:bg-stone-50 text-ink-800 text-sm font-medium border border-stone-200/90 shadow-sm transition-all hover:scale-[1.02] group"
               >
-                <MessageCircle className="w-4 h-4 text-emerald-600" />
+                <div className="w-5 h-5 rounded-full bg-[#25D366] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
+                </div>
                 <span>Contact via WhatsApp</span>
               </a>
             </div>
