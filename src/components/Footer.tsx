@@ -18,8 +18,12 @@ export const Footer: React.FC = () => {
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center space-x-3">
-              <div className="w-9 h-9 rounded-full bg-white text-stone-950 flex items-center justify-center font-serif font-bold text-sm">
-                SR
+              <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-white/20 shadow-sm flex-shrink-0 bg-stone-900">
+                <img
+                  src="/images/artist/avatar.jpg"
+                  alt="Sanjay Rai"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h4 className="font-serif font-bold text-lg tracking-tight uppercase">

@@ -58,8 +58,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
               href="#hero"
               className="group flex items-center space-x-3 text-ink-900 transition-opacity hover:opacity-80"
             >
-              <div className="w-8 h-8 rounded-full bg-ink-900 text-stone-100 flex items-center justify-center font-serif text-sm font-semibold tracking-tighter">
-                SR
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden ring-2 ring-stone-200/90 shadow-sm flex-shrink-0 bg-stone-900">
+                <img
+                  src="/images/artist/avatar.jpg"
+                  alt="Sanjay Rai"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif text-base sm:text-lg font-bold tracking-tight text-ink-900 uppercase">
