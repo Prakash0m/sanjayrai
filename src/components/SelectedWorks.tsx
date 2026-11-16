@@ -2,20 +2,30 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { portfolioArtworks } from '../data/portfolio';
 import { SmartImage } from './SmartImage';
 import { ImageLightbox } from './ImageLightbox';
-import { ChevronLeft, ChevronRight, MessageCircle, Eye } from 'lucide-react';
-import { getWhatsAppUrl } from '../config/site';
+import { ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 
 export const SelectedWorks: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(2); // Center on a striking piece initially
+  const [currentIndex, setCurrentIndex] = useState<number>(2);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
   const [selectedForLightbox, setSelectedForLightbox] = useState<number>(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
 
-  // Drag / swipe states
+  // Real-time drag / swipe sliding state
   const [startX, setStartX] = useState<number | null>(null);
+  const [dragDelta, setDragDelta] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
+  const hasMovedRef = useRef<boolean>(false);
 
   const totalWorks = portfolioArtworks.length;
+
+  // Window resize listener to calibrate card spacing
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % totalWorks);
@@ -28,7 +38,6 @@ export const SelectedWorks: React.FC = () => {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't intercept if lightbox is open
       if (lightboxOpen) return;
       if (e.key === 'ArrowRight') handleNext();
       if (e.key === 'ArrowLeft') handlePrev();
@@ -38,76 +47,89 @@ export const SelectedWorks: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [handleNext, handlePrev, lightboxOpen]);
 
-  // Touch / Drag events
-  const handleTouchStart = (e: React.TouchEvent | React.MouseEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+  // Drag / Swipe handlers with live movement
+  const handleStart = (clientX: number) => {
     setStartX(clientX);
+    setDragDelta(0);
     setIsDragging(true);
+    hasMovedRef.current = false;
   };
 
-  const handleTouchEnd = (e: React.TouchEvent | React.MouseEvent) => {
+  const handleMove = (clientX: number) => {
     if (!isDragging || startX === null) return;
-    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX;
-    const diff = startX - clientX;
-    if (diff > 45) {
-      handleNext();
-    } else if (diff < -45) {
+    const delta = clientX - startX;
+    setDragDelta(delta);
+    if (Math.abs(delta) > 5) {
+      hasMovedRef.current = true;
+    }
+  };
+
+  const handleEnd = () => {
+    if (!isDragging) return;
+    if (dragDelta > 45) {
       handlePrev();
+    } else if (dragDelta < -45) {
+      handleNext();
     }
     setIsDragging(false);
     setStartX(null);
+    setDragDelta(0);
   };
 
   const handleCardClick = (index: number) => {
+    // If the user was dragging/sliding, don't trigger click action
+    if (hasMovedRef.current) return;
+
     if (index === currentIndex) {
-      // Open Lightbox
       setSelectedForLightbox(index);
       setLightboxOpen(true);
     } else {
-      // Bring clicked card to center
       setCurrentIndex(index);
     }
   };
 
-  const activeArtwork = portfolioArtworks[currentIndex];
+  // Responsive spacing between card centers
+  const cardSpacing = windowWidth < 640 ? 150 : windowWidth < 1024 ? 180 : 205;
 
   return (
     <section
       id="selected"
-      className="relative py-20 md:py-28 bg-[#090E17] text-white overflow-hidden select-none"
+      className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#FAF8F5] via-white to-[#F8FBFF] border-t border-stone-200/60 text-ink-900 overflow-hidden select-none"
     >
-      {/* Background ambient lighting effects */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-sky-950/40 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute top-12 left-1/4 w-[350px] h-[350px] bg-blue-900/15 rounded-full blur-3xl pointer-events-none" />
+      {/* Soft ethereal ambient lighting matching overall project aesthetic */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[280px] bg-sky-200/20 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-8 left-1/3 w-[300px] h-[240px] bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Section Header (Matching the Reference Image style) */}
-        <div className="text-center space-y-4 mb-12 md:mb-16">
+        {/* Section Header */}
+        <div className="text-center space-y-3 mb-8 sm:mb-10 md:mb-12">
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-[11px] font-mono tracking-widest text-stone-300 uppercase shadow-lg">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-            <span>SELECTED WORK</span>
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 text-[11px] font-mono tracking-widest text-stone-700 uppercase shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+            <span>SELECTED MASTERPIECES</span>
           </div>
 
-          {/* Large Bold Headline */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white uppercase font-sans">
-            BROWSE ARCHIVAL MASTERPIECES
+          {/* Headline & Brief Description */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-ink-900 uppercase">
+            Browse Archival Masterpieces
           </h2>
-          <p className="text-stone-400 text-xs sm:text-sm font-sans max-w-xl mx-auto">
-            Interactive 3D Coverflow of iconic life studies, figurative sketches, and retrospective selections.
+          <p className="text-ink-600 text-xs sm:text-sm font-sans max-w-lg mx-auto">
+            Swipe or slide through select drawings, Lokta life studies, and sculptural forms from the 1994–2024 archive.
           </p>
         </div>
 
-        {/* 3D Coverflow Container */}
+        {/* Compact Sliding Coverflow / Carousel Track */}
         <div
-          ref={containerRef}
-          onMouseDown={handleTouchStart}
-          onMouseUp={handleTouchEnd}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          className="relative h-[380px] sm:h-[460px] md:h-[500px] flex items-center justify-center cursor-grab active:cursor-grabbing perspective-[1200px]"
-          style={{ perspective: '1200px' }}
+          onMouseDown={(e) => handleStart(e.clientX)}
+          onMouseMove={(e) => handleMove(e.clientX)}
+          onMouseUp={handleEnd}
+          onMouseLeave={handleEnd}
+          onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+          onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+          onTouchEnd={handleEnd}
+          className="relative h-[290px] sm:h-[330px] md:h-[370px] flex items-center justify-center cursor-grab active:cursor-grabbing"
+          style={{ perspective: '1100px' }}
         >
           {/* Circular Left Nav Button */}
           <button
@@ -116,9 +138,9 @@ export const SelectedWorks: React.FC = () => {
               handlePrev();
             }}
             aria-label="Previous artwork"
-            className="absolute left-2 sm:left-6 md:left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95"
+            className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
           >
-            <ChevronLeft className="w-6 h-6 stroke-[2.5]" />
+            <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
 
           {/* Circular Right Nav Button */}
@@ -128,15 +150,14 @@ export const SelectedWorks: React.FC = () => {
               handleNext();
             }}
             aria-label="Next artwork"
-            className="absolute right-2 sm:right-6 md:right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 rounded-full bg-black/60 hover:bg-black/90 text-white backdrop-blur-xl border border-white/20 flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95"
+            className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
           >
-            <ChevronRight className="w-6 h-6 stroke-[2.5]" />
+            <ChevronRight className="w-5 h-5 stroke-[2.5]" />
           </button>
 
           {/* Cards Track */}
           <div className="relative w-full h-full flex items-center justify-center">
             {portfolioArtworks.map((artwork, idx) => {
-              // Calculate offset relative to currentIndex
               let offset = idx - currentIndex;
               if (offset > totalWorks / 2) offset -= totalWorks;
               if (offset < -totalWorks / 2) offset += totalWorks;
@@ -146,29 +167,35 @@ export const SelectedWorks: React.FC = () => {
 
               if (!isVisible) return null;
 
-              // Transform calculations for 3D Coverflow
-              const translateX = offset * 210; // horizontal spacing in px
-              const rotateY = offset > 0 ? -38 : offset < 0 ? 38 : 0;
-              const scale = isCenter ? 1.05 : Math.max(0.65, 0.88 - Math.abs(offset) * 0.12);
+              // Smooth real-time sliding offset
+              const translateX = offset * cardSpacing + (isDragging ? dragDelta : 0);
+              const rotateY = offset > 0 ? -24 : offset < 0 ? 24 : 0;
+              const scale = isCenter ? 1.04 : Math.max(0.72, 0.88 - Math.abs(offset) * 0.1);
               const zIndex = 30 - Math.abs(offset) * 5;
-              const opacity = isCenter ? 1 : Math.max(0.4, 0.85 - Math.abs(offset) * 0.15);
+              const opacity = isCenter ? 1 : Math.max(0.45, 0.85 - Math.abs(offset) * 0.18);
 
               return (
                 <div
                   key={artwork.id}
                   onClick={() => handleCardClick(idx)}
-                  className="absolute w-[260px] h-[330px] sm:w-[320px] sm:h-[400px] md:w-[350px] md:h-[440px] rounded-3xl overflow-hidden cursor-pointer transition-all duration-500 ease-out shadow-2xl"
+                  className={`absolute w-[205px] h-[260px] sm:w-[235px] sm:h-[305px] md:w-[265px] md:h-[340px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-xl ${
+                    isDragging ? 'transition-none' : 'transition-all duration-500 ease-[cubic-bezier(0.2,1,0.3,1)]'
+                  }`}
                   style={{
                     transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
                     zIndex,
                     opacity,
-                    filter: isCenter ? 'drop-shadow(0 25px 35px rgba(0,0,0,0.85))' : 'brightness(0.75)',
+                    filter: isCenter ? 'drop-shadow(0 15px 25px rgba(15,23,42,0.18))' : 'grayscale(15%)',
                   }}
                 >
-                  {/* Card Container */}
-                  <div className={`w-full h-full relative rounded-3xl overflow-hidden bg-stone-900 border ${
-                    isCenter ? 'border-white/50 ring-2 ring-sky-400/30' : 'border-white/10'
-                  }`}>
+                  {/* Card Shell */}
+                  <div
+                    className={`w-full h-full relative rounded-2xl sm:rounded-3xl overflow-hidden bg-stone-100 border ${
+                      isCenter
+                        ? 'border-sky-300 ring-2 ring-sky-400/40 shadow-xl'
+                        : 'border-stone-200/90'
+                    }`}
+                  >
                     <SmartImage
                       src={artwork.image}
                       alt={artwork.title}
@@ -176,36 +203,37 @@ export const SelectedWorks: React.FC = () => {
                       priority={isCenter}
                     />
 
-                    {/* Top Pill on Card */}
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-white border border-white/20">
+                    {/* Top Category Badge */}
+                    <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-ink-900 border border-stone-200/70 shadow-xs">
                       {artwork.category}
                     </div>
 
-                    <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-mono text-sky-300 border border-white/10">
+                    {/* Top Year Badge */}
+                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-ink-900/80 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-white">
                       {artwork.year}
                     </div>
 
                     {/* Active Center Card Bottom Info Gradient */}
                     {isCenter && (
-                      <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/95 via-black/60 to-transparent text-white space-y-1">
-                        <span className="text-[10px] font-mono tracking-widest text-sky-400 uppercase">
-                          SR-ARCHIVE · TAP TO ZOOM
+                      <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white space-y-0.5">
+                        <span className="text-[9px] font-mono tracking-widest text-sky-300 uppercase block">
+                          SR ARCHIVE · TAP TO ZOOM
                         </span>
-                        <h3 className="font-serif text-lg sm:text-xl font-bold text-white truncate">
+                        <h3 className="font-serif text-sm sm:text-base md:text-lg font-bold text-white truncate">
                           {artwork.title}
                         </h3>
-                        <p className="text-xs text-stone-300 font-sans truncate">
+                        <p className="text-[11px] sm:text-xs text-stone-200 font-sans truncate">
                           {artwork.medium}
                         </p>
                       </div>
                     )}
 
-                    {/* Hover Inspect Pill */}
+                    {/* Center Hover Inspect Overlay */}
                     {isCenter && (
-                      <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
-                        <div className="flex items-center space-x-2 px-4 py-2 rounded-full bg-white text-stone-950 text-xs font-semibold shadow-xl scale-95 hover:scale-105 transition-transform">
+                      <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-white text-ink-900 text-xs font-medium shadow-lg scale-95 hover:scale-105 transition-transform">
                           <Eye className="w-3.5 h-3.5" />
-                          <span>Inspect Full Details</span>
+                          <span>View Fullscreen</span>
                         </div>
                       </div>
                     )}
@@ -216,8 +244,8 @@ export const SelectedWorks: React.FC = () => {
           </div>
         </div>
 
-        {/* Pagination Dots Row (Matching Reference Image) */}
-        <div className="flex items-center justify-center space-x-2 mt-8 md:mt-10">
+        {/* Pagination Dots Row */}
+        <div className="flex items-center justify-center space-x-1.5 mt-6 sm:mt-8">
           {portfolioArtworks.map((_, dotIdx) => {
             const isActive = dotIdx === currentIndex;
             return (
@@ -227,56 +255,13 @@ export const SelectedWorks: React.FC = () => {
                 aria-label={`Jump to artwork ${dotIdx + 1}`}
                 className={`transition-all duration-300 rounded-full ${
                   isActive
-                    ? 'w-7 h-2 bg-white shadow-md'
-                    : 'w-2 h-2 bg-white/25 hover:bg-white/50'
+                    ? 'w-6 h-1.5 bg-ink-900 shadow-xs'
+                    : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
                 }`}
               />
             );
           })}
         </div>
-
-        {/* Bottom Helper Bar (Matching Reference Image) */}
-        <div className="text-center mt-4">
-          <p className="text-[11px] font-mono tracking-widest text-stone-500 uppercase">
-            ← DRAG · FLICK · ARROW KEYS →
-          </p>
-        </div>
-
-        {/* Selected Artwork Action Ribbon */}
-        {activeArtwork && (
-          <div className="mt-8 max-w-xl mx-auto p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-            <div>
-              <p className="text-xs text-stone-400 font-mono">
-                Currently Selected:
-              </p>
-              <h4 className="font-serif font-bold text-base text-white">
-                {activeArtwork.title} ({activeArtwork.year})
-              </h4>
-            </div>
-
-            <div className="flex items-center space-x-2.5">
-              <button
-                onClick={() => {
-                  setSelectedForLightbox(currentIndex);
-                  setLightboxOpen(true);
-                }}
-                className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-medium border border-white/15 transition-all"
-              >
-                Inspect Lightbox
-              </button>
-
-              <a
-                href={getWhatsAppUrl(`Hello Sanjay Rai, I am inquiring regarding the selected piece: "${activeArtwork.title}" (${activeArtwork.year}, ${activeArtwork.medium}).`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-md transition-all hover:scale-105"
-              >
-                <MessageCircle className="w-3.5 h-3.5 fill-current" />
-                <span>Inquire on WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        )}
 
       </div>
 
