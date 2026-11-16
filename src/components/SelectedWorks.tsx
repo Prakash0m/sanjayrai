@@ -37,7 +37,7 @@ export const SelectedWorks: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + totalWorks) % totalWorks);
   }, [totalWorks]);
 
-  // AUTOMATIC SLIDESHOW RUNNER (Auto-advances smoothly)
+  // AUTOMATIC SLIDESHOW (Auto-advances smoothly)
   useEffect(() => {
     if (!isAutoPlaying || isHovered || isDragging || lightboxOpen) return;
 
@@ -101,12 +101,12 @@ export const SelectedWorks: React.FC = () => {
   };
 
   // Responsive spacing between card centers
-  const cardSpacing = windowWidth < 640 ? 155 : windowWidth < 1024 ? 180 : 205;
+  const cardSpacing = windowWidth < 640 ? 155 : windowWidth < 1024 ? 185 : 210;
 
   return (
     <section
       id="selected"
-      className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#FAF8F5] via-white to-[#F8FBFF] border-t border-stone-200/60 text-ink-900 overflow-hidden select-none"
+      className="relative py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#FAF8F5] via-white to-[#F8FBFF] border-t border-stone-200/50 text-ink-900 overflow-hidden select-none"
     >
       {/* Soft ethereal ambient lighting matching overall project aesthetic */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[280px] bg-sky-200/20 rounded-full blur-[100px] pointer-events-none" />
@@ -117,7 +117,7 @@ export const SelectedWorks: React.FC = () => {
         {/* Section Header */}
         <div className="text-center space-y-3 mb-7 sm:mb-9 md:mb-11">
           {/* Eyebrow Pill with Live Auto-run status */}
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 text-[11px] font-mono tracking-widest text-stone-700 uppercase shadow-xs">
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/60 text-[11px] font-mono tracking-widest text-stone-700 uppercase shadow-2xs">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>SELECTED MASTERPIECES</span>
             <span className="text-stone-300">·</span>
@@ -154,7 +154,7 @@ export const SelectedWorks: React.FC = () => {
             setIsHovered(false);
             handleEnd();
           }}
-          className="relative h-[320px] sm:h-[360px] md:h-[395px] flex items-center justify-center cursor-grab active:cursor-grabbing"
+          className="relative h-[340px] sm:h-[385px] md:h-[425px] flex items-center justify-center cursor-grab active:cursor-grabbing"
           style={{ perspective: '1100px' }}
         >
           {/* Circular Left Nav Button */}
@@ -164,7 +164,7 @@ export const SelectedWorks: React.FC = () => {
               handlePrev();
             }}
             aria-label="Previous artwork"
-            className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
+            className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/60 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
@@ -176,7 +176,7 @@ export const SelectedWorks: React.FC = () => {
               handleNext();
             }}
             aria-label="Next artwork"
-            className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
+            className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/60 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
           >
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
           </button>
@@ -195,8 +195,8 @@ export const SelectedWorks: React.FC = () => {
 
               // Smooth real-time sliding offset
               const translateX = offset * cardSpacing + (isDragging ? dragDelta : 0);
-              const rotateY = offset > 0 ? -22 : offset < 0 ? 22 : 0;
-              const scale = isCenter ? 1.04 : Math.max(0.74, 0.88 - Math.abs(offset) * 0.1);
+              const rotateY = offset > 0 ? -20 : offset < 0 ? 20 : 0;
+              const scale = isCenter ? 1.03 : Math.max(0.74, 0.88 - Math.abs(offset) * 0.1);
               const zIndex = 30 - Math.abs(offset) * 5;
               const opacity = isCenter ? 1 : Math.max(0.45, 0.85 - Math.abs(offset) * 0.18);
 
@@ -204,56 +204,48 @@ export const SelectedWorks: React.FC = () => {
                 <div
                   key={artwork.id}
                   onClick={() => handleCardClick(idx)}
-                  className={`absolute w-[215px] h-[295px] sm:w-[245px] sm:h-[335px] md:w-[270px] md:h-[370px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-xl ${
+                  className={`absolute w-[220px] h-[315px] sm:w-[250px] sm:h-[360px] md:w-[275px] md:h-[400px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-xl ${
                     isDragging ? 'transition-none' : 'transition-all duration-500 ease-[cubic-bezier(0.2,1,0.3,1)]'
                   }`}
                   style={{
                     transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
                     zIndex,
                     opacity,
-                    filter: isCenter ? 'drop-shadow(0 15px 25px rgba(15,23,42,0.18))' : 'grayscale(15%)',
+                    filter: isCenter ? 'drop-shadow(0 16px 30px rgba(15,23,42,0.12))' : 'grayscale(10%)',
                   }}
                 >
-                  {/* Card Container: Preserves 100% full uncropped image without cutting head */}
+                  {/* Card Container: Clean Minimal Border, Seamless Aesthetic */}
                   <div
-                    className={`w-full h-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden bg-white border transition-colors ${
+                    className={`w-full h-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden bg-white transition-all ${
                       isCenter
-                        ? 'border-sky-400 ring-2 ring-sky-400/40 shadow-xl'
-                        : 'border-stone-200/90'
+                        ? 'shadow-xl shadow-stone-900/[0.08]'
+                        : 'shadow-sm opacity-90'
                     }`}
                   >
-                    {/* Artwork Presentation Canvas: Warm Archival Tone, zero head cutoff */}
-                    <div className="relative flex-1 w-full bg-[#F5F2EB] flex items-center justify-center p-2 sm:p-2.5 overflow-hidden">
+                    {/* Artwork Presentation Canvas: 100% full view, zero head cutoff, warm archival mat */}
+                    <div className="relative flex-1 w-full bg-[#FAF8F5] flex items-center justify-center p-2.5 sm:p-3 overflow-hidden">
                       <SmartImage
                         src={artwork.image}
                         alt={artwork.title}
-                        className="w-full h-full object-contain filter drop-shadow-xs"
+                        objectFit="contain"
+                        className="w-full h-full flex items-center justify-center bg-transparent"
+                        imgClassName="object-contain w-full h-full filter drop-shadow-xs"
                         priority={isCenter}
                       />
-
-                      {/* Small Top Year Badge */}
-                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-ink-900/80 backdrop-blur-md text-[9px] font-mono text-white">
-                        {artwork.year}
-                      </span>
-
-                      {/* Small Category Pill */}
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono uppercase tracking-wider text-ink-900 border border-stone-200/80 shadow-2xs">
-                        {artwork.category}
-                      </span>
                     </div>
 
-                    {/* Dedicated Bottom Caption Bar (Does NOT cover the drawing!) */}
-                    <div className="px-3 sm:px-3.5 py-2 sm:py-2.5 bg-white border-t border-stone-100 flex items-center justify-between gap-2 shrink-0">
+                    {/* Dedicated Minimal Bottom Caption Bar (Zero heavy borders) */}
+                    <div className="px-3.5 py-2.5 bg-white flex items-center justify-between gap-2 shrink-0">
                       <div className="min-w-0 flex-1">
                         <h3 className="font-serif text-xs sm:text-sm font-bold text-ink-900 truncate">
                           {artwork.title}
                         </h3>
                         <p className="text-[10px] sm:text-[11px] text-stone-500 font-sans truncate">
-                          {artwork.medium}
+                          {artwork.category} · {artwork.year}
                         </p>
                       </div>
 
-                      <span className="text-[9px] font-mono tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full shrink-0 border border-sky-100">
+                      <span className="text-[9px] font-mono tracking-wider text-stone-500 bg-stone-100 hover:bg-stone-200 px-2 py-0.5 rounded-full shrink-0 transition-colors">
                         ZOOM
                       </span>
                     </div>
@@ -288,7 +280,7 @@ export const SelectedWorks: React.FC = () => {
                   aria-label={`Jump to artwork ${dotIdx + 1}`}
                   className={`transition-all duration-300 rounded-full ${
                     isActive
-                      ? 'w-6 h-1.5 bg-ink-900 shadow-xs'
+                      ? 'w-6 h-1.5 bg-ink-900 shadow-2xs'
                       : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
                   }`}
                 />

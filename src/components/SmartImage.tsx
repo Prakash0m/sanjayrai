@@ -5,6 +5,8 @@ interface SmartImageProps {
   fallbackSrc?: string;
   alt: string;
   className?: string;
+  imgClassName?: string;
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
   category?: string;
   aspectRatio?: 'tall' | 'wide' | 'square' | 'auto';
   onImageClick?: () => void;
@@ -16,6 +18,8 @@ export const SmartImage: React.FC<SmartImageProps> = ({
   fallbackSrc,
   alt,
   className = '',
+  imgClassName = '',
+  objectFit = 'cover',
   category,
   aspectRatio = 'auto',
   onImageClick,
@@ -65,7 +69,9 @@ export const SmartImage: React.FC<SmartImageProps> = ({
           alt={alt}
           loading={priority ? 'eager' : undefined}
           onError={handleError}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          className={`w-full h-full transition-transform duration-500 hover:scale-102 ${
+            objectFit === 'contain' ? 'object-contain' : 'object-cover'
+          } ${imgClassName}`}
         />
       ) : (
         <div className="w-full h-full min-h-[220px] flex flex-col items-center justify-center p-6 text-center bg-[#FAF5EE] border border-stone-200/80">
@@ -85,4 +91,3 @@ export const SmartImage: React.FC<SmartImageProps> = ({
     </div>
   );
 };
-
