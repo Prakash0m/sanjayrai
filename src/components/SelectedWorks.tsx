@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { portfolioArtworks } from '../data/portfolio';
 import { SmartImage } from './SmartImage';
 import { ImageLightbox } from './ImageLightbox';
-import { ChevronLeft, ChevronRight, Eye } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
 
 export const SelectedWorks: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(2);
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
   const [selectedForLightbox, setSelectedForLightbox] = useState<number>(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
   const [windowWidth, setWindowWidth] = useState<number>(
     typeof window !== 'undefined' ? window.innerWidth : 1200
   );
@@ -35,6 +37,17 @@ export const SelectedWorks: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + totalWorks) % totalWorks);
   }, [totalWorks]);
 
+  // AUTOMATIC SLIDESHOW RUNNER (Auto-advances smoothly)
+  useEffect(() => {
+    if (!isAutoPlaying || isHovered || isDragging || lightboxOpen) return;
+
+    const interval = setInterval(() => {
+      handleNext();
+    }, 3200);
+
+    return () => clearInterval(interval);
+  }, [handleNext, isAutoPlaying, isHovered, isDragging, lightboxOpen]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -59,7 +72,7 @@ export const SelectedWorks: React.FC = () => {
     if (!isDragging || startX === null) return;
     const delta = clientX - startX;
     setDragDelta(delta);
-    if (Math.abs(delta) > 5) {
+    if (Math.abs(delta) > 6) {
       hasMovedRef.current = true;
     }
   };
@@ -77,7 +90,6 @@ export const SelectedWorks: React.FC = () => {
   };
 
   const handleCardClick = (index: number) => {
-    // If the user was dragging/sliding, don't trigger click action
     if (hasMovedRef.current) return;
 
     if (index === currentIndex) {
@@ -89,7 +101,7 @@ export const SelectedWorks: React.FC = () => {
   };
 
   // Responsive spacing between card centers
-  const cardSpacing = windowWidth < 640 ? 150 : windowWidth < 1024 ? 180 : 205;
+  const cardSpacing = windowWidth < 640 ? 155 : windowWidth < 1024 ? 180 : 205;
 
   return (
     <section
@@ -103,32 +115,46 @@ export const SelectedWorks: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center space-y-3 mb-8 sm:mb-10 md:mb-12">
-          {/* Eyebrow Pill */}
+        <div className="text-center space-y-3 mb-7 sm:mb-9 md:mb-11">
+          {/* Eyebrow Pill with Live Auto-run status */}
           <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 text-[11px] font-mono tracking-widest text-stone-700 uppercase shadow-xs">
-            <span className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>SELECTED MASTERPIECES</span>
+            <span className="text-stone-300">·</span>
+            <span className="text-[10px] text-stone-500 font-sans normal-case">
+              {isHovered ? 'Paused on hover' : 'Auto-sliding'}
+            </span>
           </div>
 
-          {/* Headline & Brief Description */}
+          {/* Headline & Subtitle */}
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif font-bold tracking-tight text-ink-900 uppercase">
             Browse Archival Masterpieces
           </h2>
           <p className="text-ink-600 text-xs sm:text-sm font-sans max-w-lg mx-auto">
-            Swipe or slide through select drawings, Lokta life studies, and sculptural forms from the 1994–2024 archive.
+            Swipe, slide or click to inspect iconic life studies, Lokta paper drawings, and terracotta studies.
           </p>
         </div>
 
         {/* Compact Sliding Coverflow / Carousel Track */}
         <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            handleEnd();
+          }}
           onMouseDown={(e) => handleStart(e.clientX)}
           onMouseMove={(e) => handleMove(e.clientX)}
           onMouseUp={handleEnd}
-          onMouseLeave={handleEnd}
-          onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+          onTouchStart={(e) => {
+            setIsHovered(true);
+            handleStart(e.touches[0].clientX);
+          }}
           onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-          onTouchEnd={handleEnd}
-          className="relative h-[290px] sm:h-[330px] md:h-[370px] flex items-center justify-center cursor-grab active:cursor-grabbing"
+          onTouchEnd={() => {
+            setIsHovered(false);
+            handleEnd();
+          }}
+          className="relative h-[320px] sm:h-[360px] md:h-[395px] flex items-center justify-center cursor-grab active:cursor-grabbing"
           style={{ perspective: '1100px' }}
         >
           {/* Circular Left Nav Button */}
@@ -138,7 +164,7 @@ export const SelectedWorks: React.FC = () => {
               handlePrev();
             }}
             aria-label="Previous artwork"
-            className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
+            className="absolute left-2 sm:left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
           >
             <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
           </button>
@@ -150,7 +176,7 @@ export const SelectedWorks: React.FC = () => {
               handleNext();
             }}
             aria-label="Next artwork"
-            className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
+            className="absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/95 hover:bg-white text-ink-900 backdrop-blur-md border border-stone-200/90 flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105 active:scale-95"
           >
             <ChevronRight className="w-5 h-5 stroke-[2.5]" />
           </button>
@@ -169,8 +195,8 @@ export const SelectedWorks: React.FC = () => {
 
               // Smooth real-time sliding offset
               const translateX = offset * cardSpacing + (isDragging ? dragDelta : 0);
-              const rotateY = offset > 0 ? -24 : offset < 0 ? 24 : 0;
-              const scale = isCenter ? 1.04 : Math.max(0.72, 0.88 - Math.abs(offset) * 0.1);
+              const rotateY = offset > 0 ? -22 : offset < 0 ? 22 : 0;
+              const scale = isCenter ? 1.04 : Math.max(0.74, 0.88 - Math.abs(offset) * 0.1);
               const zIndex = 30 - Math.abs(offset) * 5;
               const opacity = isCenter ? 1 : Math.max(0.45, 0.85 - Math.abs(offset) * 0.18);
 
@@ -178,7 +204,7 @@ export const SelectedWorks: React.FC = () => {
                 <div
                   key={artwork.id}
                   onClick={() => handleCardClick(idx)}
-                  className={`absolute w-[205px] h-[260px] sm:w-[235px] sm:h-[305px] md:w-[265px] md:h-[340px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-xl ${
+                  className={`absolute w-[215px] h-[295px] sm:w-[245px] sm:h-[335px] md:w-[270px] md:h-[370px] rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-xl ${
                     isDragging ? 'transition-none' : 'transition-all duration-500 ease-[cubic-bezier(0.2,1,0.3,1)]'
                   }`}
                   style={{
@@ -188,55 +214,50 @@ export const SelectedWorks: React.FC = () => {
                     filter: isCenter ? 'drop-shadow(0 15px 25px rgba(15,23,42,0.18))' : 'grayscale(15%)',
                   }}
                 >
-                  {/* Card Shell */}
+                  {/* Card Container: Preserves 100% full uncropped image without cutting head */}
                   <div
-                    className={`w-full h-full relative rounded-2xl sm:rounded-3xl overflow-hidden bg-stone-100 border ${
+                    className={`w-full h-full flex flex-col rounded-2xl sm:rounded-3xl overflow-hidden bg-white border transition-colors ${
                       isCenter
-                        ? 'border-sky-300 ring-2 ring-sky-400/40 shadow-xl'
+                        ? 'border-sky-400 ring-2 ring-sky-400/40 shadow-xl'
                         : 'border-stone-200/90'
                     }`}
                   >
-                    <SmartImage
-                      src={artwork.image}
-                      alt={artwork.title}
-                      className="w-full h-full object-cover"
-                      priority={isCenter}
-                    />
+                    {/* Artwork Presentation Canvas: Warm Archival Tone, zero head cutoff */}
+                    <div className="relative flex-1 w-full bg-[#F5F2EB] flex items-center justify-center p-2 sm:p-2.5 overflow-hidden">
+                      <SmartImage
+                        src={artwork.image}
+                        alt={artwork.title}
+                        className="w-full h-full object-contain filter drop-shadow-xs"
+                        priority={isCenter}
+                      />
 
-                    {/* Top Category Badge */}
-                    <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-ink-900 border border-stone-200/70 shadow-xs">
-                      {artwork.category}
+                      {/* Small Top Year Badge */}
+                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-ink-900/80 backdrop-blur-md text-[9px] font-mono text-white">
+                        {artwork.year}
+                      </span>
+
+                      {/* Small Category Pill */}
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono uppercase tracking-wider text-ink-900 border border-stone-200/80 shadow-2xs">
+                        {artwork.category}
+                      </span>
                     </div>
 
-                    {/* Top Year Badge */}
-                    <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-ink-900/80 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-white">
-                      {artwork.year}
-                    </div>
-
-                    {/* Active Center Card Bottom Info Gradient */}
-                    {isCenter && (
-                      <div className="absolute inset-x-0 bottom-0 p-3.5 sm:p-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent text-white space-y-0.5">
-                        <span className="text-[9px] font-mono tracking-widest text-sky-300 uppercase block">
-                          SR ARCHIVE · TAP TO ZOOM
-                        </span>
-                        <h3 className="font-serif text-sm sm:text-base md:text-lg font-bold text-white truncate">
+                    {/* Dedicated Bottom Caption Bar (Does NOT cover the drawing!) */}
+                    <div className="px-3 sm:px-3.5 py-2 sm:py-2.5 bg-white border-t border-stone-100 flex items-center justify-between gap-2 shrink-0">
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-serif text-xs sm:text-sm font-bold text-ink-900 truncate">
                           {artwork.title}
                         </h3>
-                        <p className="text-[11px] sm:text-xs text-stone-200 font-sans truncate">
+                        <p className="text-[10px] sm:text-[11px] text-stone-500 font-sans truncate">
                           {artwork.medium}
                         </p>
                       </div>
-                    )}
 
-                    {/* Center Hover Inspect Overlay */}
-                    {isCenter && (
-                      <div className="absolute inset-0 bg-black/20 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-white text-ink-900 text-xs font-medium shadow-lg scale-95 hover:scale-105 transition-transform">
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>View Fullscreen</span>
-                        </div>
-                      </div>
-                    )}
+                      <span className="text-[9px] font-mono tracking-wider text-sky-600 bg-sky-50 px-2 py-0.5 rounded-full shrink-0 border border-sky-100">
+                        ZOOM
+                      </span>
+                    </div>
+
                   </div>
                 </div>
               );
@@ -244,23 +265,36 @@ export const SelectedWorks: React.FC = () => {
           </div>
         </div>
 
-        {/* Pagination Dots Row */}
-        <div className="flex items-center justify-center space-x-1.5 mt-6 sm:mt-8">
-          {portfolioArtworks.map((_, dotIdx) => {
-            const isActive = dotIdx === currentIndex;
-            return (
-              <button
-                key={dotIdx}
-                onClick={() => setCurrentIndex(dotIdx)}
-                aria-label={`Jump to artwork ${dotIdx + 1}`}
-                className={`transition-all duration-300 rounded-full ${
-                  isActive
-                    ? 'w-6 h-1.5 bg-ink-900 shadow-xs'
-                    : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
-                }`}
-              />
-            );
-          })}
+        {/* Bottom Pagination & Play Controls Row */}
+        <div className="flex items-center justify-center space-x-3 mt-6 sm:mt-7">
+          {/* Play / Pause Toggle Button */}
+          <button
+            onClick={() => setIsAutoPlaying((prev) => !prev)}
+            aria-label={isAutoPlaying ? 'Pause automatic slideshow' : 'Start automatic slideshow'}
+            className="w-6 h-6 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 flex items-center justify-center transition-colors shadow-2xs"
+            title={isAutoPlaying ? 'Pause slideshow' : 'Play slideshow'}
+          >
+            {isAutoPlaying ? <Pause className="w-3 h-3" /> : <Play className="w-3 h-3 fill-current ml-0.5" />}
+          </button>
+
+          {/* Dots Track */}
+          <div className="flex items-center space-x-1.5">
+            {portfolioArtworks.map((_, dotIdx) => {
+              const isActive = dotIdx === currentIndex;
+              return (
+                <button
+                  key={dotIdx}
+                  onClick={() => setCurrentIndex(dotIdx)}
+                  aria-label={`Jump to artwork ${dotIdx + 1}`}
+                  className={`transition-all duration-300 rounded-full ${
+                    isActive
+                      ? 'w-6 h-1.5 bg-ink-900 shadow-xs'
+                      : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
+                  }`}
+                />
+              );
+            })}
+          </div>
         </div>
 
       </div>
