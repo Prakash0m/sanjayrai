@@ -150,13 +150,21 @@ export const Home: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-2">
+              <div className="pt-2 flex flex-wrap gap-3 items-center">
                 <Link
                   to="/media"
                   className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-sky-700 hover:text-sky-900 transition-colors font-semibold"
                 >
-                  <span>Read Studio Treatises & Essays in Media</span>
+                  <span>Read Studio Treatises & Essays</span>
                   <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+
+                <Link
+                  to="/media"
+                  className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/70"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+                  <span>Watch "Walking with Art" Documentary</span>
                 </Link>
               </div>
             </div>

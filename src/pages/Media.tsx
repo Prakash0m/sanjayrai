@@ -88,18 +88,40 @@ export const Media: React.FC = () => {
                 </div>
 
                 {/* Video Info */}
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <h3 className="font-serif text-xl font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
                     {video.title}
                   </h3>
                   <div className="flex items-center space-x-2 text-xs font-mono text-stone-400">
-                    <span>Director: {video.director}</span>
+                    <span>{video.director}</span>
                     <span>•</span>
                     <span>{video.duration}</span>
                   </div>
                   <p className="text-xs sm:text-sm text-ink-600 font-sans leading-relaxed pt-1">
                     {video.description}
                   </p>
+                  
+                  {video.youtubeUrl && (
+                    <div className="pt-2 flex items-center justify-between border-t border-stone-100">
+                      <a
+                        href={video.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-1.5 text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current" />
+                        <span>Watch on YouTube</span>
+                        <ExternalLink className="w-3 h-3 ml-0.5" />
+                      </a>
+                      
+                      <button
+                        onClick={() => setActiveVideo(activeVideo === video.id ? null : video.id)}
+                        className="text-xs font-mono text-sky-700 hover:text-sky-900 font-medium"
+                      >
+                        {activeVideo === video.id ? 'Close Player' : 'Play Here'}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

@@ -47,6 +47,7 @@ export interface MediaVideo {
   description: string;
   embedUrl: string;
   thumbnail: string;
+  youtubeUrl?: string;
 }
 
 export interface CuratorialReview {
@@ -287,13 +288,14 @@ export const pastCommissions: CommissionItem[] = [
 export const mediaVideos: MediaVideo[] = [
   {
     id: "vid-1",
-    title: "Studio Discourse: Form, Perception & Spirit",
-    director: "Kathmandu Arts Documentary Collective",
-    duration: "18:42",
-    year: "2023",
-    description: "An intimate documentary inside Sanjay Rai's studio in Kathmandu, discussing the transmutation of stone into living philosophical form.",
-    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    thumbnail: "/images/artist/discourse.jpg"
+    title: "Walking with Art | Short Documentary",
+    director: "SandipR · Moment Invitational 2020",
+    duration: "3:00",
+    year: "2020",
+    description: "An intimate and inspiring short documentary following sculptor and painter Sanjay Rai as he navigates daily life, studio practice, and profound creative devotion in Kathmandu.",
+    embedUrl: "https://www.youtube.com/embed/iXJbW_5OV_M",
+    thumbnail: "/images/artist/walking-with-art-thumb.jpg",
+    youtubeUrl: "https://youtu.be/iXJbW_5OV_M"
   },
   {
     id: "vid-2",
@@ -301,9 +303,10 @@ export const mediaVideos: MediaVideo[] = [
     director: "Heritage Crafts Foundation Nepal",
     duration: "12:15",
     year: "2021",
-    description: "Archival footage capturing Sanjay Rai overseeing the molten bronze casting of monumental public commission figures.",
-    embedUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    thumbnail: "/images/artworks/goddess-staff-1998.jpg"
+    description: "Archival studio footage capturing Sanjay Rai overseeing the molten bronze casting of monumental public commission figures in Patan foundries.",
+    embedUrl: "https://www.youtube.com/embed/iXJbW_5OV_M",
+    thumbnail: "/images/artworks/goddess-staff-1998.jpg",
+    youtubeUrl: "https://youtu.be/iXJbW_5OV_M"
   }
 ];
 
