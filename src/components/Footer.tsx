@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUp, Mail } from 'lucide-react';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon, InstagramIcon, FacebookIcon } from './Icons';
@@ -80,19 +81,37 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links: Exactly 5 main navigation items */}
           <div className="lg:col-span-2 space-y-3">
             <h5 className="text-xs font-mono uppercase tracking-widest text-stone-400">
               Navigation
             </h5>
-            <ul className="space-y-2 text-xs text-stone-300 font-sans">
-              <li><a href="#hero" className="hover:text-white transition-colors">Overview</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors">Philosophy</a></li>
-              <li><a href="#discipline" className="hover:text-white transition-colors">Dual Discipline</a></li>
-              <li><a href="#gallery" className="hover:text-white transition-colors">Archival Works</a></li>
-              <li><a href="#exhibitions" className="hover:text-white transition-colors">Provenance</a></li>
-              <li><a href="#commentary" className="hover:text-white transition-colors">Commentary</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Inquiries</a></li>
+            <ul className="space-y-2.5 text-xs text-stone-300 font-sans">
+              <li>
+                <Link to="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link to="/original-works" className="hover:text-white transition-colors">
+                  Original Works
+                </Link>
+              </li>
+              <li>
+                <Link to="/commission" className="hover:text-white transition-colors">
+                  Commission Work
+                </Link>
+              </li>
+              <li>
+                <Link to="/media" className="hover:text-white transition-colors">
+                  Media &amp; Press
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="hover:text-white transition-colors">
+                  Get in Touch
+                </Link>
+              </li>
             </ul>
           </div>
 

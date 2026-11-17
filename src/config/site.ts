@@ -8,6 +8,7 @@ export interface SiteConfig {
   instagramUrl: string;
   facebookUrl: string;
   studioLocation: string;
+  studioHours: string;
   websiteTitle: string;
   metaDescription: string;
   stats: {
@@ -35,6 +36,7 @@ export const siteConfig: SiteConfig = {
   instagramUrl: "https://instagram.com/sanjayrai_art",
   facebookUrl: "https://facebook.com/sanjayrai.bantawa",
   studioLocation: "Patan Arts Precinct / Baluwatar, Kathmandu, Nepal",
+  studioHours: "Sunday – Friday: 10:00 AM – 5:00 PM (NPT)",
   websiteTitle: "Sanjay Rai (Bantawa) — Sculptor, Painter & Contemporary Nepali Artist",
   metaDescription: "Official portfolio and archival retrospective of Sanjay Rai (Bantawa). Exploration into modern Nepali sculpture, terracotta, figurative drawings, and philosophical form.",
   stats: [
