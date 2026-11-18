@@ -296,17 +296,6 @@ export const mediaVideos: MediaVideo[] = [
     embedUrl: "https://www.youtube.com/embed/iXJbW_5OV_M",
     thumbnail: "/images/artist/walking-with-art-thumb.jpg",
     youtubeUrl: "https://youtu.be/iXJbW_5OV_M"
-  },
-  {
-    id: "vid-2",
-    title: "The Alchemy of Clay & Bronze: Lost-Wax Process in Patan",
-    director: "Heritage Crafts Foundation Nepal",
-    duration: "12:15",
-    year: "2021",
-    description: "Archival studio footage capturing Sanjay Rai overseeing the molten bronze casting of monumental public commission figures in Patan foundries.",
-    embedUrl: "https://www.youtube.com/embed/iXJbW_5OV_M",
-    thumbnail: "/images/artworks/goddess-staff-1998.jpg",
-    youtubeUrl: "https://youtu.be/iXJbW_5OV_M"
   }
 ];
 

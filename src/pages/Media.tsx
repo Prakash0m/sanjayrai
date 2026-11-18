@@ -3,10 +3,11 @@ import { mediaVideos, mediaPublications, monographCatalogue } from '../data/port
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
-import { Video, BookOpen, FileText, Download, ExternalLink, Play, User } from 'lucide-react';
+import { Video, BookOpen, FileText, Download, ExternalLink, Play, User, X, Sparkles } from 'lucide-react';
 
 export const Media: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const featuredVideo = mediaVideos[0];
 
   return (
     <div className="pt-28 pb-24 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
@@ -28,7 +29,7 @@ export const Media: React.FC = () => {
           </p>
         </div>
 
-        {/* SUB-SECTION 1: VIDEO (Embedded or Linked Videos) */}
+        {/* SUB-SECTION 1: VIDEO (Widescreen Cinema Presentation — Single Official Video) */}
         <section id="video" className="space-y-8">
           <div className="flex items-center space-x-3 pb-3 border-b border-stone-200">
             <div className="w-9 h-9 rounded-2xl bg-sky-100 text-sky-800 flex items-center justify-center">
@@ -39,93 +40,153 @@ export const Media: React.FC = () => {
                 1. Video Documentaries & Studio Footage
               </h2>
               <p className="text-xs text-stone-500 font-sans">
-                Interviews, philosophical reflections, and casting footage from Patan foundries.
+                Interviews, philosophical reflections, and archival documentary on Sanjay Rai's studio devotion.
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {mediaVideos.map((video) => (
-              <div
-                key={video.id}
-                className="group rounded-3xl bg-white border border-stone-200/70 p-5 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between"
-              >
-                {/* Video Player / Thumbnail Preview */}
-                <div className="relative aspect-video rounded-2xl overflow-hidden bg-stone-900 mb-4 shadow-inner">
-                  {activeVideo === video.id ? (
+          {/* Grand Featured Cinema Card */}
+          {featuredVideo && (
+            <div className="group rounded-3xl sm:rounded-[32px] bg-white border border-stone-200/80 p-4 sm:p-7 shadow-xl shadow-stone-200/40 transition-all">
+              
+              {/* Cinema Screen Container (16:9 widescreen ratio) */}
+              <div className="relative aspect-video rounded-2xl sm:rounded-[24px] overflow-hidden bg-black shadow-2xl ring-1 ring-black/10">
+                {activeVideo === featuredVideo.id ? (
+                  <div className="relative w-full h-full">
                     <iframe
-                      src={`${video.embedUrl}?autoplay=1`}
-                      title={video.title}
+                      src={`${featuredVideo.embedUrl}?autoplay=1&rel=0`}
+                      title={featuredVideo.title}
                       className="w-full h-full border-0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen
                     />
-                  ) : (
-                    <>
-                      <SmartImage
-                        src={video.thumbnail}
-                        alt={video.title}
-                        objectFit="cover"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/25 transition-colors flex items-center justify-center">
-                        <button
-                          onClick={() => setActiveVideo(video.id)}
-                          aria-label={`Play ${video.title}`}
-                          className="w-14 h-14 rounded-full bg-white/95 hover:bg-white text-ink-900 flex items-center justify-center shadow-2xl transition-all hover:scale-110 active:scale-95 group-hover:bg-sky-500 group-hover:text-white"
-                        >
-                          <Play className="w-6 h-6 fill-current ml-1" />
-                        </button>
+                    <button
+                      onClick={() => setActiveVideo(null)}
+                      className="absolute top-4 right-4 z-20 flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black text-white text-xs font-mono tracking-wider backdrop-blur-md transition-all shadow-lg hover:scale-105 active:scale-95"
+                    >
+                      <X className="w-3.5 h-3.5" />
+                      <span>Close Screen</span>
+                    </button>
+                  </div>
+                ) : (
+                  <div 
+                    onClick={() => setActiveVideo(featuredVideo.id)}
+                    className="relative w-full h-full cursor-pointer group/screen overflow-hidden"
+                  >
+                    <SmartImage
+                      src={featuredVideo.thumbnail}
+                      alt={featuredVideo.title}
+                      objectFit="cover"
+                      className="w-full h-full object-cover group-hover/screen:scale-105 transition-transform duration-700 filter brightness-95"
+                    />
+
+                    {/* Cinematic Vignette Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/40 group-hover/screen:via-black/15 transition-all duration-300" />
+
+                    {/* Top Badges */}
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                      <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] sm:text-xs font-mono font-semibold tracking-wider text-ink-900 shadow-md">
+                        <Sparkles className="w-3 h-3 text-sky-600" />
+                        <span>MOMENT INVITATIONAL 2020 · SHORT FILM</span>
                       </div>
-                      <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/70 backdrop-blur-md text-[10px] font-mono text-white">
-                        {video.duration}
+                      <div className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] sm:text-xs font-mono text-white/90 font-medium">
+                        {featuredVideo.duration} · 1080P HD
                       </div>
-                      <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[10px] font-mono text-ink-900 font-bold">
-                        {video.year}
+                    </div>
+
+                    {/* Centered Grand Glowing Play Button */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+                      <div className="relative flex items-center justify-center">
+                        {/* Outer pulsing ring */}
+                        <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/30 animate-ping pointer-events-none" />
+                        
+                        {/* Play button circle */}
+                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white text-ink-900 flex items-center justify-center shadow-2xl transition-all duration-300 group-hover/screen:scale-110 group-hover/screen:bg-sky-500 group-hover/screen:text-white">
+                          <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+                        </div>
                       </div>
-                    </>
-                  )}
+
+                      <span className="mt-4 px-4 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-mono text-xs tracking-widest uppercase opacity-90 group-hover/screen:opacity-100 transition-opacity">
+                        Click to Play Documentary
+                      </span>
+                    </div>
+
+                    {/* Bottom Preview Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4 z-10 hidden sm:block">
+                      <h4 className="font-serif text-lg sm:text-xl font-bold text-white drop-shadow-md">
+                        {featuredVideo.title}
+                      </h4>
+                      <p className="text-xs text-stone-300 font-sans line-clamp-1 drop-shadow-sm">
+                        {featuredVideo.director}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Documentary Meta & Controls Bar */}
+              <div className="mt-6 pt-5 border-t border-stone-100 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                <div className="space-y-2 max-w-2xl">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 text-[10px] font-mono font-semibold uppercase">
+                      Official Documentary
+                    </span>
+                    <span className="text-xs font-mono text-stone-400">
+                      {featuredVideo.director}
+                    </span>
+                    <span className="text-stone-300">•</span>
+                    <span className="text-xs font-mono text-stone-400">
+                      Duration: {featuredVideo.duration}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
+                    {featuredVideo.title}
+                  </h3>
+
+                  <p className="text-xs sm:text-sm text-ink-600 font-sans leading-relaxed">
+                    {featuredVideo.description}
+                  </p>
                 </div>
 
-                {/* Video Info */}
-                <div className="space-y-2.5">
-                  <h3 className="font-serif text-xl font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                    {video.title}
-                  </h3>
-                  <div className="flex items-center space-x-2 text-xs font-mono text-stone-400">
-                    <span>{video.director}</span>
-                    <span>•</span>
-                    <span>{video.duration}</span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-ink-600 font-sans leading-relaxed pt-1">
-                    {video.description}
-                  </p>
-                  
-                  {video.youtubeUrl && (
-                    <div className="pt-2 flex items-center justify-between border-t border-stone-100">
-                      <a
-                        href={video.youtubeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center space-x-1.5 text-xs font-semibold text-red-600 hover:text-red-700 transition-colors"
-                      >
-                        <Play className="w-3.5 h-3.5 fill-current" />
-                        <span>Watch on YouTube</span>
-                        <ExternalLink className="w-3 h-3 ml-0.5" />
-                      </a>
-                      
-                      <button
-                        onClick={() => setActiveVideo(activeVideo === video.id ? null : video.id)}
-                        className="text-xs font-mono text-sky-700 hover:text-sky-900 font-medium"
-                      >
-                        {activeVideo === video.id ? 'Close Player' : 'Play Here'}
-                      </button>
-                    </div>
+                {/* Action Buttons */}
+                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => setActiveVideo(activeVideo === featuredVideo.id ? null : featuredVideo.id)}
+                    className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-ink-900 hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-md hover:scale-105 active:scale-95"
+                  >
+                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <span>{activeVideo === featuredVideo.id ? 'Close Player' : 'Play Screen Here'}</span>
+                  </button>
+
+                  {featuredVideo.youtubeUrl && (
+                    <a
+                      href={featuredVideo.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+                    >
+                      <Play className="w-3.5 h-3.5 fill-current text-red-600" />
+                      <span>Watch on YouTube</span>
+                      <ExternalLink className="w-3 h-3 ml-0.5 opacity-60" />
+                    </a>
                   )}
+
+                  <a
+                    href={getWhatsAppUrl("Hello Sanjay Rai, I watched your documentary 'Walking with Art' and would like to learn more.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-1.5 px-4 py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/80 text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>WhatsApp</span>
+                  </a>
                 </div>
+
               </div>
-            ))}
-          </div>
+
+            </div>
+          )}
         </section>
 
         {/* SUB-SECTION 2: PUBLISH (Publications / Press Articles) */}
