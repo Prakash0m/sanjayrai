@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, BookOpen, Layers, Compass, Palette, Hammer, PenTool } from 'lucide-react';
+import { ArrowRight, BookOpen, Layers, Compass, Palette, Hammer, PenTool } from 'lucide-react';
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
@@ -130,31 +130,12 @@ export const Home: React.FC = () => {
       {/* SECTION 2: ARTIST STATEMENT — Professional Editorial Layout */}
       <section className="py-20 md:py-32 relative bg-white border-t border-stone-200/60 overflow-hidden">
 
-        {/* Decorative background watermark numeral */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute -top-10 right-0 font-serif text-[22vw] font-bold text-stone-100/60 leading-none tracking-tighter"
-        >
-          II
-        </div>
-
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* ── Top Meta Row ───────────────────────────────────── */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-12">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-600 text-[10px] font-mono tracking-widest uppercase border border-stone-200/80">
-              <Sparkles className="w-3 h-3 text-sky-500" />
-              <span>Philosophy &amp; Ethos</span>
-            </div>
-            <span className="text-[10px] font-mono text-stone-400 tracking-widest uppercase">
-              Sanjay Rai (Bantawa) · Kathmandu
-            </span>
-          </div>
-
           {/* ── Heading + Decorative Rule ──────────────────────── */}
-          <div className="mb-12">
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-ink-900 tracking-tight leading-[1.08] mb-6">
-              Artist<br className="hidden sm:block" /> Statement
+          <div className="mb-10">
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight mb-6">
+              Artist Statement
             </h2>
             <div className="flex items-center gap-4">
               <div className="h-px flex-1 bg-gradient-to-r from-sky-400 via-stone-300 to-transparent" />
