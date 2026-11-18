@@ -52,20 +52,32 @@ export const Navbar: React.FC<NavbarProps> = () => {
             {/* Artist Brand with Portrait Avatar */}
             <Link
               to="/"
-              className="group flex items-center space-x-3 text-ink-900 transition-opacity hover:opacity-85"
+              className="group flex items-center space-x-3 text-ink-900"
             >
-              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden ring-2 ring-stone-200/90 shadow-sm flex-shrink-0 bg-stone-900">
-                <img
-                  src="/images/artist/avatar.jpg"
-                  alt="Sanjay Rai"
-                  className="w-full h-full object-cover"
-                />
+              {/* Animated Avatar Ring */}
+              <div className="relative flex-shrink-0">
+                {/* Spinning gradient ring */}
+                <div className="absolute -inset-[2.5px] rounded-full bg-gradient-to-tr from-sky-400 via-stone-300 to-amber-300 animate-spin-slow opacity-80 group-hover:opacity-100 transition-opacity" />
+                {/* White gap ring */}
+                <div className="absolute -inset-[1px] rounded-full bg-white" />
+                {/* Avatar image */}
+                <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden shadow-md">
+                  <img
+                    src="/images/artist/avatar.jpg"
+                    alt="Sanjay Rai"
+                    className="w-full h-full object-cover object-top scale-110 group-hover:scale-125 transition-transform duration-500"
+                  />
+                </div>
+                {/* Live dot */}
+                <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white shadow animate-pulse" />
               </div>
-              <div className="flex flex-col">
-                <span className="font-serif text-base sm:text-lg font-bold tracking-tight text-ink-900 uppercase">
+
+              {/* Name & subtitle */}
+              <div className="flex flex-col leading-none">
+                <span className="font-serif text-base sm:text-lg font-bold tracking-tight text-ink-900 uppercase group-hover:text-sky-800 transition-colors duration-300">
                   {siteConfig.artistName}
                 </span>
-                <span className="text-[10px] tracking-widest text-ink-500 uppercase font-sans -mt-0.5">
+                <span className="text-[10px] tracking-widest text-ink-500 uppercase font-sans mt-0.5 group-hover:text-sky-600 transition-colors duration-300">
                   Archival Retrospective
                 </span>
               </div>
