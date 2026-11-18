@@ -127,106 +127,49 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 2: ARTIST STATEMENT (Text + 2 Image Boxes) */}
+      {/* SECTION 2: ARTIST STATEMENT (Full-width, official text, no image boxes) */}
       <section className="py-20 md:py-28 relative bg-white border-t border-stone-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
-            {/* Left Col: Artist Statement Text */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase">
-                <Sparkles className="w-3 h-3 text-sky-600" />
-                <span>PHILOSOPHY & ETHOS</span>
-              </div>
-
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
-                Artist Statement
-              </h2>
-
-              <blockquote className="p-6 rounded-3xl bg-[#FAF8F5] border-l-4 border-sky-500 text-ink-800 font-serif italic text-lg sm:text-xl leading-relaxed">
-                “The soul of form breathes in quiet observation... Art is not merely representation; it is the transmutation of silence into living form. When the chisel meets granite or charcoal touches beaten Lokta bark, the artist must surrender ego and listen to the ancient rhythm sleeping inside the material.”
-              </blockquote>
-
-              <div className="space-y-3 text-sm text-ink-600 leading-relaxed font-sans">
-                <p>
-                  My work is rooted in the Kirati philosophy of animism and reverence for the natural order. In every figure, whether monumental or drawn on fragile bark paper, there exists a dialogue between gravity and weightlessness, endurance and fleeting human grace.
-                </p>
-                <p>
-                  Sculpture teaches patience; drawing teaches humility. The contour lines are never arbitrary—they record the pulse of a living being holding stillness against the relentless flow of time.
-                </p>
-              </div>
-
-              <div className="pt-2 flex flex-wrap gap-3 items-center">
-                <Link
-                  to="/media"
-                  className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-sky-700 hover:text-sky-900 transition-colors font-semibold"
-                >
-                  <span>Read Studio Treatises & Essays</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-
-                <Link
-                  to="/media"
-                  className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/70"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-                  <span>Watch "Walking with Art" Documentary</span>
-                </Link>
-              </div>
+          <div className="space-y-8">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase">
+              <Sparkles className="w-3 h-3 text-sky-600" />
+              <span>PHILOSOPHY & ETHOS</span>
             </div>
 
-            {/* Right Col: Exactly 2 Curated Image Boxes */}
-            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              
-              {/* Image Box 1 */}
-              <div className="group rounded-3xl overflow-hidden bg-[#FAF8F5] p-3 shadow-md hover:shadow-xl transition-all border border-stone-200/60 flex flex-col">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white mb-3">
-                  <SmartImage
-                    src="/images/artworks/seated-sari-1999.jpg"
-                    alt="Elder in Traditional Drape"
-                    objectFit="contain"
-                    className="w-full h-full p-2 bg-[#F5F2EB]"
-                  />
-                  <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono text-ink-900 shadow-2xs">
-                    PLATE I · LIFE STUDY
-                  </div>
-                </div>
-                <div className="px-1.5 space-y-1">
-                  <h4 className="font-serif text-base font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                    Elder in Traditional Drape
-                  </h4>
-                  <p className="text-[11px] text-stone-500 font-sans">
-                    Graphite on archival paper (1999) · Quiet dignity and contemplation.
-                  </p>
-                </div>
-              </div>
+            {/* Heading */}
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
+              Artist Statement
+            </h2>
 
-              {/* Image Box 2 */}
-              <div className="group rounded-3xl overflow-hidden bg-[#FAF8F5] p-3 shadow-md hover:shadow-xl transition-all border border-stone-200/60 flex flex-col sm:translate-y-6">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white mb-3">
-                  <SmartImage
-                    src="/images/artworks/blue-horse-embrace.jpg"
-                    alt="Embrace / Spirit of the Blue Horse"
-                    objectFit="contain"
-                    className="w-full h-full p-2 bg-[#F5F2EB]"
-                  />
-                  <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono text-ink-900 shadow-2xs">
-                    PLATE II · SPIRIT OF EMBRACE
-                  </div>
-                </div>
-                <div className="px-1.5 space-y-1">
-                  <h4 className="font-serif text-base font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                    Embrace / Spirit of the Blue Horse
-                  </h4>
-                  <p className="text-[11px] text-stone-500 font-sans">
-                    Cobalt pastel on paper (2001) · Tenderness and spiritual companionship.
-                  </p>
-                </div>
-              </div>
-
+            {/* 5 Official Paragraphs */}
+            <div className="space-y-5 text-sm sm:text-base text-ink-700 leading-relaxed font-sans">
+              <p>For me, art is not merely a medium for expressing the emotions, thoughts, and experiences that arise within me. It is also a process of intellectual and philosophical reflection, through which emotions and ideas are explored and transformed into meaningful artistic forms. My fascination with colours began in childhood, when I would become so absorbed in playing with colours that I lost track of time. This natural attraction gradually led me towards painting. My life experiences, social surroundings, and personal circumstances have continuously inspired and shaped my artistic journey.</p>
+              <p>Throughout my studies and artistic practice, I have explored various subjects, mediums, and styles. In the early stages of my career, I depicted rural landscapes, natural environments, and everyday village life. Later, I moved towards symbolic compositions and portraiture. Following my postgraduate studies, my artistic lines became more dynamic and expressive. Through the figures of horses and women, I began exploring themes of strength, struggle, energy, resistance, and the journey of life. Gradually, I incorporated horse figures into compositions featuring monasteries, temples, and traditional architecture, seeking to explore the relationship between time, movement, and cultural continuity.</p>
+              <p>In recent years, Nepali traditional culture, cultural memory, and mythology have become central to my artistic practice. In particular, I have been exploring the disappearing cultural symbols, traditions, and myths of Nepal’s indigenous Kirat communities through the language of contemporary painting. The Kirat community’s deep respect for nature, understanding of cultural identity, and philosophy of life, which considers nature an inseparable part of human existence, have profoundly influenced my work. I do not view this cultural heritage merely as a memory of the past, but as a living artistic resource capable of engaging in dialogue with contemporary society.</p>
+              <p>I believe that lines play a particularly significant role in painting. Lines do not simply construct forms; they also communicate movement, emotions, and ideas. For me, colours are a language through which the diverse experiences and possibilities of life are expressed. Combining traditional symbols with new compositions, lines, colours, and contemporary artistic approaches is an essential part of my creative practice, allowing me to discover new meanings and perspectives within cultural heritage.</p>
+              <p>I do not believe that art should be limited to the creation of beautiful objects. In my view, art is an independent space for creative freedom, ideas, and critical reflection. Through my paintings, I hope to encourage viewers to think in new ways, reconsider their own cultural identities, and understand the relationship between tradition and contemporary society from fresh perspectives. For me, painting is an ongoing process of exploration, self-expression, and a means of keeping cultural memory alive through new artistic interpretations.</p>
             </div>
 
+            {/* Footer Links */}
+            <div className="pt-2 flex flex-wrap gap-3 items-center">
+              <Link
+                to="/media"
+                className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-sky-700 hover:text-sky-900 transition-colors font-semibold"
+              >
+                <span>Read Studio Treatises & Essays</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+
+              <Link
+                to="/media"
+                className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/70"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
+                <span>Watch “Walking with Art” Documentary</span>
+              </Link>
+            </div>
           </div>
 
         </div>
