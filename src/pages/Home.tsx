@@ -121,106 +121,98 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 2: ARTIST STATEMENT (Text + 2 Image Boxes) */}
-      <section className="py-20 md:py-28 relative bg-white border-t border-stone-200/60">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
-            {/* Left Col: Artist Statement Text */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase">
-                <Sparkles className="w-3 h-3 text-sky-600" />
-                <span>PHILOSOPHY & ETHOS</span>
+      {/* SECTION 2: ARTIST STATEMENT — Full-width editorial, no images */}
+      <section className="py-24 md:py-36 relative bg-[#0B0F17] overflow-hidden">
+
+        {/* Ambient background glows */}
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-sky-900/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[300px] bg-amber-900/15 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+          {/* Eyebrow */}
+          <div className="flex items-center justify-center mb-10">
+            <div className="flex items-center space-x-3">
+              <div className="h-px w-12 bg-sky-500/50" />
+              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-sky-500/30 bg-sky-500/10 text-sky-400 text-[11px] font-mono tracking-widest uppercase">
+                <Sparkles className="w-3 h-3" />
+                <span>Philosophy &amp; Ethos</span>
               </div>
-
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
-                Artist Statement
-              </h2>
-
-              <blockquote className="p-6 rounded-3xl bg-[#FAF8F5] border-l-4 border-sky-500 text-ink-800 font-serif italic text-lg sm:text-xl leading-relaxed">
-                “The soul of form breathes in quiet observation... Art is not merely representation; it is the transmutation of silence into living form. When the chisel meets granite or charcoal touches beaten Lokta bark, the artist must surrender ego and listen to the ancient rhythm sleeping inside the material.”
-              </blockquote>
-
-              <div className="space-y-3 text-sm text-ink-600 leading-relaxed font-sans">
-                <p>
-                  My work is rooted in the Kirati philosophy of animism and reverence for the natural order. In every figure, whether monumental or drawn on fragile bark paper, there exists a dialogue between gravity and weightlessness, endurance and fleeting human grace.
-                </p>
-                <p>
-                  Sculpture teaches patience; drawing teaches humility. The contour lines are never arbitrary—they record the pulse of a living being holding stillness against the relentless flow of time.
-                </p>
-              </div>
-
-              <div className="pt-2 flex flex-wrap gap-3 items-center">
-                <Link
-                  to="/media"
-                  className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-sky-700 hover:text-sky-900 transition-colors font-semibold"
-                >
-                  <span>Read Studio Treatises & Essays</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-
-                <Link
-                  to="/media"
-                  className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/70"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-                  <span>Watch "Walking with Art" Documentary</span>
-                </Link>
-              </div>
+              <div className="h-px w-12 bg-sky-500/50" />
             </div>
+          </div>
 
-            {/* Right Col: Exactly 2 Curated Image Boxes */}
-            <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
-              
-              {/* Image Box 1 */}
-              <div className="group rounded-3xl overflow-hidden bg-[#FAF8F5] p-3 shadow-md hover:shadow-xl transition-all border border-stone-200/60 flex flex-col">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white mb-3">
-                  <SmartImage
-                    src="/images/artworks/seated-sari-1999.jpg"
-                    alt="Elder in Traditional Drape"
-                    objectFit="contain"
-                    className="w-full h-full p-2 bg-[#F5F2EB]"
-                  />
-                  <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono text-ink-900 shadow-2xs">
-                    PLATE I · LIFE STUDY
-                  </div>
-                </div>
-                <div className="px-1.5 space-y-1">
-                  <h4 className="font-serif text-base font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                    Elder in Traditional Drape
-                  </h4>
-                  <p className="text-[11px] text-stone-500 font-sans">
-                    Graphite on archival paper (1999) · Quiet dignity and contemplation.
-                  </p>
-                </div>
+          {/* Large centered heading */}
+          <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-white tracking-tight leading-tight text-center mb-14">
+            Artist Statement
+          </h2>
+
+          {/* Main pull-quote */}
+          <div className="relative mb-14 px-4 md:px-16">
+            <span className="absolute -top-8 left-0 text-[90px] leading-none text-sky-500/15 font-serif select-none">“</span>
+            <blockquote className="text-center font-serif italic text-xl sm:text-2xl md:text-3xl text-stone-200 leading-relaxed relative z-10">
+              The soul of form breathes in quiet observation. Art is not merely representation — it is the transmutation of silence into living form.
+            </blockquote>
+            <span className="absolute -bottom-12 right-0 text-[90px] leading-none text-sky-500/15 font-serif select-none rotate-180">“</span>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center justify-center gap-3 mb-14">
+            <div className="h-px flex-1 max-w-[120px] bg-white/10" />
+            <div className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+            <div className="w-1 h-1 rounded-full bg-stone-600" />
+            <div className="w-1.5 h-1.5 rounded-full bg-sky-500" />
+            <div className="h-px flex-1 max-w-[120px] bg-white/10" />
+          </div>
+
+          {/* Body text — 2-column on desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 text-stone-400 text-sm sm:text-base leading-relaxed font-sans mb-14">
+            <p>
+              My work is rooted in the Kirati philosophy of animism and reverence for the natural order. In every figure — whether monumental or drawn on fragile Lokta bark paper — there exists a dialogue between gravity and weightlessness, between endurance and fleeting human grace.
+            </p>
+            <p>
+              Sculpture teaches patience; drawing teaches humility. The contour lines are never arbitrary — they record the pulse of a living being holding stillness against the relentless flow of time. When the chisel meets granite, the artist must surrender ego and listen to the rhythm sleeping inside the stone.
+            </p>
+          </div>
+
+          {/* Three philosophy pillars */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-14">
+            {[
+              { num: '01', title: 'Stone & Silence', desc: 'Listening to the ancient rhythm sleeping inside material — granite, clay, hand-beaten Lokta bark.' },
+              { num: '02', title: 'Form & Spirit', desc: 'Every carved line carries the structural integrity of living bone and human sinew.' },
+              { num: '03', title: 'Time & Memory', desc: 'Transmuting 30+ years of Himalayan witness into permanent, contemplative sculptural form.' },
+            ].map((p) => (
+              <div key={p.num} className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-sky-500/40 hover:bg-sky-500/5 transition-all group cursor-default">
+                <span className="text-[11px] font-mono text-sky-500 font-bold tracking-widest block mb-2">{p.num}</span>
+                <h4 className="font-serif text-base font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">{p.title}</h4>
+                <p className="text-xs text-stone-500 leading-relaxed">{p.desc}</p>
               </div>
+            ))}
+          </div>
 
-              {/* Image Box 2 */}
-              <div className="group rounded-3xl overflow-hidden bg-[#FAF8F5] p-3 shadow-md hover:shadow-xl transition-all border border-stone-200/60 flex flex-col sm:translate-y-6">
-                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white mb-3">
-                  <SmartImage
-                    src="/images/artworks/blue-horse-embrace.jpg"
-                    alt="Embrace / Spirit of the Blue Horse"
-                    objectFit="contain"
-                    className="w-full h-full p-2 bg-[#F5F2EB]"
-                  />
-                  <div className="absolute top-2.5 left-2.5 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono text-ink-900 shadow-2xs">
-                    PLATE II · SPIRIT OF EMBRACE
-                  </div>
-                </div>
-                <div className="px-1.5 space-y-1">
-                  <h4 className="font-serif text-base font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                    Embrace / Spirit of the Blue Horse
-                  </h4>
-                  <p className="text-[11px] text-stone-500 font-sans">
-                    Cobalt pastel on paper (2001) · Tenderness and spiritual companionship.
-                  </p>
-                </div>
-              </div>
-
+          {/* Attribution + CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/10">
+            <div className="text-center sm:text-left">
+              <span className="text-[11px] font-mono text-stone-500 uppercase tracking-widest block mb-0.5">— Written by the artist</span>
+              <span className="font-serif text-white font-bold text-xl block">Sanjay Rai (Bantawa)</span>
+              <span className="text-xs text-stone-500 font-mono">Kathmandu Studio · 2024</span>
             </div>
-
+            <div className="flex flex-wrap items-center gap-3 justify-center">
+              <Link
+                to="/media"
+                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold tracking-wide transition-all hover:scale-105 shadow-lg shadow-sky-900/40"
+              >
+                <span>Read Essays &amp; Publications</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+              <Link
+                to="/media"
+                className="inline-flex items-center space-x-1.5 px-4 py-2.5 rounded-full bg-red-900/40 hover:bg-red-800/50 text-red-300 text-xs font-medium transition-all border border-red-700/40"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                <span>Watch Documentary</span>
+              </Link>
+            </div>
           </div>
 
         </div>
