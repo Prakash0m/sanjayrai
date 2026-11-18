@@ -127,49 +127,94 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 2: ARTIST STATEMENT (Full-width, official text, no image boxes) */}
-      <section className="py-20 md:py-28 relative bg-white border-t border-stone-200/60">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="space-y-8">
-            {/* Eyebrow */}
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase">
-              <Sparkles className="w-3 h-3 text-sky-600" />
-              <span>PHILOSOPHY & ETHOS</span>
-            </div>
+      {/* SECTION 2: ARTIST STATEMENT — Professional Editorial Layout */}
+      <section className="py-20 md:py-32 relative bg-white border-t border-stone-200/60 overflow-hidden">
 
-            {/* Heading */}
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
-              Artist Statement
+        {/* Decorative background watermark numeral */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -top-10 right-0 font-serif text-[22vw] font-bold text-stone-100/60 leading-none tracking-tighter"
+        >
+          II
+        </div>
+
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* ── Top Meta Row ───────────────────────────────────── */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-12">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-600 text-[10px] font-mono tracking-widest uppercase border border-stone-200/80">
+              <Sparkles className="w-3 h-3 text-sky-500" />
+              <span>Philosophy &amp; Ethos</span>
+            </div>
+            <span className="text-[10px] font-mono text-stone-400 tracking-widest uppercase">
+              Sanjay Rai (Bantawa) · Kathmandu
+            </span>
+          </div>
+
+          {/* ── Heading + Decorative Rule ──────────────────────── */}
+          <div className="mb-12">
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-ink-900 tracking-tight leading-[1.08] mb-6">
+              Artist<br className="hidden sm:block" /> Statement
             </h2>
-
-            {/* 5 Official Paragraphs */}
-            <div className="space-y-5 text-sm sm:text-base text-ink-700 leading-relaxed font-sans">
-              <p>For me, art is not merely a medium for expressing the emotions, thoughts, and experiences that arise within me. It is also a process of intellectual and philosophical reflection, through which emotions and ideas are explored and transformed into meaningful artistic forms. My fascination with colours began in childhood, when I would become so absorbed in playing with colours that I lost track of time. This natural attraction gradually led me towards painting. My life experiences, social surroundings, and personal circumstances have continuously inspired and shaped my artistic journey.</p>
-              <p>Throughout my studies and artistic practice, I have explored various subjects, mediums, and styles. In the early stages of my career, I depicted rural landscapes, natural environments, and everyday village life. Later, I moved towards symbolic compositions and portraiture. Following my postgraduate studies, my artistic lines became more dynamic and expressive. Through the figures of horses and women, I began exploring themes of strength, struggle, energy, resistance, and the journey of life. Gradually, I incorporated horse figures into compositions featuring monasteries, temples, and traditional architecture, seeking to explore the relationship between time, movement, and cultural continuity.</p>
-              <p>In recent years, Nepali traditional culture, cultural memory, and mythology have become central to my artistic practice. In particular, I have been exploring the disappearing cultural symbols, traditions, and myths of Nepal’s indigenous Kirat communities through the language of contemporary painting. The Kirat community’s deep respect for nature, understanding of cultural identity, and philosophy of life, which considers nature an inseparable part of human existence, have profoundly influenced my work. I do not view this cultural heritage merely as a memory of the past, but as a living artistic resource capable of engaging in dialogue with contemporary society.</p>
-              <p>I believe that lines play a particularly significant role in painting. Lines do not simply construct forms; they also communicate movement, emotions, and ideas. For me, colours are a language through which the diverse experiences and possibilities of life are expressed. Combining traditional symbols with new compositions, lines, colours, and contemporary artistic approaches is an essential part of my creative practice, allowing me to discover new meanings and perspectives within cultural heritage.</p>
-              <p>I do not believe that art should be limited to the creation of beautiful objects. In my view, art is an independent space for creative freedom, ideas, and critical reflection. Through my paintings, I hope to encourage viewers to think in new ways, reconsider their own cultural identities, and understand the relationship between tradition and contemporary society from fresh perspectives. For me, painting is an ongoing process of exploration, self-expression, and a means of keeping cultural memory alive through new artistic interpretations.</p>
+            <div className="flex items-center gap-4">
+              <div className="h-px flex-1 bg-gradient-to-r from-sky-400 via-stone-300 to-transparent" />
+              <span className="text-[9px] font-mono text-stone-400 tracking-widest uppercase shrink-0">1994 – 2024</span>
             </div>
+          </div>
 
-            {/* Footer Links */}
-            <div className="pt-2 flex flex-wrap gap-3 items-center">
-              <Link
-                to="/media"
-                className="inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-wider text-sky-700 hover:text-sky-900 transition-colors font-semibold"
-              >
-                <span>Read Studio Treatises & Essays</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+          {/* ── Pull Quote ─────────────────────────────────────── */}
+          <div className="relative mb-14 pl-6 border-l-4 border-sky-500">
+            <p className="font-serif italic text-xl sm:text-2xl md:text-3xl text-ink-800 leading-snug">
+              "For me, colours are a language through which the diverse experiences and possibilities of life are expressed."
+            </p>
+            <span className="block mt-3 text-[10px] font-mono text-stone-400 tracking-widest uppercase">— Sanjay Rai (Bantawa)</span>
+          </div>
 
-              <Link
-                to="/media"
-                className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/70"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse" />
-                <span>Watch “Walking with Art” Documentary</span>
-              </Link>
-            </div>
+          {/* ── Body Text — 2-col on desktop ───────────────────── */}
+          <div className="columns-1 lg:columns-2 gap-12 text-[15px] text-ink-700 leading-[1.85] font-sans space-y-5 [column-rule:1px_solid_#e7e5e4]">
+
+            {/* Para 1 — drop cap */}
+            <p className="break-inside-avoid">
+              <span className="float-left font-serif text-[4.5rem] leading-[0.75] mr-3 mt-1 text-ink-900 font-bold">F</span>
+              or me, art is not merely a medium for expressing the emotions, thoughts, and experiences that arise within me. It is also a process of intellectual and philosophical reflection, through which emotions and ideas are explored and transformed into meaningful artistic forms. My fascination with colours began in childhood, when I would become so absorbed in playing with colours that I lost track of time. This natural attraction gradually led me towards painting. My life experiences, social surroundings, and personal circumstances have continuously inspired and shaped my artistic journey.
+            </p>
+
+            <p className="break-inside-avoid">
+              Throughout my studies and artistic practice, I have explored various subjects, mediums, and styles. In the early stages of my career, I depicted rural landscapes, natural environments, and everyday village life. Later, I moved towards symbolic compositions and portraiture. Following my postgraduate studies, my artistic lines became more dynamic and expressive. Through the figures of horses and women, I began exploring themes of strength, struggle, energy, resistance, and the journey of life. Gradually, I incorporated horse figures into compositions featuring monasteries, temples, and traditional architecture, seeking to explore the relationship between time, movement, and cultural continuity.
+            </p>
+
+            <p className="break-inside-avoid">
+              In recent years, Nepali traditional culture, cultural memory, and mythology have become central to my artistic practice. In particular, I have been exploring the disappearing cultural symbols, traditions, and myths of Nepal’s indigenous Kirat communities through the language of contemporary painting. The Kirat community’s deep respect for nature, understanding of cultural identity, and philosophy of life, which considers nature an inseparable part of human existence, have profoundly influenced my work. I do not view this cultural heritage merely as a memory of the past, but as a living artistic resource capable of engaging in dialogue with contemporary society.
+            </p>
+
+            <p className="break-inside-avoid">
+              I believe that lines play a particularly significant role in painting. Lines do not simply construct forms; they also communicate movement, emotions, and ideas. For me, colours are a language through which the diverse experiences and possibilities of life are expressed. Combining traditional symbols with new compositions, lines, colours, and contemporary artistic approaches is an essential part of my creative practice, allowing me to discover new meanings and perspectives within cultural heritage.
+            </p>
+
+            <p className="break-inside-avoid">
+              I do not believe that art should be limited to the creation of beautiful objects. In my view, art is an independent space for creative freedom, ideas, and critical reflection. Through my paintings, I hope to encourage viewers to think in new ways, reconsider their own cultural identities, and understand the relationship between tradition and contemporary society from fresh perspectives. For me, painting is an ongoing process of exploration, self-expression, and a means of keeping cultural memory alive through new artistic interpretations.
+            </p>
+
+          </div>
+
+          {/* ── Footer Actions ─────────────────────────────────── */}
+          <div className="mt-12 pt-8 border-t border-stone-200/60 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+            <Link
+              to="/media"
+              className="group inline-flex items-center space-x-2.5 text-xs font-mono uppercase tracking-widest text-sky-700 hover:text-sky-900 transition-colors font-semibold"
+            >
+              <span className="w-7 h-px bg-sky-500 group-hover:w-10 transition-all duration-300" />
+              <span>Read Studio Treatises &amp; Essays</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+
+            <Link
+              to="/media"
+              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/80 shadow-sm"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shrink-0" />
+              <span>Watch “Walking with Art” Documentary</span>
+            </Link>
           </div>
 
         </div>
