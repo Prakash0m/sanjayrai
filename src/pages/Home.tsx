@@ -91,12 +91,13 @@ export const Home: React.FC = () => {
                 {/* Decorative border frame */}
                 <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-sky-200/50 via-white to-amber-100/40 blur-xl -z-10" />
 
-                <div className="relative rounded-3xl overflow-hidden bg-stone-100 shadow-2xl border border-stone-200/60 aspect-[9/13.5]">
+                <div className="relative rounded-3xl overflow-hidden bg-[#F5F2ED] shadow-2xl border border-stone-200/60 aspect-[3/4]">
                   <SmartImage
                     src="/images/artist/portrait.jpg"
                     alt="Sanjay Rai (Bantawa) in studio Kathmandu"
-                    objectFit="cover"
-                    className="w-full h-full object-cover object-[center_top]"
+                    objectFit="contain"
+                    className="w-full h-full"
+                    imgClassName="object-contain w-full h-full"
                     priority={true}
                   />
 
