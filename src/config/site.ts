@@ -3,6 +3,7 @@ export interface SiteConfig {
   artistSubtitle: string;
   artistHeritage: string;
   whatsAppNumber: string; // e.g. 97798XXXXXXXX
+  phoneFormatted: string; // e.g. +977 9849826124
   whatsAppDefaultMessage: string;
   email: string;
   instagramUrl: string;
@@ -30,7 +31,8 @@ export const siteConfig: SiteConfig = {
   artistName: "Sanjay Rai (Bantawa)",
   artistSubtitle: "Sculptor, Painter & Contemporary Thinker",
   artistHeritage: "Bantawa Rai · Eastern Nepal & Kathmandu Valley",
-  whatsAppNumber: "9779841000000", // Easily replaceable WhatsApp number
+  whatsAppNumber: "9779849826124", // Official WhatsApp number: 9849826124 (Nepal +977)
+  phoneFormatted: "+977 9849826124",
   whatsAppDefaultMessage: "Hello, I am interested in your artwork. I would like to know more.",
   email: "studio@sanjayrai.art",
   instagramUrl: "https://instagram.com/sanjayrai_art",

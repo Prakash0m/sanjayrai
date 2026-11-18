@@ -108,12 +108,23 @@ export const ContactPage: React.FC = () => {
                   <span className="text-[11px] font-mono uppercase tracking-wider text-stone-400 block font-semibold">
                     Direct Phone / WhatsApp
                   </span>
-                  <a
-                    href={`tel:+${siteConfig.whatsAppNumber}`}
-                    className="text-xs sm:text-sm text-ink-800 font-sans font-medium hover:text-emerald-700 transition-colors block"
-                  >
-                    +{siteConfig.whatsAppNumber}
-                  </a>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <a
+                      href={`tel:+${siteConfig.whatsAppNumber}`}
+                      className="text-xs sm:text-sm text-ink-800 font-sans font-medium hover:text-emerald-700 transition-colors block"
+                    >
+                      {siteConfig.phoneFormatted}
+                    </a>
+                    <a
+                      href={getWhatsAppUrl("Hello Sanjay Rai, I am calling / messaging from your portfolio website.")}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-mono font-medium hover:bg-emerald-200 transition-colors"
+                    >
+                      <WhatsAppIcon className="w-2.5 h-2.5" />
+                      <span>WhatsApp</span>
+                    </a>
+                  </div>
                   <p className="text-[11px] text-stone-400 font-mono">
                     Studio direct line & WhatsApp chat
                   </p>

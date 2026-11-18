@@ -80,7 +80,9 @@ export const Contact: React.FC = () => {
 
                 <div className="flex items-center space-x-3 text-ink-700">
                   <Phone className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                  <span>+{siteConfig.whatsAppNumber} (Direct Line)</span>
+                  <a href={`tel:+${siteConfig.whatsAppNumber}`} className="hover:text-emerald-700 transition-colors">
+                    {siteConfig.phoneFormatted} (Direct Line / WhatsApp)
+                  </a>
                 </div>
               </div>
             </div>

@@ -124,7 +124,14 @@ export const Footer: React.FC = () => {
               {siteConfig.studioLocation}
             </p>
             <p className="text-xs text-stone-400 font-mono">
-              WhatsApp: +{siteConfig.whatsAppNumber}
+              <a
+                href={getWhatsAppUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-emerald-400 transition-colors inline-flex items-center space-x-1"
+              >
+                <span>WhatsApp: {siteConfig.phoneFormatted}</span>
+              </a>
             </p>
             <p className="text-xs text-stone-400 font-mono">
               {siteConfig.email}
