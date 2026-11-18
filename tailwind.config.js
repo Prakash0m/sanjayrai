@@ -42,14 +42,6 @@ export default {
       },
       backdropBlur: {
         xs: '2px',
-      },
-      animation: {
-        'spin-slow': 'spin 4s linear infinite',
-        'pulse-soft': 'pulse 3s ease-in-out infinite',
-      },
-      scale: {
-        '102': '1.02',
-        '110': '1.10',
       }
     },
   },

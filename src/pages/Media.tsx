@@ -217,14 +217,15 @@ export const Media: React.FC = () => {
               
               {/* Catalogue Cover Preview */}
               <div className="lg:col-span-4 flex justify-center">
-                <div className="relative w-48 sm:w-56 aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-stone-800 rotate-1 hover:rotate-0 transition-transform duration-500">
+                <div className="relative w-48 sm:w-56 aspect-[9/13.5] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-stone-900 rotate-1 hover:rotate-0 transition-transform duration-500 p-2.5 flex items-center justify-center">
                   <SmartImage
                     src={monographCatalogue.downloadUrl}
                     alt={monographCatalogue.title}
-                    objectFit="cover"
-                    className="w-full h-full object-cover"
+                    objectFit="contain"
+                    className="w-full h-full flex items-center justify-center bg-transparent"
+                    imgClassName="object-contain w-full h-full"
                   />
-                  <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/90 to-transparent text-white text-center">
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 to-transparent text-white text-center">
                     <span className="text-[10px] font-mono tracking-widest text-sky-300 uppercase block">
                       OFFICIAL MONOGRAPH
                     </span>

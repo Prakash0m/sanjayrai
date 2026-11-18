@@ -85,32 +85,38 @@ export const Home: React.FC = () => {
 
             </div>
 
-            {/* Right Col: Artist Portrait Photo */}
+            {/* Right Col: Artist Portrait Photo (Full uncropped view with clean gallery caption below) */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full max-w-[380px] sm:max-w-[420px]">
-                {/* Decorative border frame */}
+                {/* Decorative border ambient glow */}
                 <div className="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-sky-200/50 via-white to-amber-100/40 blur-xl -z-10" />
 
-                <div className="relative rounded-3xl overflow-hidden bg-[#F5F2ED] shadow-2xl border border-stone-200/60 aspect-[3/4]">
-                  <SmartImage
-                    src="/images/artist/portrait.jpg"
-                    alt="Sanjay Rai (Bantawa) in studio Kathmandu"
-                    objectFit="contain"
-                    className="w-full h-full"
-                    imgClassName="object-contain w-full h-full"
-                    priority={true}
-                  />
+                <div className="relative rounded-3xl overflow-hidden bg-white shadow-2xl border border-stone-200/70 p-3 sm:p-4 flex flex-col">
+                  {/* Photo Frame: Full uncropped view, zero cut-off */}
+                  <div className="relative w-full aspect-[9/14] sm:aspect-[9/13.5] rounded-2xl overflow-hidden bg-[#F5F2ED] flex items-center justify-center p-2.5">
+                    <SmartImage
+                      src="/images/artist/portrait.jpg"
+                      alt="Sanjay Rai (Bantawa) in studio Kathmandu"
+                      objectFit="contain"
+                      className="w-full h-full flex items-center justify-center bg-transparent"
+                      imgClassName="object-contain w-full h-full filter drop-shadow-xs"
+                      priority={true}
+                    />
+                  </div>
 
-                  {/* Scrim label */}
-                  <div className="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-white space-y-1">
-                    <span className="text-[10px] font-mono tracking-widest text-sky-300 uppercase block">
-                      ARTIST IN STUDIO · KATHMANDU
-                    </span>
-                    <h3 className="font-serif text-lg font-bold text-white">
+                  {/* Clean Editorial Caption (Outside photo area so zero obstruction) */}
+                  <div className="pt-3 pb-1 px-1 flex flex-col space-y-1 text-left">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-mono tracking-widest text-sky-700 uppercase font-semibold">
+                        ARTIST IN STUDIO · KATHMANDU
+                      </span>
+                      <span className="text-[10px] font-mono text-stone-400">1994 – 2024</span>
+                    </div>
+                    <h3 className="font-serif text-lg sm:text-xl font-bold text-ink-900 leading-tight">
                       Sanjay Rai (Bantawa)
                     </h3>
-                    <p className="text-xs text-stone-200 font-sans">
-                      Retrospective Archive 1994 – 2024
+                    <p className="text-xs text-stone-500 font-sans">
+                      Contemporary Sculptor &amp; Thinker · Kathmandu Studio
                     </p>
                   </div>
                 </div>

@@ -102,30 +102,27 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
           {/* Right Column: Clean Artist Portrait (Perfect Fixed Proportions) */}
           <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-4">
             
-            {/* Clean Real Artist Portrait Card with Fixed Balanced Proportions */}
-            <div className="w-full max-w-[380px] sm:max-w-[420px] glass-card p-3 sm:p-4 rounded-3xl border border-stone-200/80 shadow-2xl overflow-hidden group">
-              <div className="relative aspect-[9/15] sm:aspect-[9/14] rounded-2xl overflow-hidden bg-gradient-to-b from-stone-900 via-stone-950 to-black flex items-center justify-center">
+            {/* Clean Real Artist Portrait Card with Fixed Balanced Proportions (Full uncropped) */}
+            <div className="w-full max-w-[380px] sm:max-w-[420px] bg-white p-3 sm:p-4 rounded-3xl border border-stone-200/80 shadow-2xl overflow-hidden flex flex-col">
+              <div className="relative aspect-[9/14] sm:aspect-[9/13.5] rounded-2xl overflow-hidden bg-[#F5F2ED] flex items-center justify-center p-2.5">
                 <img
                   src="/images/artist/portrait.jpg"
                   alt="Sanjay Rai (Bantawa)"
-                  className="w-full h-full object-cover object-[center_top] transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-contain filter drop-shadow-xs transition-transform duration-700 hover:scale-102"
                   loading="eager"
                 />
-                
-                {/* Subtle luxury vignette overlay for editorial feel */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent pointer-events-none" />
+              </div>
 
-                <div className="absolute bottom-0 inset-x-0 p-5 text-white">
-                  <span className="text-[10px] font-mono tracking-widest text-sky-300 uppercase">
-                    Artist in Studio · Archive
-                  </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-white mt-0.5">
-                    Sanjay Rai (Bantawa)
-                  </h3>
-                  <p className="text-xs text-stone-300 font-sans mt-0.5">
-                    Contemporary Nepali Sculptor &amp; Thinker
-                  </p>
-                </div>
+              <div className="pt-3 pb-1 px-1 flex flex-col space-y-1 text-left">
+                <span className="text-[10px] font-mono tracking-widest text-sky-700 uppercase font-semibold">
+                  Artist in Studio · Archive
+                </span>
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-ink-900">
+                  Sanjay Rai (Bantawa)
+                </h3>
+                <p className="text-xs text-stone-500 font-sans">
+                  Contemporary Nepali Sculptor &amp; Thinker
+                </p>
               </div>
             </div>
 
