@@ -253,29 +253,33 @@ export const Media: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-white border border-stone-200 shadow-lg overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-12">
+          <div className="rounded-3xl bg-white border border-stone-200/90 shadow-md p-6 sm:p-8 lg:p-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
               
-              {/* Left — warm cream panel with large full-fit book cover */}
-              <div className="lg:col-span-4 bg-[#F5EFE6] flex items-stretch border-b border-stone-200 lg:border-b-0 lg:border-r lg:border-stone-200 min-h-[380px]">
-                <div className="relative w-full overflow-hidden rounded-tl-3xl rounded-bl-3xl rounded-tr-3xl rounded-br-3xl lg:rounded-tr-none lg:rounded-br-none">
+              {/* Left — Elegant standalone book frame with zoomed portrait */}
+              <div className="lg:col-span-4 flex justify-center items-center">
+                <div className="relative w-44 sm:w-52 aspect-[9/13.5] rounded-2xl overflow-hidden shadow-2xl border border-stone-200 bg-stone-100 group transition-transform duration-300 hover:scale-[1.02]">
                   <SmartImage
                     src={monographCatalogue.downloadUrl}
                     alt={monographCatalogue.title}
                     objectFit="cover"
-                    className="w-full h-full absolute inset-0"
-                    imgClassName="object-cover object-top w-full h-full"
+                    className="w-full h-full"
+                    imgClassName="object-cover object-top w-full h-full scale-105"
                   />
-                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent text-center">
-                    <span className="text-[9px] font-mono tracking-widest text-amber-300 uppercase block">OFFICIAL MONOGRAPH</span>
-                    <span className="font-serif text-sm font-bold text-white block">1994 – 2024</span>
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/85 via-black/40 to-transparent text-center">
+                    <span className="text-[10px] font-mono tracking-widest text-amber-300 uppercase block font-semibold">
+                      OFFICIAL MONOGRAPH
+                    </span>
+                    <span className="font-serif text-xs font-bold text-white block mt-0.5">
+                      1994 – 2024
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Right — content area on clean white */}
-              <div className="lg:col-span-8 p-8 sm:p-10 space-y-5">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-600 text-[10px] font-mono tracking-widest uppercase">
+              {/* Right — content area */}
+              <div className="lg:col-span-8 space-y-4 text-center lg:text-left">
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 text-[10px] font-mono tracking-widest uppercase">
                   <span>CURATORIAL ARCHIVE</span>
                 </div>
 
@@ -283,31 +287,31 @@ export const Media: React.FC = () => {
                   {monographCatalogue.title}
                 </h3>
 
-                <p className="text-stone-600 text-sm font-sans leading-relaxed max-w-2xl">
+                <p className="text-stone-600 text-xs sm:text-sm font-sans leading-relaxed max-w-2xl">
                   {monographCatalogue.description}
                 </p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs py-1">
-                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
-                    <span className="text-[10px] text-stone-400 block mb-1">FORMAT</span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs py-1 text-left">
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/80">
+                    <span className="text-[10px] text-stone-400 block mb-0.5">FORMAT</span>
                     <span className="font-semibold text-stone-800">{monographCatalogue.pages}</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
-                    <span className="text-[10px] text-stone-400 block mb-1">ISBN</span>
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/80">
+                    <span className="text-[10px] text-stone-400 block mb-0.5">ISBN</span>
                     <span className="font-semibold text-stone-800">{monographCatalogue.isbn}</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 col-span-2 sm:col-span-1">
-                    <span className="text-[10px] text-stone-400 block mb-1">FILE SIZE</span>
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200/80 col-span-2 sm:col-span-1">
+                    <span className="text-[10px] text-stone-400 block mb-0.5">FILE SIZE</span>
                     <span className="font-semibold text-stone-800">{monographCatalogue.fileSize}</span>
                   </div>
                 </div>
 
                 {/* Download / View Buttons */}
-                <div className="flex flex-wrap items-center gap-3 pt-1">
+                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
                   <a
                     href={monographCatalogue.downloadUrl}
                     download="Sanjay_Rai_Retrospective_Monograph.jpg"
-                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-semibold shadow transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105 active:scale-95"
                   >
                     <Download className="w-4 h-4" />
                     <span>Download Archival PDF Catalogue</span>
@@ -317,7 +321,7 @@ export const Media: React.FC = () => {
                     href={getWhatsAppUrl(`Hello Sanjay Rai, I am requesting a printed/institutional hardbound copy of your Retrospective Monograph Catalogue "${monographCatalogue.title}".`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow transition-all hover:scale-105"
+                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105"
                   >
                     <WhatsAppIcon className="w-4 h-4 text-white" />
                     <span>Request Hardbound Monograph</span>
