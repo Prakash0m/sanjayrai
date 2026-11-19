@@ -56,7 +56,7 @@ export const OriginalWorks: React.FC = () => {
           </h1>
 
           <p className="text-sm sm:text-base text-ink-600 max-w-2xl mx-auto font-sans leading-relaxed">
-            Acquire documented original paintings, life studies on hand-beaten Lokta paper, and archival maquettes directly from Sanjay Rai's studio in Kathmandu.
+            Acquire documented original paintings, life studies on hand-beaten Lokta paper, and archival maquettes directly from Sanjay Rai's studio in Imadol, Lalitpur.
           </p>
         </div>
 

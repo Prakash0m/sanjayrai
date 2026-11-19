@@ -25,7 +25,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
             <div className="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/85 border border-stone-200/80 shadow-glass-sm max-w-full">
               <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse flex-shrink-0" />
               <span className="text-[9px] sm:text-[11px] font-mono tracking-wider sm:tracking-widest text-ink-700 uppercase truncate">
-                RETROSPECTIVE &amp; ARCHIVE · 1994 – 2024 · KATHMANDU
+                RETROSPECTIVE &amp; ARCHIVE · 1994 – 2024 · LALITPUR
               </span>
             </div>
 
@@ -52,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
               </p>
               <div className="mt-3 flex flex-wrap items-center justify-between text-xs text-ink-500 gap-1">
                 <span className="font-medium text-ink-700">Sanjay Rai (Bantawa)</span>
-                <span className="font-mono text-[10px] sm:text-[11px]">Kathmandu Studio Monograph</span>
+                <span className="font-mono text-[10px] sm:text-[11px]">Lalitpur Studio Monograph</span>
               </div>
             </div>
 

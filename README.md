@@ -68,7 +68,7 @@ export const siteConfig = {
   email: "studio@sanjayrai.art",
   instagramUrl: "https://instagram.com/sanjayrai_art",
   facebookUrl: "https://facebook.com/sanjayrai.bantawa",
-  studioLocation: "Patan Arts Precinct / Baluwatar, Kathmandu, Nepal",
+  studioLocation: "Imadol, Lalitpur, Nepal",
   ...
 };
 ```

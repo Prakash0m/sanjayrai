@@ -46,7 +46,7 @@ export const Contact: React.FC = () => {
             Inquire Regarding the Bantawa's Works
           </h2>
           <p className="mt-3 text-base text-ink-600">
-            For collectors, galleries, curators, and institutional acquisitions. Direct connection with Sanjay Rai’s studio in Kathmandu.
+            For collectors, galleries, curators, and institutional acquisitions. Direct connection with Sanjay Rai’s studio in Imadol, Lalitpur.
           </p>
         </div>
 

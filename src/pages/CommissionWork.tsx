@@ -439,7 +439,7 @@ export const CommissionWork: React.FC = () => {
               </div>
               <h3 className="font-serif font-bold text-ink-900 text-base">Direct Studio Execution</h3>
               <p className="text-xs text-ink-600 font-sans leading-relaxed">
-                Sanjay Rai personally chisels, molds, or paints the work at his studio in Kathmandu.
+                Sanjay Rai personally chisels, molds, or paints the work at his studio in Imadol, Lalitpur.
               </p>
             </div>
 
@@ -567,7 +567,7 @@ export const CommissionWork: React.FC = () => {
             )}
 
             <p className="text-[11px] text-stone-400 text-center font-mono pt-1">
-              Submissions directly notify Sanjay Rai’s studio desk in Kathmandu.
+              Submissions directly notify Sanjay Rai’s studio desk in Imadol, Lalitpur.
             </p>
 
           </form>

@@ -495,7 +495,7 @@ export const mediaVideos: MediaVideo[] = [
     director: "SandipR · Moment Invitational 2020",
     duration: "3:00",
     year: "2020",
-    description: "An intimate and inspiring short documentary following sculptor and painter Sanjay Rai as he navigates daily life, studio practice, and profound creative devotion in Kathmandu.",
+    description: "An intimate and inspiring short documentary following sculptor and painter Sanjay Rai as he navigates daily life, studio practice, and profound creative devotion in Lalitpur.",
     embedUrl: "https://www.youtube.com/embed/iXJbW_5OV_M",
     thumbnail: "/images/artist/walking-with-art-thumb.jpg",
     youtubeUrl: "https://youtu.be/iXJbW_5OV_M"

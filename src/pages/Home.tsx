@@ -100,7 +100,7 @@ export const Home: React.FC = () => {
                   <div className="relative w-full aspect-[9/14] sm:aspect-[9/13.5] rounded-2xl overflow-hidden bg-[#F5F2ED] flex items-center justify-center p-2.5">
                     <SmartImage
                       src="/images/artist/portrait.jpg"
-                      alt="Sanjay Rai (Bantawa) in studio Kathmandu"
+                      alt="Sanjay Rai (Bantawa) in studio Imadol, Lalitpur"
                       objectFit="contain"
                       className="w-full h-full flex items-center justify-center bg-transparent"
                       imgClassName="object-contain w-full h-full filter drop-shadow-xs"
@@ -117,7 +117,7 @@ export const Home: React.FC = () => {
                       Sanjay Rai (Bantawa)
                     </h3>
                     <p className="text-xs text-stone-500 font-sans">
-                      Contemporary Sculptor &amp; Thinker · Kathmandu Studio
+                      Contemporary Sculptor &amp; Thinker · Imadol, Lalitpur Studio
                     </p>
                   </div>
                 </div>

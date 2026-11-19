@@ -55,7 +55,7 @@ export const ContactPage: React.FC = () => {
           </h1>
 
           <p className="text-sm sm:text-base text-ink-600 max-w-xl mx-auto font-sans leading-relaxed">
-            Connect directly with Sanjay Rai’s studio archive in Kathmandu for acquisitions, museum curation, lectures, or private commissions.
+            Connect directly with Sanjay Rai’s studio archive in Imadol, Lalitpur for acquisitions, museum curation, lectures, or private commissions.
           </p>
         </div>
 

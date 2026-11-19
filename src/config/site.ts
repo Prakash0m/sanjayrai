@@ -37,7 +37,7 @@ export const siteConfig: SiteConfig = {
   email: "studio@sanjayrai.art",
   instagramUrl: "https://instagram.com/sanjayrai_art",
   facebookUrl: "https://facebook.com/sanjayrai.bantawa",
-  studioLocation: "Patan Arts Precinct / Baluwatar, Kathmandu, Nepal",
+  studioLocation: "Imadol, Lalitpur, Nepal",
   studioHours: "Sunday – Friday: 10:00 AM – 5:00 PM (NPT)",
   websiteTitle: "Sanjay Rai (Bantawa) — Sculptor, Painter & Contemporary Nepali Artist",
   metaDescription: "Official portfolio and archival retrospective of Sanjay Rai (Bantawa). Exploration into modern Nepali sculpture, terracotta, figurative drawings, and philosophical form.",
