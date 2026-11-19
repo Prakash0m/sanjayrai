@@ -190,19 +190,8 @@ export const CommissionWork: React.FC = () => {
         {/* 3D RUNNING / SPINNING CAROUSEL TRACK (BOX VITRA ONLY IMAGE) */}
         <div className="relative select-none">
           
-          {/* Controls Bar: Play/Pause, Live Index, Arrow Buttons */}
-          <div className="flex items-center justify-between mb-4 px-2">
-            <div className="flex items-center space-x-2 text-[11px] font-mono text-stone-600">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-semibold uppercase tracking-wider">
-                COMMISSION {currentIndex + 1} OF {totalCommissions}
-              </span>
-              <span className="text-stone-300">·</span>
-              <span className="hidden sm:inline text-stone-500">
-                {isHovered ? 'Paused on hover' : 'Auto-running'}
-              </span>
-            </div>
-
+          {/* Controls Bar: Play/Pause, Arrow Buttons */}
+          <div className="flex items-center justify-end mb-4 px-2">
             <div className="flex items-center space-x-2">
               <button
                 onClick={() => setIsAutoPlaying(!isAutoPlaying)}
