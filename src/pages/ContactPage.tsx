@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
-import { WhatsAppIcon } from '../components/Icons';
+import { WhatsAppIcon, FacebookIcon, InstagramIcon } from '../components/Icons';
 import { Mail, Phone, MapPin, Send, Check, AlertCircle, Clock } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
@@ -170,6 +170,28 @@ export const ContactPage: React.FC = () => {
                     Studio visits by prior appointment
                   </p>
                 </div>
+              </div>
+
+              {/* Social Channels */}
+              <div className="flex items-center space-x-3 pt-3 border-t border-stone-100">
+                <a
+                  href="https://www.facebook.com/sanjay.bantawa.7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 px-3 py-2 rounded-xl bg-blue-50 text-blue-700 text-xs font-medium hover:bg-blue-100 transition-colors"
+                >
+                  <FacebookIcon className="w-4 h-4 text-[#1877F2]" />
+                  <span>Facebook Profile</span>
+                </a>
+                <a
+                  href={siteConfig.instagramUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 px-3 py-2 rounded-xl bg-pink-50 text-pink-700 text-xs font-medium hover:bg-pink-100 transition-colors"
+                >
+                  <InstagramIcon className="w-4 h-4 text-pink-600" />
+                  <span>Instagram</span>
+                </a>
               </div>
 
             </div>

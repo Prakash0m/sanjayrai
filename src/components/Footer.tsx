@@ -85,11 +85,12 @@ export const Footer: React.FC = () => {
               </a>
 
               <a
-                href={siteConfig.facebookUrl}
+                href="https://www.facebook.com/sanjay.bantawa.7"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="w-8 h-8 rounded-full bg-white/10 hover:bg-blue-600 flex items-center justify-center text-white transition-colors"
+                aria-label="Facebook (Sanjay Bantawa)"
+                title="Connect on Facebook: https://www.facebook.com/sanjay.bantawa.7"
+                className="w-8 h-8 rounded-full bg-white/10 hover:bg-[#1877F2] flex items-center justify-center text-white transition-colors"
               >
                 <FacebookIcon className="w-4 h-4" />
               </a>
@@ -157,7 +158,24 @@ export const Footer: React.FC = () => {
               </a>
             </p>
             <p className="text-xs text-stone-400 font-mono">
-              {siteConfig.email}
+              <a
+                href={`mailto:${siteConfig.email}`}
+                className="hover:text-sky-400 transition-colors"
+              >
+                {siteConfig.email}
+              </a>
+            </p>
+            <p className="text-xs text-stone-400 font-mono">
+              <a
+                href="https://www.facebook.com/sanjay.bantawa.7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-blue-400 transition-colors inline-flex items-center space-x-1.5"
+                title="Facebook: Sanjay Bantawa"
+              >
+                <FacebookIcon className="w-3.5 h-3.5 text-[#1877F2]" />
+                <span>Facebook: Sanjay Bantawa</span>
+              </a>
             </p>
             <p className="text-[11px] text-stone-500 font-sans italic pt-1">
               Visits by prior curatorial appointment only.
