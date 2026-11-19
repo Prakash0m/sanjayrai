@@ -10,7 +10,7 @@ export const Media: React.FC = () => {
   const featuredVideo = mediaVideos[0];
 
   return (
-    <div className="pt-28 pb-24 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+    <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28">
         
         {/* Page Header */}
@@ -50,7 +50,7 @@ export const Media: React.FC = () => {
             <div className="w-full">
               
               {/* Cinema Screen Container (Widescreen Cinema Ratio) */}
-              <div className="relative w-full aspect-[21/9] min-h-[260px] max-h-[520px] rounded-2xl sm:rounded-[28px] overflow-hidden bg-black shadow-2xl ring-1 ring-black/10">
+              <div className="relative w-full aspect-video sm:aspect-[21/9] max-h-[520px] rounded-2xl sm:rounded-[28px] overflow-hidden bg-black shadow-2xl ring-1 ring-black/10">
                 {activeVideo === featuredVideo.id ? (
                   <div className="relative w-full h-full">
                     <iframe
@@ -132,37 +132,39 @@ export const Media: React.FC = () => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-wrap items-center gap-3 shrink-0">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 w-full lg:w-auto shrink-0">
                   <button
                     onClick={() => setActiveVideo(activeVideo === featuredVideo.id ? null : featuredVideo.id)}
-                    className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-ink-900 hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-md hover:scale-105 active:scale-95"
+                    className="inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-full bg-ink-900 hover:bg-black text-white text-xs font-semibold tracking-wide transition-all shadow-md hover:scale-105 active:scale-95 text-center cursor-pointer"
                   >
                     <Play className="w-3.5 h-3.5 fill-current" />
                     <span>{activeVideo === featuredVideo.id ? 'Close Player' : 'Play Screen Here'}</span>
                   </button>
 
-                  {featuredVideo.youtubeUrl && (
+                  <div className="grid grid-cols-2 sm:flex sm:items-center gap-2.5">
+                    {featuredVideo.youtubeUrl && (
+                      <a
+                        href={featuredVideo.youtubeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center space-x-1.5 px-4 py-3 rounded-full bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 text-xs font-semibold transition-all hover:scale-105 active:scale-95 text-center"
+                      >
+                        <Play className="w-3.5 h-3.5 fill-current text-red-600" />
+                        <span>YouTube</span>
+                        <ExternalLink className="w-3 h-3 ml-0.5 opacity-60" />
+                      </a>
+                    )}
+
                     <a
-                      href={featuredVideo.youtubeUrl}
+                      href={getWhatsAppUrl("Hello Sanjay Rai, I watched your documentary 'Walking with Art' and would like to learn more.")}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center space-x-2 px-4 py-2.5 rounded-full bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 text-xs font-semibold transition-all hover:scale-105 active:scale-95"
+                      className="inline-flex items-center justify-center space-x-1.5 px-4 py-3 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/80 text-xs font-semibold transition-all hover:scale-105 active:scale-95 text-center"
                     >
-                      <Play className="w-3.5 h-3.5 fill-current text-red-600" />
-                      <span>Watch on YouTube</span>
-                      <ExternalLink className="w-3 h-3 ml-0.5 opacity-60" />
+                      <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>WhatsApp</span>
                     </a>
-                  )}
-
-                  <a
-                    href={getWhatsAppUrl("Hello Sanjay Rai, I watched your documentary 'Walking with Art' and would like to learn more.")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-1.5 px-4 py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200/80 text-xs font-semibold transition-all hover:scale-105 active:scale-95"
-                  >
-                    <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>WhatsApp</span>
-                  </a>
+                  </div>
                 </div>
 
               </div>
@@ -307,13 +309,13 @@ export const Media: React.FC = () => {
                 </div>
 
                 {/* Download / View Buttons */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-2 w-full">
                   <a
                     href={monographCatalogue.downloadUrl}
                     download="Sanjay_Rai_Retrospective_Monograph.jpg"
-                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center justify-center space-x-2 px-5 py-3.5 rounded-full bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105 active:scale-95 text-center"
                   >
-                    <Download className="w-4 h-4" />
+                    <Download className="w-4 h-4 shrink-0" />
                     <span>Download Archival PDF Catalogue</span>
                   </a>
 
@@ -321,9 +323,9 @@ export const Media: React.FC = () => {
                     href={getWhatsAppUrl(`Hello Sanjay Rai, I am requesting a printed/institutional hardbound copy of your Retrospective Monograph Catalogue "${monographCatalogue.title}".`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105"
+                    className="inline-flex items-center justify-center space-x-2 px-5 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105 text-center"
                   >
-                    <WhatsAppIcon className="w-4 h-4 text-white" />
+                    <WhatsAppIcon className="w-4 h-4 text-white shrink-0" />
                     <span>Request Hardbound Monograph</span>
                   </a>
                 </div>

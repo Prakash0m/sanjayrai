@@ -10,77 +10,85 @@ export const Home: React.FC = () => {
     <div className="space-y-0">
       
       {/* SECTION 1: ARTIST PROFILE (Photo + Short Bio) */}
-      <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-white to-[#F8FBFF]">
+      <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-white to-[#F8FBFF]">
         {/* Soft ethereal ambient gradients */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-sky-200/20 rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute top-12 left-10 w-72 h-72 bg-blue-100/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-center">
             
             {/* Left Col: Artist Headline & Short Bio */}
-            <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
+            <div className="lg:col-span-7 space-y-5 sm:space-y-8 text-center lg:text-left">
               
               {/* Eyebrow Pill */}
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 shadow-2xs text-[11px] font-mono tracking-widest text-stone-700 uppercase">
-                <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
-                <span>CONTEMPORARY SCULPTOR & PAINTER · KATHMANDU</span>
+              <div className="inline-flex items-center space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 shadow-2xs text-[10px] sm:text-[11px] font-mono tracking-widest text-stone-700 uppercase max-w-full">
+                <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse shrink-0" />
+                <span className="truncate">CONTEMPORARY SCULPTOR &amp; PAINTER · KATHMANDU</span>
               </div>
 
               {/* Large Editorial Headline */}
               <div className="space-y-2">
-                <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ink-900 leading-[1.08]">
+                <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ink-900 leading-[1.12]">
                   SANJAY RAI <br />
-                  <span className="italic font-normal text-stone-600 font-serif">(BANTAWA)</span>
+                  <span className="italic font-normal text-stone-600 font-serif text-2xl sm:text-4xl md:text-5xl">(BANTAWA)</span>
                 </h1>
-                <p className="text-base sm:text-lg text-ink-600 max-w-xl mx-auto lg:mx-0 font-sans leading-relaxed pt-2">
+                <p className="text-sm sm:text-base md:text-lg text-ink-700 max-w-xl mx-auto lg:mx-0 font-sans leading-relaxed pt-1">
                   Pioneering modern Nepalese figurative sculpture and contemplative drawing. Transmuting Himalayan stone, high-fired clay, and hand-beaten Lokta paper into monumental poetic form for over three decades.
                 </p>
               </div>
 
               {/* Short Bio Block */}
-              <div className="p-5 sm:p-6 rounded-3xl bg-white/80 backdrop-blur-xl border border-stone-200/70 shadow-sm space-y-3 text-left">
-                <div className="flex items-center space-x-2 text-[11px] font-mono tracking-wider text-sky-700 uppercase font-semibold">
-                  <Compass className="w-3.5 h-3.5 text-sky-600" />
+              <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/90 backdrop-blur-xl border border-stone-200/80 shadow-sm space-y-3 text-left">
+                <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono tracking-wider text-sky-700 uppercase font-semibold">
+                  <Compass className="w-3.5 h-3.5 text-sky-600 shrink-0" />
                   <span>Curatorial Biography</span>
                 </div>
-                <p className="text-xs sm:text-sm text-ink-700 leading-relaxed font-sans">
+                <p className="text-[13px] sm:text-sm text-ink-800 leading-relaxed font-sans">
                   Born in Eastern Nepal and grounded in Kirat oral cosmology, Sanjay Rai (Bantawa) completed formative fine arts training at Lalit Kala Campus, Kathmandu. Over 30+ years of uninterrupted studio practice, his monumental granite monuments and introspective graphite life studies have been exhibited across Nepal, Japan, France, Germany, and the United States.
                 </p>
-                <div className="flex flex-wrap gap-4 pt-2 text-[11px] font-mono text-stone-500 border-t border-stone-100">
-                  <span>• 30+ Years Practice</span>
-                  <span>• 500+ Documented Works</span>
-                  <span>• 42+ National & Intl Exhibitions</span>
+                <div className="flex flex-wrap gap-2 pt-2.5 border-t border-stone-100">
+                  <span className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200/70 text-[11px] sm:text-xs font-mono text-stone-700 font-medium">
+                    • 30+ Years Practice
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200/70 text-[11px] sm:text-xs font-mono text-stone-700 font-medium">
+                    • 500+ Documented Works
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200/70 text-[11px] sm:text-xs font-mono text-stone-700 font-medium">
+                    • 42+ Exhibitions
+                  </span>
                 </div>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-1 sm:pt-2 w-full">
                 <Link
                   to="/original-works"
-                  className="inline-flex items-center space-x-2.5 px-7 py-3.5 rounded-full bg-ink-900 hover:bg-black text-white text-xs sm:text-sm font-semibold tracking-wide shadow-lg shadow-black/10 transition-all hover:scale-105 active:scale-95"
+                  className="inline-flex items-center justify-center space-x-2.5 px-6 py-3.5 rounded-full bg-ink-900 hover:bg-black text-white text-xs sm:text-sm font-semibold tracking-wide shadow-lg shadow-black/10 transition-all hover:scale-105 active:scale-95 text-center"
                 >
                   <span>Explore Original Works</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
-                <Link
-                  to="/commission"
-                  className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-white hover:bg-stone-50 text-ink-900 text-xs sm:text-sm font-medium border border-stone-200/80 shadow-xs transition-all hover:scale-105"
-                >
-                  <span>Commission Work</span>
-                </Link>
+                <div className="grid grid-cols-2 sm:flex sm:items-center gap-2.5 sm:gap-3">
+                  <Link
+                    to="/commission"
+                    className="inline-flex items-center justify-center px-4 py-3 sm:py-3.5 rounded-full bg-white hover:bg-stone-50 text-ink-900 text-xs sm:text-sm font-medium border border-stone-200/80 shadow-xs transition-all hover:scale-105 text-center"
+                  >
+                    <span>Commission</span>
+                  </Link>
 
-                <a
-                  href={getWhatsAppUrl("Hello Sanjay Rai, I am visiting your portfolio and would like to connect.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 px-5 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow-md shadow-emerald-500/20 transition-all hover:scale-105"
-                  aria-label="Direct WhatsApp"
-                >
-                  <WhatsAppIcon className="w-4 h-4 text-white" />
-                  <span>WhatsApp</span>
-                </a>
+                  <a
+                    href={getWhatsAppUrl("Hello Sanjay Rai, I am visiting your portfolio and would like to connect.")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center space-x-1.5 px-4 py-3 sm:py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow-md shadow-emerald-500/20 transition-all hover:scale-105 text-center"
+                    aria-label="Direct WhatsApp"
+                  >
+                    <WhatsAppIcon className="w-4 h-4 text-white" />
+                    <span>WhatsApp</span>
+                  </a>
+                </div>
               </div>
 
             </div>
@@ -128,13 +136,13 @@ export const Home: React.FC = () => {
       </section>
 
       {/* SECTION 2: ARTIST STATEMENT — Professional Editorial Layout */}
-      <section className="py-20 md:py-32 relative bg-white border-t border-stone-200/60 overflow-hidden">
+      <section className="py-14 sm:py-20 md:py-32 relative bg-white border-t border-stone-200/60 overflow-hidden">
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* ── Heading + Decorative Rule ──────────────────────── */}
-          <div className="mb-10">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight mb-6">
+          <div className="mb-8 sm:mb-10">
+            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight mb-4 sm:mb-6">
               Artist Statement
             </h2>
             <div className="flex items-center gap-4">
@@ -144,19 +152,19 @@ export const Home: React.FC = () => {
           </div>
 
           {/* ── Pull Quote ─────────────────────────────────────── */}
-          <div className="relative mb-14 pl-6 border-l-4 border-sky-500">
-            <p className="font-serif italic text-xl sm:text-2xl md:text-3xl text-ink-800 leading-snug">
+          <div className="relative mb-8 sm:mb-14 pl-4 sm:pl-6 border-l-3 sm:border-l-4 border-sky-500">
+            <p className="font-serif italic text-lg sm:text-2xl md:text-3xl text-ink-800 leading-snug">
               "For me, colours are a language through which the diverse experiences and possibilities of life are expressed."
             </p>
-            <span className="block mt-3 text-[10px] font-mono text-stone-400 tracking-widest uppercase">— Sanjay Rai (Bantawa)</span>
+            <span className="block mt-2 sm:mt-3 text-[10px] font-mono text-stone-400 tracking-widest uppercase">— Sanjay Rai (Bantawa)</span>
           </div>
 
           {/* ── Body Text — 2-col on desktop ───────────────────── */}
-          <div className="columns-1 lg:columns-2 gap-12 text-[15px] text-ink-700 leading-[1.85] font-sans space-y-5 [column-rule:1px_solid_#e7e5e4]">
+          <div className="columns-1 lg:columns-2 gap-8 lg:gap-12 text-sm sm:text-[15px] text-ink-700 leading-relaxed sm:leading-[1.85] font-sans space-y-4 sm:space-y-5 [column-rule:1px_solid_#e7e5e4]">
 
             {/* Para 1 — drop cap */}
             <p className="break-inside-avoid">
-              <span className="float-left font-serif text-[4.5rem] leading-[0.75] mr-3 mt-1 text-ink-900 font-bold">F</span>
+              <span className="float-left font-serif text-[3.5rem] sm:text-[4.5rem] leading-[0.75] mr-2.5 sm:mr-3 mt-1 text-ink-900 font-bold">F</span>
               or me, art is not merely a medium for expressing the emotions, thoughts, and experiences that arise within me. It is also a process of intellectual and philosophical reflection, through which emotions and ideas are explored and transformed into meaningful artistic forms. My fascination with colours began in childhood, when I would become so absorbed in playing with colours that I lost track of time. This natural attraction gradually led me towards painting. My life experiences, social surroundings, and personal circumstances have continuously inspired and shaped my artistic journey.
             </p>
 
@@ -179,19 +187,19 @@ export const Home: React.FC = () => {
           </div>
 
           {/* ── Footer Actions ─────────────────────────────────── */}
-          <div className="mt-12 pt-8 border-t border-stone-200/60 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-stone-200/60 flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-6">
             <Link
               to="/media"
-              className="group inline-flex items-center space-x-2.5 text-xs font-mono uppercase tracking-widest text-sky-700 hover:text-sky-900 transition-colors font-semibold"
+              className="group inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-sky-700 hover:text-sky-900 transition-colors font-semibold"
             >
-              <span className="w-7 h-px bg-sky-500 group-hover:w-10 transition-all duration-300" />
+              <span className="w-5 sm:w-7 h-px bg-sky-500 group-hover:w-10 transition-all duration-300" />
               <span>Read Studio Treatises &amp; Essays</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
 
             <Link
               to="/media"
-              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/80 shadow-sm"
+              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/80 shadow-sm w-fit"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shrink-0" />
               <span>Watch “Walking with Art” Documentary</span>
@@ -202,7 +210,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* SECTION 3: ACADEMY STUDY (Text + 2 Image Boxes) */}
-      <section className="py-20 md:py-28 relative bg-[#FAF8F5] border-t border-stone-200/60">
+      <section className="py-14 sm:py-20 md:py-28 relative bg-[#FAF8F5] border-t border-stone-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">

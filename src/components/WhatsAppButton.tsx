@@ -20,7 +20,7 @@ export const WhatsAppButton: React.FC = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex items-end space-x-3 select-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-end space-x-2.5 sm:space-x-3 select-none">
       
       {/* iOS-Style Interactive Floating Tooltip Pill */}
       {showTooltip && (
@@ -32,7 +32,7 @@ export const WhatsAppButton: React.FC = () => {
           <button
             onClick={() => setShowTooltip(false)}
             aria-label="Dismiss tooltip"
-            className="text-stone-400 hover:text-stone-700 ml-1 p-0.5"
+            className="text-stone-400 hover:text-stone-700 ml-1 p-0.5 cursor-pointer"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -45,9 +45,9 @@ export const WhatsAppButton: React.FC = () => {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat directly on WhatsApp"
-        className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-2xl shadow-emerald-500/40 transition-all duration-300 hover:scale-110 active:scale-95 ring-4 ring-white/95"
+        className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white shadow-2xl shadow-emerald-500/40 transition-all duration-300 hover:scale-110 active:scale-95 ring-3 sm:ring-4 ring-white/95"
       >
-        <WhatsAppIcon className="w-7 h-7 text-white" fill="currentColor" />
+        <WhatsAppIcon className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="currentColor" />
         
         {/* Pulsing notification ring */}
         <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-35 group-hover:opacity-60 animate-ping pointer-events-none" />

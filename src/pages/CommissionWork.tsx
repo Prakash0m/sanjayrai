@@ -73,7 +73,7 @@ export const CommissionWork: React.FC = () => {
   const activeCommission: CommissionItem = pastCommissions[currentIndex];
 
   return (
-    <div className="pt-28 pb-24 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+    <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24">
         
         {/* TOP: Commission Header */}
