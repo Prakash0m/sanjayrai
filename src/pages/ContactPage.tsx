@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
-import { WhatsAppIcon, FacebookIcon, InstagramIcon } from '../components/Icons';
-import { Mail, Phone, MapPin, Send, Check, AlertCircle, Clock } from 'lucide-react';
+import { WhatsAppIcon, FacebookIcon, InstagramIcon, GmailIcon } from '../components/Icons';
+import { Mail, Phone, MapPin, Check, AlertCircle, Clock } from 'lucide-react';
 import { SEO } from '../components/SEO';
 
 export const ContactPage: React.FC = () => {
@@ -37,12 +37,21 @@ export const ContactPage: React.FC = () => {
     setErrors({});
     setSubmitted(true);
 
-    // Compose pre-filled WhatsApp message as well for instant delivery
-    const text = `Hello Sanjay Rai,\n\n*CONTACT FORM MESSAGE*\nName: ${formData.name}\nEmail: ${formData.email}\nMessage: ${formData.message}`;
-    const waUrl = getWhatsAppUrl(text);
+    // Compose official email to sanjaybantawa222@gmail.com
+    const subject = `Art & Studio Inquiry from ${formData.name}`;
+    const body = `Dear Sanjay Rai,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}\n\n---\nSent via Sanjay Rai Official Portfolio (sanjayrai.art)`;
 
-    // Open WhatsApp in new tab
-    window.open(waUrl, '_blank');
+    // 1. Direct Web Gmail Composer URL
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // 2. Fallback mailto URL for native Mail/Gmail apps
+    const mailtoUrl = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // Try opening Gmail directly in a new tab; fall back to mailto if popup blocked or on mobile
+    const newTab = window.open(gmailUrl, '_blank');
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      window.location.href = mailtoUrl;
+    }
   };
 
   return (
@@ -235,7 +244,14 @@ export const ContactPage: React.FC = () => {
                   Correspondence Form
                 </h3>
                 <p className="text-xs text-stone-500 font-sans">
-                  Please provide your contact information and details. We will respond promptly.
+                  Direct correspondence to official Gmail:{' '}
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="text-ink-900 font-semibold underline hover:text-[#EA4335] font-mono transition-colors"
+                  >
+                    {siteConfig.email}
+                  </a>
+                  . Submissions open directly in your Gmail.
                 </p>
               </div>
 
@@ -323,23 +339,46 @@ export const ContactPage: React.FC = () => {
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full flex items-center justify-center space-x-2 py-4 rounded-2xl bg-ink-900 hover:bg-black text-white text-xs sm:text-sm font-semibold tracking-wide uppercase shadow-lg shadow-black/10 transition-all hover:scale-[1.01] active:scale-[0.99]"
+                    className="w-full flex items-center justify-center space-x-2.5 py-4 rounded-2xl bg-ink-900 hover:bg-black text-white text-xs sm:text-sm font-semibold tracking-wide uppercase shadow-lg shadow-black/10 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                   >
-                    <Send className="w-4 h-4" />
-                    <span>Send Message</span>
+                    <GmailIcon className="w-5 h-5 shrink-0" />
+                    <span>Send Message to Gmail</span>
                   </button>
                 </div>
 
                 {/* Success Banner */}
                 {submitted && (
-                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Your message has been composed and WhatsApp opened. We will get back to you shortly!</span>
+                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-2">
+                    <div className="flex items-center space-x-2">
+                      <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                      <span className="font-semibold">Gmail Compose Window Opened!</span>
+                    </div>
+                    <p className="text-emerald-800 leading-relaxed">
+                      Your inquiry has been prepared for <strong>{siteConfig.email}</strong>. If Gmail didn't open automatically, use the buttons below:
+                    </p>
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      <a
+                        href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.email)}&su=${encodeURIComponent(`Art Inquiry from ${formData.name}`)}&body=${encodeURIComponent(`Dear Sanjay Rai,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-medium text-[11px] transition-colors"
+                      >
+                        <GmailIcon className="w-3.5 h-3.5" />
+                        <span>Open in Gmail</span>
+                      </a>
+                      <a
+                        href={`mailto:${siteConfig.email}?subject=${encodeURIComponent(`Art Inquiry from ${formData.name}`)}&body=${encodeURIComponent(`Dear Sanjay Rai,\n\nName: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`)}`}
+                        className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-[11px] transition-colors"
+                      >
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>Open in Mail App</span>
+                      </a>
+                    </div>
                   </div>
                 )}
 
                 <p className="text-[11px] text-stone-400 text-center font-mono pt-1">
-                  Confidential inquiry. Your email and message will never be shared.
+                  Confidential inquiry directly received at {siteConfig.email}.
                 </p>
 
               </form>

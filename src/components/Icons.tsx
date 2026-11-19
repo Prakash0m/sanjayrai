@@ -58,3 +58,33 @@ export const FacebookIcon: React.FC<{ className?: string }> = ({ className = "w-
     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
   </svg>
 );
+
+export const GmailIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2 5.5V18.5C2 19.6046 2.89543 20.5 4 20.5H6.5V11L2 7.625V5.5Z"
+      fill="#4285F4"
+    />
+    <path
+      d="M22 5.5V18.5C22 19.6046 21.1046 20.5 20 20.5H17.5V11L22 7.625V5.5Z"
+      fill="#34A853"
+    />
+    <path
+      d="M17.5 3.5H20C21.1046 3.5 22 4.39543 22 5.5V7.625L17.5 11V3.5Z"
+      fill="#FBBC04"
+    />
+    <path
+      d="M6.5 3.5H4C2.89543 3.5 2 4.39543 2 5.5V7.625L6.5 11V3.5Z"
+      fill="#EA4335"
+    />
+    <path
+      d="M6.5 3.5L12 7.625L17.5 3.5V11L12 15.125L6.5 11V3.5Z"
+      fill="#EA4335"
+    />
+  </svg>
+);

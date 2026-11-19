@@ -18,18 +18,16 @@ export const Contact: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Construct pre-filled WhatsApp message
-    const lines = [
-      `*Inquiry for Sanjay Rai (Bantawa)*`,
-      `*Name:* ${formData.name}`,
-      `*Contact:* ${formData.emailOrPhone}`,
-      `*Inquiry Type:* ${formData.interest}`,
-      formData.artworkTitle ? `*Artwork:* ${formData.artworkTitle}` : null,
-      `*Message:* ${formData.message || 'I am interested in discussing your artworks.'}`,
-    ].filter(Boolean).join('\n');
+    const subject = `Artwork Inquiry: ${formData.interest} - ${formData.name}`;
+    const body = `Dear Sanjay Rai,\n\nName: ${formData.name}\nContact: ${formData.emailOrPhone}\nInquiry Type: ${formData.interest}${formData.artworkTitle ? `\nArtwork: ${formData.artworkTitle}` : ''}\n\nMessage:\n${formData.message || 'I am interested in discussing your artworks.'}\n\n---\nSent via Sanjay Rai Portfolio Website`;
 
-    const whatsappUrl = getWhatsAppUrl(lines);
-    window.open(whatsappUrl, '_blank');
+    const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const mailtoUrl = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    const newTab = window.open(gmailUrl, '_blank');
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      window.location.href = mailtoUrl;
+    }
     setSubmitted(true);
   };
 
