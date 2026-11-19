@@ -78,11 +78,6 @@ export const CommissionWork: React.FC = () => {
         
         {/* TOP: Commission Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 shadow-2xs text-[11px] font-mono tracking-widest text-stone-700 uppercase">
-            <Hammer className="w-3 h-3 text-sky-600" />
-            <span>SITE-SPECIFIC SCULPTURE & MONUMENTS</span>
-          </div>
-
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink-900 leading-tight">
             Commission Work
           </h1>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Layers, Compass, Palette, Hammer, PenTool, ChevronDown, ChevronUp, Sparkles, Quote } from 'lucide-react';
+import { ArrowRight, Compass, Palette, Hammer, PenTool, ChevronDown, ChevronUp, Quote } from 'lucide-react';
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
@@ -23,12 +23,6 @@ export const Home: React.FC = () => {
             {/* Left Col: Artist Headline & Short Bio */}
             <div className="lg:col-span-7 space-y-5 sm:space-y-8 text-center lg:text-left">
               
-              {/* Eyebrow Pill */}
-              <div className="inline-flex items-center space-x-2 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 shadow-2xs text-[10px] sm:text-[11px] font-mono tracking-widest text-stone-700 uppercase max-w-full">
-                <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse shrink-0" />
-                <span className="truncate">CONTEMPORARY SCULPTOR &amp; PAINTER · KATHMANDU</span>
-              </div>
-
               {/* Large Editorial Headline */}
               <div className="space-y-2">
                 <h1 className="font-serif text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-ink-900 leading-[1.12]">
@@ -116,10 +110,7 @@ export const Home: React.FC = () => {
 
                   {/* Clean Editorial Caption (Outside photo area so zero obstruction) */}
                   <div className="pt-3 pb-1 px-1 flex flex-col space-y-1 text-left">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono tracking-widest text-sky-700 uppercase font-semibold">
-                        ARTIST IN STUDIO · KATHMANDU
-                      </span>
+                    <div className="flex items-center justify-end">
                       <span className="text-[10px] font-mono text-stone-400">1994 – 2024</span>
                     </div>
                     <h3 className="font-serif text-lg sm:text-xl font-bold text-ink-900 leading-tight">
@@ -144,11 +135,6 @@ export const Home: React.FC = () => {
 
           {/* ── Heading + Decorative Rule ──────────────────────── */}
           <div className="mb-6 sm:mb-10">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[10px] sm:text-[11px] font-mono tracking-widest uppercase mb-3">
-              <Sparkles className="w-3 h-3 text-sky-600" />
-              <span>PHILOSOPHY &amp; ETHOS</span>
-            </div>
-
             <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight mb-4 sm:mb-6">
               Artist Statement
             </h2>
@@ -297,11 +283,6 @@ export const Home: React.FC = () => {
 
             {/* Right Col: Academy Study Text */}
             <div className="lg:col-span-6 space-y-6 order-1 lg:order-2">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white text-stone-700 text-[11px] font-mono tracking-widest uppercase border border-stone-200/60">
-                <BookOpen className="w-3 h-3 text-sky-600" />
-                <span>PEDAGOGY & RIGOR</span>
-              </div>
-
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
                 Academy Study & Formative Practice
               </h2>
@@ -358,10 +339,6 @@ export const Home: React.FC = () => {
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase mb-3">
-                <Layers className="w-3 h-3 text-sky-600" />
-                <span>CORE MEDIUMS & DISCIPLINES</span>
-              </div>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
                 Sketch · Painting · Sculpture
               </h2>

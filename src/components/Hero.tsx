@@ -114,9 +114,6 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick }) => {
               </div>
 
               <div className="pt-3 pb-1 px-1 flex flex-col space-y-1 text-left">
-                <span className="text-[10px] font-mono tracking-widest text-sky-700 uppercase font-semibold">
-                  Artist in Studio · Archive
-                </span>
                 <h3 className="font-serif text-lg sm:text-xl font-bold text-ink-900">
                   Sanjay Rai (Bantawa)
                 </h3>

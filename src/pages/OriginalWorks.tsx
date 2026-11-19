@@ -5,7 +5,7 @@ import { SmartImage } from '../components/SmartImage';
 import { ImageLightbox } from '../components/ImageLightbox';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
-import { Eye, Tag } from 'lucide-react';
+import { Eye } from 'lucide-react';
 
 export const OriginalWorks: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,11 +51,6 @@ export const OriginalWorks: React.FC = () => {
         
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-md border border-stone-200/80 shadow-2xs text-[11px] font-mono tracking-widest text-stone-700 uppercase">
-            <Tag className="w-3 h-3 text-sky-600" />
-            <span>ORIGINAL WORKS · STUDIO ACQUISITIONS</span>
-          </div>
-
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink-900 leading-tight">
             Original Works & Paintings
           </h1>
