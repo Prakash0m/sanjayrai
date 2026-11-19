@@ -224,7 +224,7 @@ export const Home: React.FC = () => {
           </div>
 
           {/* ── Footer Actions ─────────────────────────────────── */}
-          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-stone-200/60 flex flex-col sm:flex-row sm:items-center gap-3.5 sm:gap-6">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-stone-200/60 flex items-center">
             <Link
               to="/media"
               className="group inline-flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-sky-700 hover:text-sky-900 transition-colors font-semibold"
@@ -232,14 +232,6 @@ export const Home: React.FC = () => {
               <span className="w-5 sm:w-7 h-px bg-sky-500 group-hover:w-10 transition-all duration-300" />
               <span>Read Studio Treatises &amp; Essays</span>
               <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-
-            <Link
-              to="/media"
-              className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-red-50 hover:bg-red-100 text-red-700 text-xs font-medium transition-colors border border-red-200/80 shadow-sm w-fit"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse shrink-0" />
-              <span>Watch “Walking with Art” Documentary</span>
             </Link>
           </div>
 
