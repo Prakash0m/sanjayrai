@@ -18,6 +18,7 @@ import {
   Play,
   Pause
 } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const CommissionWork: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -174,6 +175,12 @@ export const CommissionWork: React.FC = () => {
 
   return (
     <div className="pt-24 pb-20 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+      <SEO
+        title="Commission Public Monuments & Murals — Sanjay Rai (Bantawa) | Architectural Sculpture"
+        description="Commission site-specific civic monuments, architectural terracotta reliefs, and corporate murals by master Nepali sculptor Sanjay Rai. Serving institutions, heritage spaces, and private collectors globally."
+        keywords="Commission Sculpture Nepal, Public Monuments Kathmandu, Terracotta Relief Commission, Sanjay Rai Sculptor, Architectural Art Nepal, Civic Sculpture Imadol Lalitpur, #ContemporarySculpture, #PublicArtNepal"
+        canonicalPath="/commission"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         
         {/* PAGE HEADER */}

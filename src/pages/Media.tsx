@@ -4,6 +4,7 @@ import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
 import { Video, BookOpen, FileText, Download, ExternalLink, Play, User, X } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const Media: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
@@ -11,6 +12,12 @@ export const Media: React.FC = () => {
 
   return (
     <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+      <SEO
+        title="Media, Press & Monograph — Sanjay Rai (Bantawa) | Walking with Art Documentary"
+        description="Archival media, documentaries, press essays, and official 120-page monograph cataloguing thirty years of Sanjay Rai's studio practice and retrospective exhibitions."
+        keywords="Walking with Art Documentary, Sanjay Rai Monograph, Fine Arts Journal Nepal, Nepal Art Council Retrospective, Lalitpur Art Archive, #SanjayRaiMedia, #WalkingWithArt"
+        canonicalPath="/media"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20 sm:space-y-28">
         
         {/* Page Header */}

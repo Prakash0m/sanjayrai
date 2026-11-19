@@ -6,6 +6,7 @@ import { ImageLightbox } from '../components/ImageLightbox';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
 import { Eye } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const OriginalWorks: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -47,6 +48,12 @@ export const OriginalWorks: React.FC = () => {
 
   return (
     <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+      <SEO
+        title="Original Paintings & Life Studies — Sanjay Rai (Bantawa) | Studio Acquisitions"
+        description="Acquire original paintings, Lokta paper drawings, and studies directly from Sanjay Rai's studio in Imadol, Lalitpur, Nepal. Featuring Mundhum mythology, figurative studies, and equine series."
+        keywords="Sanjay Rai Original Paintings, Lokta Paper Art, Nepali Fine Art Acquisitions, Imadol Lalitpur Art Studio, Kirat Art, Himalayan Horses Series, #SanjayRai, #NepaliArt, #StudioAcquisitions"
+        canonicalPath="/original-works"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header */}

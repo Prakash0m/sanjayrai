@@ -4,12 +4,19 @@ import { ArrowRight, Compass, Palette, Hammer, PenTool, ChevronDown, ChevronUp, 
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
+import { SEO } from '../components/SEO';
 
 export const Home: React.FC = () => {
   const [statementExpanded, setStatementExpanded] = useState(false);
 
   return (
     <div className="space-y-0">
+      <SEO
+        title="Sanjay Rai (Bantawa) — Sculptor, Painter & Contemporary Nepali Artist"
+        description="Official portfolio and retrospective archive of Sanjay Rai (Bantawa). Three decades of monumental sculpture, high-fired terracotta, Lokta paper drawings, and Kirat cosmology in Imadol, Lalitpur, Nepal."
+        keywords="Sanjay Rai, Sanjay Rai Bantawa, Nepali Sculptor, Nepali Artist, Lalitpur Artist, Imadol Art Studio, Nepal Art Council, Kirat Art, Himalayan Sculpture, Lokta Paper Art, #SanjayRai, #NepaliArt, #ContemporarySculpture, #HimalayanArt"
+        canonicalPath="/"
+      />
       
       {/* SECTION 1: ARTIST PROFILE (Photo + Short Bio) */}
       <section className="relative pt-24 pb-12 sm:pt-36 sm:pb-24 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-white to-[#F8FBFF]">

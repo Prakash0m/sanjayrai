@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { siteConfig, getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
 import { Mail, Phone, MapPin, Send, Check, AlertCircle, Clock } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -46,6 +47,12 @@ export const ContactPage: React.FC = () => {
 
   return (
     <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+      <SEO
+        title="Contact Studio & Archive — Sanjay Rai (Bantawa) | Imadol, Lalitpur, Nepal"
+        description="Connect directly with Sanjay Rai's studio archive in Imadol, Lalitpur for artwork acquisitions, museum curation, lectures, or private and public commissions."
+        keywords="Contact Sanjay Rai, Sanjay Rai Studio Address, Imadol Lalitpur Artist Contact, WhatsApp Art Inquiry Nepal, Kathmandu Sculptor Studio, #SanjayRaiContact, #ImadolLalitpur"
+        canonicalPath="/contact"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         
         {/* Page Heading: Exact Requirement: "Get in Touch" */}

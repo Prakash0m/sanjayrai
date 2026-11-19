@@ -1,10 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- 1. Home / Retrospective Archive -->
   <url>
     <loc>https://sanjayrai.art/</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sanjayrai.art/" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://sanjayrai.art/" />
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artist/portrait.jpg</image:loc>
+      <image:title>Sanjay Rai (Bantawa) — Contemporary Sculptor and Painter in Studio</image:title>
+      <image:caption>Portrait of Sanjay Rai Bantawa, celebrated modern Nepali sculptor and painter in his studio in Imadol, Lalitpur, Nepal.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artist/avatar.jpg</image:loc>
+      <image:title>Sanjay Rai (Bantawa) Official Portrait</image:title>
+      <image:caption>Sanjay Rai official archival avatar.</image:caption>
+    </image:image>
   </url>
-</urlset>
 
+  <!-- 2. Original Works & Paintings Gallery -->
+  <url>
+    <loc>https://sanjayrai.art/original-works</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sanjayrai.art/original-works" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://sanjayrai.art/original-works" />
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/kathmandu-valley-festival-dhime.jpg</image:loc>
+      <image:title>Kathmandu Valley Festival and Dhime Rhythms (2021)</image:title>
+      <image:caption>Painting by Sanjay Rai celebrating communal procession, Dhime drummers and Newar women in Haku Patasi.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/kinetic-horses-stupa-bells.jpg</image:loc>
+      <image:title>Celestial Ascent: Kinetic Equus and Valley Spires (2014)</image:title>
+      <image:caption>Original painting by Sanjay Rai featuring turquoise horses ascending towards sacred stupa bells.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/kirat-shaman-peacock-headdress.jpg</image:loc>
+      <image:title>Kirat Ancestral Shaman and Sacred Chindo (2020)</image:title>
+      <image:caption>Kirati shaman elder with peacock feather crown, chindo gourds and cosmic fish by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/quadriptych-equine-valley-pagodas.jpg</image:loc>
+      <image:title>Valley of the Four Temples Equine Quadriptych (2024)</image:title>
+      <image:caption>Monumental four-panel polyptych painting capturing golden and ivory horses through Kathmandu pagoda shrines.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/traditional-stick-dance-danda-nach.jpg</image:loc>
+      <image:title>Danda Nach: Ritual Stick Dancers (2020)</image:title>
+      <image:caption>Four women performing traditional ritual stick dance in indigenous attire by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/horse-crescent-moon-waters.jpg</image:loc>
+      <image:title>Nocturne: Steed Rising from the Sacred Lake (2020)</image:title>
+      <image:caption>Steed emerging from nocturnal waters with crescent moon and mountain architecture by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/energy-horses-woman-saffron.jpg</image:loc>
+      <image:title>Equine Reverie in Saffron and Vermilion (2019)</image:title>
+      <image:caption>Heavy oil impasto painting of a woman and dynamic stallions in vivid saffron by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/kirat-cymbals-sacred-fish.jpg</image:loc>
+      <image:title>Silam Sakma: Chants of the Kirat Matriarch (2007)</image:title>
+      <image:caption>Kirati matriarch playing ceremonial brass cymbals (jhyamta) and sacred fish river by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/equine-constellation-temples.jpg</image:loc>
+      <image:title>Equine Constellation Above Patan Spires (2022)</image:title>
+      <image:caption>Celestial horses encircling pagoda sanctums in Patan, Nepal by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/galloping-horse-impasto-fire.jpg</image:loc>
+      <image:title>Galloping Stallion in Scarlet Impasto (2018)</image:title>
+      <image:caption>Expressionist canvas of a galloping horse with scarlet mane by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/night-solitude-horses.jpg</image:loc>
+      <image:title>Nocturne with Blue Horse Spirits (2021)</image:title>
+      <image:caption>Contemplative female figure and equine spirits in Prussian blues by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/seated-woman-1999.jpg</image:loc>
+      <image:title>Study of Seated Woman in Salwar (1999)</image:title>
+      <image:caption>Academic life study on archival Lokta paper signed Bantawa 1999.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/anatomical-study-1998.jpg</image:loc>
+      <image:title>Anatomical Ecorche and Muscle Architecture (1998)</image:title>
+      <image:caption>Rigorous pen and ink study of musculoskeletal kinetics by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/seated-sari-1999.jpg</image:loc>
+      <image:title>Elder in Traditional Drape (1999)</image:title>
+      <image:caption>Introspective pencil portrait of an elder woman in sari on hand-beaten paper by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/himalayan-conversation.jpg</image:loc>
+      <image:title>The Himalayan Conversation (1997)</image:title>
+      <image:caption>Masterpiece depicting mountain pastoral life and village discourse by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/blue-horse-embrace.jpg</image:loc>
+      <image:title>Embrace / Spirit of the Blue Horse (2001)</image:title>
+      <image:caption>Pastel study celebrating companionship between human and equine spirits by Sanjay Rai.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/yakshi-figure-1999.jpg</image:loc>
+      <image:title>Yakshi with Pot Sculptural Study (1999)</image:title>
+      <image:caption>Sculptural study inspired by Licchavi and Kirat terracotta iconography by Sanjay Rai.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 3. Commission Work & Public Monuments -->
+  <url>
+    <loc>https://sanjayrai.art/commission</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sanjayrai.art/commission" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://sanjayrai.art/commission" />
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artworks/goddess-staff-1998.jpg</image:loc>
+      <image:title>The Kirati Ancestral Guardian Public Monument</image:title>
+      <image:caption>12-foot public sculpture in chiseled black granite at Dharan Civic Heritage Square by Sanjay Rai.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 4. Media, Documentary & Publications -->
+  <url>
+    <loc>https://sanjayrai.art/media</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sanjayrai.art/media" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://sanjayrai.art/media" />
+    <image:image>
+      <image:loc>https://sanjayrai.art/images/artist/walking-with-art-thumb.jpg</image:loc>
+      <image:title>Walking with Art Documentary Thumbnail</image:title>
+      <image:caption>Documentary on Sanjay Rai, directed by SandipR for Moment Invitational 2020.</image:caption>
+    </image:image>
+  </url>
+
+  <!-- 5. Contact & Studio Archive Representation -->
+  <url>
+    <loc>https://sanjayrai.art/contact</loc>
+    <lastmod>2026-11-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://sanjayrai.art/contact" />
+    <xhtml:link rel="alternate" hreflang="ne" href="https://sanjayrai.art/contact" />
+  </url>
+
+</urlset>
