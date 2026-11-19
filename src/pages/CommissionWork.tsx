@@ -63,13 +63,13 @@ export const CommissionWork: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + totalCommissions) % totalCommissions);
   }, [totalCommissions]);
 
-  // AUTOMATIC AUTO-RUN / SPIN SLIDESHOW
+  // AUTOMATIC AUTO-RUN / SPIN SLIDESHOW (Faster & Brisk Pace)
   useEffect(() => {
     if (!isAutoPlaying || isHovered || isDragging || lightboxOpen) return;
 
     const interval = setInterval(() => {
       handleNext();
-    }, 3000);
+    }, 1700);
 
     return () => clearInterval(interval);
   }, [handleNext, isAutoPlaying, isHovered, isDragging, lightboxOpen]);
@@ -274,7 +274,7 @@ export const CommissionWork: React.FC = () => {
                   key={commission.id}
                   onClick={() => handleCardClick(idx)}
                   className={`group absolute w-[230px] h-[300px] sm:w-[270px] sm:h-[355px] md:w-[310px] md:h-[400px] rounded-3xl overflow-hidden cursor-pointer ${
-                    isDragging ? 'transition-none' : 'transition-all duration-500 ease-[cubic-bezier(0.2,1,0.3,1)]'
+                    isDragging ? 'transition-none' : 'transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]'
                   }`}
                   style={{
                     transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,

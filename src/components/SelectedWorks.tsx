@@ -37,13 +37,13 @@ export const SelectedWorks: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + totalWorks) % totalWorks);
   }, [totalWorks]);
 
-  // AUTOMATIC SLIDESHOW (Auto-advances smoothly)
+  // AUTOMATIC SLIDESHOW (Auto-advances smoothly & briskly)
   useEffect(() => {
     if (!isAutoPlaying || isHovered || isDragging || lightboxOpen) return;
 
     const interval = setInterval(() => {
       handleNext();
-    }, 3200);
+    }, 1900);
 
     return () => clearInterval(interval);
   }, [handleNext, isAutoPlaying, isHovered, isDragging, lightboxOpen]);
