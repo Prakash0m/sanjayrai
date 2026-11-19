@@ -441,6 +441,50 @@ export const pastCommissions: CommissionItem[] = [
     client: "Private Asian Modernism Collector",
     image: "/images/artworks/blue-horse-embrace.jpg",
     description: "A commissioned intimate study exploring empathy, trans-species companionship, and spiritual release."
+  },
+  {
+    id: "comm-5",
+    title: "Valley of the Four Temples (Monumental Quadriptych)",
+    type: "Institutional Atrium Installation",
+    medium: "Oil, acrylic and enamel on four-panel canvas",
+    year: "2024",
+    location: "Kathmandu Heritage Atrium, Nepal",
+    client: "Himalayan Hospitality & Arts Collection",
+    image: "/images/artworks/quadriptych-equine-valley-pagodas.jpg",
+    description: "A grand 4-panel architectural installation depicting the kinetic energy of galloping horses rushing past Kathmandu's historic pagoda shrines."
+  },
+  {
+    id: "comm-6",
+    title: "Dhime Rhythms & Valley Procession",
+    type: "Civic Heritage Commission",
+    medium: "Acrylic and oil on linen canvas",
+    year: "2021",
+    location: "Lalitpur Municipal Arts Pavilion, Patan",
+    client: "Patan Heritage Conservation Trust",
+    image: "/images/artworks/kathmandu-valley-festival-dhime.jpg",
+    description: "Celebrating centuries of Newar and Kirat cultural unity, rhythmic drumming, and floral offerings in historic Patan."
+  },
+  {
+    id: "comm-7",
+    title: "The Shaman's Mundhum Invocation",
+    type: "Indigenous Heritage Commission",
+    medium: "Oil, gouache and gold leaf on canvas",
+    year: "2020",
+    location: "Kirat Cultural Archive & Museum, Dharan",
+    client: "Kirat Indigenous Knowledge Trust",
+    image: "/images/artworks/kirat-shaman-peacock-headdress.jpg",
+    description: "Honoring ancestral oral traditions with ceremonial chindo vessels, peacock plumage, and sacred river fish symbolism."
+  },
+  {
+    id: "comm-8",
+    title: "Nocturne Steed of the Sacred Waters",
+    type: "Private Estate Commission",
+    medium: "Oil and tempera on canvas",
+    year: "2020",
+    location: "Fewalake Sanctuary Villa, Pokhara",
+    client: "Private Contemporary Art Collector",
+    image: "/images/artworks/horse-crescent-moon-waters.jpg",
+    description: "Commissioned for an alpine lakeside residence, depicting tranquility, mountain moonlight, and the protective spirit of the horse."
   }
 ];
 

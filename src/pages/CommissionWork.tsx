@@ -1,13 +1,37 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { pastCommissions, CommissionItem } from '../data/portfolio';
+import React, { useState, useRef, useCallback } from 'react';
+import { pastCommissions, Artwork } from '../data/portfolio';
 import { SmartImage } from '../components/SmartImage';
+import { ImageLightbox } from '../components/ImageLightbox';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
-import { ChevronLeft, ChevronRight, Hammer, MapPin, Building, Check, Send, AlertCircle } from 'lucide-react';
+import { 
+  ChevronLeft, 
+  ChevronRight, 
+  Hammer, 
+  MapPin, 
+  Building, 
+  Check, 
+  Send, 
+  AlertCircle, 
+  Eye, 
+  Calendar
+} from 'lucide-react';
 
 export const CommissionWork: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  // Horizontal Scroll Container Ref
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
+  const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
+
+  // Mouse Drag to Scroll State
+  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
+  const [startX, setStartX] = useState<number>(0);
+  const [scrollLeftState, setScrollLeftState] = useState<number>(0);
+  const isDraggingRef = useRef<boolean>(false);
+
+  // Lightbox State
+  const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
+  const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
   // Form State & Validation
   const [formData, setFormData] = useState({
@@ -18,24 +42,73 @@ export const CommissionWork: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const totalCommissions = pastCommissions.length;
+  // Convert commissions for ImageLightbox inspection
+  const commissionArtworks: Artwork[] = pastCommissions.map((comm) => ({
+    id: comm.id,
+    title: comm.title,
+    category: 'SCULPTURE',
+    medium: comm.medium,
+    dimensions: `${comm.location} · Client: ${comm.client}`,
+    year: comm.year,
+    price: comm.type,
+    image: comm.image,
+    description: comm.description,
+  }));
 
-  const handleNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % totalCommissions);
-  }, [totalCommissions]);
+  // Update arrow states based on scroll position
+  const checkScrollability = useCallback(() => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  }, []);
 
-  const handlePrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + totalCommissions) % totalCommissions);
-  }, [totalCommissions]);
+  // Smooth scroll handler
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = Math.min(scrollContainerRef.current.clientWidth * 0.8, 480);
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+      setTimeout(checkScrollability, 350);
+    }
+  };
 
-  // Auto-advance slider
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const timer = setInterval(() => {
-      handleNext();
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [handleNext, isAutoPlaying]);
+  // Mouse Drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollContainerRef.current) return;
+    setIsMouseDown(true);
+    isDraggingRef.current = false;
+    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
+    setScrollLeftState(scrollContainerRef.current.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown || !scrollContainerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollContainerRef.current.offsetLeft;
+    const walk = (x - startX) * 1.4; // Scroll speed multiplier
+    if (Math.abs(walk) > 5) {
+      isDraggingRef.current = true;
+    }
+    scrollContainerRef.current.scrollLeft = scrollLeftState - walk;
+    checkScrollability();
+  };
+
+  const handleMouseUpOrLeave = () => {
+    setIsMouseDown(false);
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 50);
+  };
+
+  const handleCardImageClick = (index: number) => {
+    if (isDraggingRef.current) return;
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
 
   // Form validation & submission
   const handleSubmit = (e: React.FormEvent) => {
@@ -51,7 +124,7 @@ export const CommissionWork: React.FC = () => {
       newErrors.phone = 'Phone number must contain at least 7 digits.';
     }
     if (!formData.message.trim()) {
-      newErrors.message = 'Please describe your commission project, location or ideas.';
+      newErrors.message = 'Please describe your commission project, space, or idea.';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -70,13 +143,11 @@ export const CommissionWork: React.FC = () => {
     window.open(waUrl, '_blank');
   };
 
-  const activeCommission: CommissionItem = pastCommissions[currentIndex];
-
   return (
-    <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
+    <div className="pt-24 pb-20 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24">
         
-        {/* TOP: Commission Header */}
+        {/* PAGE HEADER */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink-900 leading-tight">
             Commission Work
@@ -87,130 +158,214 @@ export const CommissionWork: React.FC = () => {
           </p>
         </div>
 
-        {/* TOP REQUIREMENT: HORIZONTAL IMAGE SLIDER / CAROUSEL OF PAST COMMISSIONS */}
-        <div 
-          className="relative max-w-5xl mx-auto rounded-3xl bg-white p-6 sm:p-10 border border-stone-200/70 shadow-xl overflow-hidden"
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
-        >
-          {/* Section Eyebrow within card */}
-          <div className="flex items-center justify-between mb-6 pb-4 border-b border-stone-100">
-            <div className="flex items-center space-x-2">
-              <span className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
-              <span className="text-[11px] font-mono uppercase tracking-widest text-stone-500 font-semibold">
-                PAST COMMISSIONS SLIDER · PROJECT {currentIndex + 1} OF {totalCommissions}
-              </span>
+        {/* COMMISSION SHOWCASE HEADER & SCROLL CONTROLS (NO ENCLOSING BOX) */}
+        <div className="space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200/70 pb-5">
+            <div>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
+                Documented Public & Private Commissions
+              </h2>
+              <p className="text-xs sm:text-sm text-ink-600 font-sans mt-1">
+                Swipe or use controls to browse selected civic monuments, corporate murals, and private installations ({pastCommissions.length} projects).
+              </p>
             </div>
 
-            {/* Slider Navigation Arrows */}
-            <div className="flex items-center space-x-2">
+            {/* Slider Navigation Arrows & Swipe Hint */}
+            <div className="flex items-center space-x-3 shrink-0">
+              <span className="text-[11px] font-mono text-stone-500 hidden md:inline">
+                Drag / Swipe to explore
+              </span>
+
               <button
-                onClick={handlePrev}
-                aria-label="Previous commission"
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+                onClick={() => scroll('left')}
+                disabled={!canScrollLeft}
+                aria-label="Scroll left"
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                  canScrollLeft
+                    ? 'bg-white hover:bg-ink-900 hover:text-white text-ink-900 border border-stone-200 shadow-sm active:scale-95'
+                    : 'bg-stone-200/50 text-stone-400 border border-transparent cursor-not-allowed opacity-60'
+                }`}
               >
                 <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
               </button>
 
               <button
-                onClick={handleNext}
-                aria-label="Next commission"
-                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 flex items-center justify-center transition-all hover:scale-105 active:scale-95"
+                onClick={() => scroll('right')}
+                disabled={!canScrollRight}
+                aria-label="Scroll right"
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                  canScrollRight
+                    ? 'bg-white hover:bg-ink-900 hover:text-white text-ink-900 border border-stone-200 shadow-sm active:scale-95'
+                    : 'bg-stone-200/50 text-stone-400 border border-transparent cursor-not-allowed opacity-60'
+                }`}
               >
                 <ChevronRight className="w-5 h-5 stroke-[2.5]" />
               </button>
             </div>
           </div>
 
-          {/* Slider Active Item Display */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-            
-            {/* Image Box */}
-            <div className="md:col-span-6">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-[#FAF8F5] p-3 shadow-inner">
-                <SmartImage
-                  src={activeCommission.image}
-                  alt={activeCommission.title}
-                  objectFit="contain"
-                  className="w-full h-full flex items-center justify-center bg-transparent"
-                  imgClassName="object-contain w-full h-full filter drop-shadow-sm"
-                  priority={true}
-                />
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-ink-900/80 backdrop-blur-md text-[10px] font-mono text-white">
-                  {activeCommission.year}
+          {/* HORIZONTAL SCROLL TRACK (SEAMLESS - SAME BACKGROUND, NO BOX CONFINEMENT) */}
+          <div
+            ref={scrollContainerRef}
+            onScroll={checkScrollability}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUpOrLeave}
+            onMouseLeave={handleMouseUpOrLeave}
+            className={`flex items-stretch gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 scrollbar-none scroll-smooth snap-x snap-mandatory ${
+              isMouseDown ? 'cursor-grabbing select-none' : 'cursor-grab'
+            }`}
+          >
+            {pastCommissions.map((commission, idx) => (
+              <div
+                key={commission.id}
+                className="w-[84vw] sm:w-[420px] md:w-[460px] lg:w-[480px] shrink-0 snap-start flex flex-col justify-between rounded-3xl bg-white border border-stone-200/70 p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                {/* Artwork Image Container */}
+                <div>
+                  <div
+                    onClick={() => handleCardImageClick(idx)}
+                    className="group/img relative aspect-[16/11] rounded-2xl overflow-hidden bg-[#F5F2EB] cursor-pointer mb-5"
+                  >
+                    <SmartImage
+                      src={commission.image}
+                      alt={commission.title}
+                      objectFit="cover"
+                      className="w-full h-full"
+                      imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
+                    />
+
+                    {/* Floating Year Badge */}
+                    <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-ink-900/85 backdrop-blur-md text-[11px] font-mono text-white shadow-sm flex items-center space-x-1">
+                      <Calendar className="w-3 h-3 text-amber-300" />
+                      <span>{commission.year}</span>
+                    </div>
+
+                    {/* Type Badge */}
+                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-ink-900 font-semibold shadow-xs">
+                      {commission.type}
+                    </div>
+
+                    {/* Hover Inspect Indicator */}
+                    <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <div className="px-3.5 py-1.5 rounded-full bg-white/95 text-ink-900 text-xs font-semibold flex items-center space-x-1.5 shadow-lg transform translate-y-2 group-hover/img:translate-y-0 transition-transform">
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Inspect Full View</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Commission Title */}
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-ink-900 leading-snug mb-3">
+                    {commission.title}
+                  </h3>
+
+                  {/* Metadata: Location, Client, Medium */}
+                  <div className="space-y-1.5 text-xs font-mono text-stone-600 mb-4 bg-[#FAF8F5] p-3 rounded-xl border border-stone-200/50">
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                      <span className="truncate">{commission.location}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Building className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                      <span className="truncate">Client: {commission.client}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Hammer className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                      <span className="truncate">Medium: {commission.medium}</span>
+                    </div>
+                  </div>
+
+                  {/* Narrative Description */}
+                  <p className="text-xs sm:text-sm text-ink-700 font-sans leading-relaxed line-clamp-3">
+                    {commission.description}
+                  </p>
+                </div>
+
+                {/* Footer Actions */}
+                <div className="pt-5 mt-4 border-t border-stone-100 flex items-center justify-between gap-3">
+                  <a
+                    href={getWhatsAppUrl(`Hello Sanjay Rai, I would like to inquire about a commission similar to your project: "${commission.title}" (${commission.location}).`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center space-x-2 px-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
+                    <span>Discuss Similar Work</span>
+                  </a>
+
+                  <button
+                    onClick={() => handleCardImageClick(idx)}
+                    aria-label="Inspect artwork image"
+                    className="p-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 transition-all hover:scale-105 active:scale-95"
+                    title="View Fullscreen"
+                  >
+                    <Eye className="w-4 h-4" />
+                  </button>
                 </div>
               </div>
-            </div>
-
-            {/* Commission Information */}
-            <div className="md:col-span-6 space-y-4">
-              <div className="inline-block px-3 py-1 rounded-full bg-sky-50 text-sky-700 text-[10px] font-mono tracking-wider uppercase font-semibold">
-                {activeCommission.type}
-              </div>
-
-              <h3 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900 leading-snug">
-                {activeCommission.title}
-              </h3>
-
-              <div className="space-y-2 text-xs font-mono text-stone-500 pt-1">
-                <div className="flex items-center space-x-2">
-                  <MapPin className="w-4 h-4 text-stone-400 shrink-0" />
-                  <span>{activeCommission.location}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Building className="w-4 h-4 text-stone-400 shrink-0" />
-                  <span>Client: {activeCommission.client}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Hammer className="w-4 h-4 text-stone-400 shrink-0" />
-                  <span>Medium: {activeCommission.medium}</span>
-                </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-ink-700 font-sans leading-relaxed pt-2">
-                {activeCommission.description}
-              </p>
-
-              <div className="pt-4 flex items-center space-x-3">
-                <a
-                  href={getWhatsAppUrl(`Hello Sanjay Rai, I am inquiring regarding a commission similar to your project: "${activeCommission.title}" (${activeCommission.location}).`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold shadow-sm transition-all hover:scale-105"
-                >
-                  <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
-                  <span>Discuss Similar Project</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex items-center justify-center space-x-1.5 mt-8 pt-6 border-t border-stone-100">
-            {pastCommissions.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                aria-label={`Jump to commission ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full ${
-                  idx === currentIndex
-                    ? 'w-6 h-1.5 bg-ink-900'
-                    : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
-                }`}
-              />
             ))}
           </div>
-
         </div>
 
-        {/* BELOW REQUIREMENT: COMMISSION ENQUIRY FORM WITH BASIC VALIDATION */}
-        <div className="max-w-2xl mx-auto rounded-3xl bg-white p-6 sm:p-10 border border-stone-200/70 shadow-lg space-y-6">
+        {/* COMMISSION METHODOLOGY & ARCHIVAL INTEGRITY */}
+        <div className="py-8 border-y border-stone-200/70">
+          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
+              The Commission Journey
+            </h2>
+            <p className="text-xs sm:text-sm text-ink-600 font-sans">
+              From site orientation and clay maquettes to permanent architectural anchoring.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
+              <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-mono font-bold text-sm">
+                01
+              </div>
+              <h3 className="font-serif font-bold text-ink-900 text-base">Space & Ethos Dialogue</h3>
+              <p className="text-xs text-ink-600 font-sans leading-relaxed">
+                Initial curatorial consultation examining spatial light, architectural context, and cultural narrative.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
+              <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-mono font-bold text-sm">
+                02
+              </div>
+              <h3 className="font-serif font-bold text-ink-900 text-base">Maquettes & Studies</h3>
+              <p className="text-xs text-ink-600 font-sans leading-relaxed">
+                Scaled graphite studies and terracotta maquettes sculpted for architectural approval.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-mono font-bold text-sm">
+                03
+              </div>
+              <h3 className="font-serif font-bold text-ink-900 text-base">Direct Studio Execution</h3>
+              <p className="text-xs text-ink-600 font-sans leading-relaxed">
+                Sanjay Rai personally chisels, molds, or paints the work at his studio in Kathmandu.
+              </p>
+            </div>
+
+            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
+              <div className="w-9 h-9 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center font-mono font-bold text-sm">
+                04
+              </div>
+              <h3 className="font-serif font-bold text-ink-900 text-base">Installation & Certificate</h3>
+              <p className="text-xs text-ink-600 font-sans leading-relaxed">
+                White-glove delivery, structural mounting, and a signed Archival Authenticity Certificate.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* COMMISSION ENQUIRY FORM (BLENDED NATURALLY WITH SAME BACKGROUND) */}
+        <div className="max-w-2xl mx-auto rounded-3xl bg-white/90 backdrop-blur-md p-6 sm:p-10 border border-stone-200/70 shadow-sm space-y-6">
           
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase">
-              <span>CUSTOM PROJECTS</span>
-            </div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
               Commission Enquiry Form
             </h2>
@@ -234,7 +389,7 @@ export const CommissionWork: React.FC = () => {
                   setFormData({ ...formData, name: e.target.value });
                   if (errors.name) setErrors({ ...errors, name: '' });
                 }}
-                placeholder="e.g. Maya Shrestha / Institution Name"
+                placeholder="e.g. Maya Shrestha / Heritage Institution"
                 className={`w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border text-ink-900 text-sm focus:outline-none transition-all ${
                   errors.name ? 'border-rose-400 ring-1 ring-rose-400' : 'border-stone-200 focus:border-ink-900'
                 }`}
@@ -286,7 +441,7 @@ export const CommissionWork: React.FC = () => {
                   setFormData({ ...formData, message: e.target.value });
                   if (errors.message) setErrors({ ...errors, message: '' });
                 }}
-                placeholder="Describe your intended space (civic square, garden, residence), desired medium (granite, bronze, terracotta, paper), dimensions, and anticipated timeline..."
+                placeholder="Describe your intended space (civic square, garden, atrium, residence), desired medium (granite, bronze, terracotta, canvas), dimensions, and anticipated timeline..."
                 className={`w-full px-4 py-3 rounded-2xl bg-[#FAF8F5] border text-ink-900 text-sm focus:outline-none transition-all resize-none ${
                   errors.message ? 'border-rose-400 ring-1 ring-rose-400' : 'border-stone-200 focus:border-ink-900'
                 }`}
@@ -327,6 +482,15 @@ export const CommissionWork: React.FC = () => {
         </div>
 
       </div>
+
+      {/* FULLSCREEN IMAGE LIGHTBOX */}
+      <ImageLightbox
+        artworks={commissionArtworks}
+        currentIndex={lightboxIndex}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        onNavigate={(newIdx) => setLightboxIndex(newIdx)}
+      />
     </div>
   );
 };
