@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { pastCommissions, Artwork } from '../data/portfolio';
 import { SmartImage } from '../components/SmartImage';
 import { ImageLightbox } from '../components/ImageLightbox';
@@ -14,20 +14,24 @@ import {
   Send, 
   AlertCircle, 
   Eye, 
-  Calendar
+  Calendar,
+  Play,
+  Pause
 } from 'lucide-react';
 
 export const CommissionWork: React.FC = () => {
-  // Horizontal Scroll Container Ref
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState<boolean>(false);
-  const [canScrollRight, setCanScrollRight] = useState<boolean>(true);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(true);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
 
-  // Mouse Drag to Scroll State
-  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
-  const [startX, setStartX] = useState<number>(0);
-  const [scrollLeftState, setScrollLeftState] = useState<number>(0);
-  const isDraggingRef = useRef<boolean>(false);
+  // Drag / Swipe State
+  const [startX, setStartX] = useState<number | null>(null);
+  const [dragDelta, setDragDelta] = useState<number>(0);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const hasMovedRef = useRef<boolean>(false);
 
   // Lightbox State
   const [lightboxOpen, setLightboxOpen] = useState<boolean>(false);
@@ -42,6 +46,85 @@ export const CommissionWork: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [submitted, setSubmitted] = useState<boolean>(false);
 
+  const totalCommissions = pastCommissions.length;
+
+  // Window resize listener
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % totalCommissions);
+  }, [totalCommissions]);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + totalCommissions) % totalCommissions);
+  }, [totalCommissions]);
+
+  // AUTOMATIC AUTO-RUN / SPIN SLIDESHOW
+  useEffect(() => {
+    if (!isAutoPlaying || isHovered || isDragging || lightboxOpen) return;
+
+    const interval = setInterval(() => {
+      handleNext();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [handleNext, isAutoPlaying, isHovered, isDragging, lightboxOpen]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxOpen) return;
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [handleNext, handlePrev, lightboxOpen]);
+
+  // Drag / Swipe handlers
+  const handleStart = (clientX: number) => {
+    setStartX(clientX);
+    setDragDelta(0);
+    setIsDragging(true);
+    hasMovedRef.current = false;
+  };
+
+  const handleMove = (clientX: number) => {
+    if (!isDragging || startX === null) return;
+    const delta = clientX - startX;
+    setDragDelta(delta);
+    if (Math.abs(delta) > 6) {
+      hasMovedRef.current = true;
+    }
+  };
+
+  const handleEnd = () => {
+    if (!isDragging) return;
+    if (dragDelta > 45) {
+      handlePrev();
+    } else if (dragDelta < -45) {
+      handleNext();
+    }
+    setIsDragging(false);
+    setStartX(null);
+    setDragDelta(0);
+  };
+
+  const handleCardClick = (index: number) => {
+    if (hasMovedRef.current) return;
+    if (index === currentIndex) {
+      setLightboxIndex(index);
+      setLightboxOpen(true);
+    } else {
+      setCurrentIndex(index);
+    }
+  };
+
   // Convert commissions for ImageLightbox inspection
   const commissionArtworks: Artwork[] = pastCommissions.map((comm) => ({
     id: comm.id,
@@ -55,62 +138,7 @@ export const CommissionWork: React.FC = () => {
     description: comm.description,
   }));
 
-  // Update arrow states based on scroll position
-  const checkScrollability = useCallback(() => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setCanScrollLeft(scrollLeft > 10);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-    }
-  }, []);
-
-  // Smooth scroll handler
-  const scroll = (direction: 'left' | 'right') => {
-    if (scrollContainerRef.current) {
-      const scrollAmount = Math.min(scrollContainerRef.current.clientWidth * 0.8, 480);
-      scrollContainerRef.current.scrollBy({
-        left: direction === 'left' ? -scrollAmount : scrollAmount,
-        behavior: 'smooth'
-      });
-      setTimeout(checkScrollability, 350);
-    }
-  };
-
-  // Mouse Drag handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollContainerRef.current) return;
-    setIsMouseDown(true);
-    isDraggingRef.current = false;
-    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-    setScrollLeftState(scrollContainerRef.current.scrollLeft);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isMouseDown || !scrollContainerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 1.4; // Scroll speed multiplier
-    if (Math.abs(walk) > 5) {
-      isDraggingRef.current = true;
-    }
-    scrollContainerRef.current.scrollLeft = scrollLeftState - walk;
-    checkScrollability();
-  };
-
-  const handleMouseUpOrLeave = () => {
-    setIsMouseDown(false);
-    setTimeout(() => {
-      isDraggingRef.current = false;
-    }, 50);
-  };
-
-  const handleCardImageClick = (index: number) => {
-    if (isDraggingRef.current) return;
-    setLightboxIndex(index);
-    setLightboxOpen(true);
-  };
-
-  // Form validation & submission
+  // Form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: { [key: string]: string } = {};
@@ -135,20 +163,21 @@ export const CommissionWork: React.FC = () => {
     setErrors({});
     setSubmitted(true);
 
-    // Pre-compose WhatsApp inquiry message
     const waText = `Hello Sanjay Rai,\n\n*NEW COMMISSION ENQUIRY*\nName: ${formData.name}\nPhone: ${formData.phone}\nProject Details: ${formData.message}\n\nI would like to discuss commissioning an artwork.`;
     const waUrl = getWhatsAppUrl(waText);
-
-    // Open WhatsApp in a new tab
     window.open(waUrl, '_blank');
   };
 
+  // Responsive spacing between card centers in 3D perspective
+  const cardSpacing = windowWidth < 640 ? 170 : windowWidth < 1024 ? 220 : 260;
+  const activeCommission = pastCommissions[currentIndex];
+
   return (
     <div className="pt-24 pb-20 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         
         {/* PAGE HEADER */}
-        <div className="text-center max-w-3xl mx-auto space-y-4">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink-900 leading-tight">
             Commission Work
           </h1>
@@ -158,159 +187,229 @@ export const CommissionWork: React.FC = () => {
           </p>
         </div>
 
-        {/* COMMISSION SHOWCASE HEADER & SCROLL CONTROLS (NO ENCLOSING BOX) */}
-        <div className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-stone-200/70 pb-5">
-            <div>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
-                Documented Public & Private Commissions
+        {/* 3D RUNNING / SPINNING CAROUSEL TRACK (BOX VITRA ONLY IMAGE) */}
+        <div className="relative select-none">
+          
+          {/* Controls Bar: Play/Pause, Live Index, Arrow Buttons */}
+          <div className="flex items-center justify-between mb-4 px-2">
+            <div className="flex items-center space-x-2 text-[11px] font-mono text-stone-600">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-semibold uppercase tracking-wider">
+                COMMISSION {currentIndex + 1} OF {totalCommissions}
+              </span>
+              <span className="text-stone-300">·</span>
+              <span className="hidden sm:inline text-stone-500">
+                {isHovered ? 'Paused on hover' : 'Auto-running'}
+              </span>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                aria-label={isAutoPlaying ? 'Pause rotation' : 'Resume rotation'}
+                className="w-8 h-8 rounded-full bg-white hover:bg-stone-100 text-stone-700 border border-stone-200/80 flex items-center justify-center transition-all shadow-xs"
+                title={isAutoPlaying ? 'Pause auto-run' : 'Resume auto-run'}
+              >
+                {isAutoPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
+              </button>
+
+              <button
+                onClick={handlePrev}
+                aria-label="Previous commission"
+                className="w-9 h-9 rounded-full bg-white hover:bg-ink-900 hover:text-white text-ink-900 border border-stone-200/80 flex items-center justify-center transition-all shadow-xs active:scale-95"
+              >
+                <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
+              </button>
+
+              <button
+                onClick={handleNext}
+                aria-label="Next commission"
+                className="w-9 h-9 rounded-full bg-white hover:bg-ink-900 hover:text-white text-ink-900 border border-stone-200/80 flex items-center justify-center transition-all shadow-xs active:scale-95"
+              >
+                <ChevronRight className="w-4 h-4 stroke-[2.5]" />
+              </button>
+            </div>
+          </div>
+
+          {/* 3D Carousel Stage */}
+          <div
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => {
+              setIsHovered(false);
+              handleEnd();
+            }}
+            onMouseDown={(e) => handleStart(e.clientX)}
+            onMouseMove={(e) => handleMove(e.clientX)}
+            onMouseUp={handleEnd}
+            onTouchStart={(e) => {
+              setIsHovered(true);
+              handleStart(e.touches[0].clientX);
+            }}
+            onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+            onTouchEnd={() => {
+              setIsHovered(false);
+              handleEnd();
+            }}
+            className="relative h-[320px] sm:h-[380px] md:h-[430px] flex items-center justify-center cursor-grab active:cursor-grabbing overflow-hidden py-4"
+            style={{ perspective: '1100px' }}
+          >
+            {pastCommissions.map((commission, idx) => {
+              let offset = idx - currentIndex;
+              if (offset > totalCommissions / 2) offset -= totalCommissions;
+              if (offset < -totalCommissions / 2) offset += totalCommissions;
+
+              const isCenter = offset === 0;
+              const isVisible = Math.abs(offset) <= 3;
+
+              if (!isVisible) return null;
+
+              const translateX = offset * cardSpacing + (isDragging ? dragDelta : 0);
+              const rotateY = offset > 0 ? -18 : offset < 0 ? 18 : 0;
+              const scale = isCenter ? 1.04 : Math.max(0.72, 0.88 - Math.abs(offset) * 0.1);
+              const zIndex = 30 - Math.abs(offset) * 5;
+              const opacity = isCenter ? 1 : Math.max(0.4, 0.85 - Math.abs(offset) * 0.2);
+
+              return (
+                <div
+                  key={commission.id}
+                  onClick={() => handleCardClick(idx)}
+                  className={`group absolute w-[230px] h-[300px] sm:w-[270px] sm:h-[355px] md:w-[310px] md:h-[400px] rounded-3xl overflow-hidden cursor-pointer ${
+                    isDragging ? 'transition-none' : 'transition-all duration-500 ease-[cubic-bezier(0.2,1,0.3,1)]'
+                  }`}
+                  style={{
+                    transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
+                    zIndex,
+                    opacity,
+                    filter: isCenter ? 'drop-shadow(0 16px 30px rgba(15,23,42,0.15))' : 'grayscale(15%)',
+                  }}
+                >
+                  {/* BOX VITRA ONLY IMAGE (PURE ARTWORK PRESENTATION) */}
+                  <div
+                    className={`w-full h-full rounded-3xl overflow-hidden bg-white border p-3 flex items-center justify-center transition-all ${
+                      isCenter
+                        ? 'border-stone-300 shadow-xl ring-2 ring-stone-900/10'
+                        : 'border-stone-200/70 shadow-md'
+                    }`}
+                  >
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#FAF8F5] flex items-center justify-center p-2">
+                      <SmartImage
+                        src={commission.image}
+                        alt={commission.title}
+                        objectFit="contain"
+                        className="w-full h-full flex items-center justify-center bg-transparent"
+                        imgClassName="object-contain w-full h-full filter drop-shadow-xs transition-transform duration-500 group-hover:scale-105"
+                        priority={isCenter}
+                      />
+
+                      {/* Subtle floating year badge */}
+                      <div className="absolute top-2.5 right-2.5 px-2.5 py-1 rounded-full bg-ink-900/80 backdrop-blur-md text-[10px] font-mono text-white shadow-xs">
+                        {commission.year}
+                      </div>
+
+                      {/* Center Card Zoom Hover Prompt */}
+                      {isCenter && (
+                        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                          <div className="px-3.5 py-1.5 rounded-full bg-white/95 text-ink-900 text-xs font-semibold flex items-center space-x-1.5 shadow-lg transform translate-y-1 group-hover:translate-y-0 transition-transform">
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>Click to Zoom</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="flex items-center justify-center space-x-1.5 mt-3">
+            {pastCommissions.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIndex(idx)}
+                aria-label={`Jump to commission ${idx + 1}`}
+                className={`transition-all duration-300 rounded-full ${
+                  idx === currentIndex
+                    ? 'w-6 h-1.5 bg-ink-900'
+                    : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
+                }`}
+              />
+            ))}
+          </div>
+
+        </div>
+
+        {/* ACTIVE COMMISSION DETAILS PANEL (OUTSIDE THE BOXES, CLEAN & INFORMATIVE) */}
+        <div className="max-w-4xl mx-auto rounded-3xl bg-white/90 backdrop-blur-md border border-stone-200/70 p-6 sm:p-8 shadow-sm transition-all">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            
+            <div className="space-y-3 flex-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[10px] font-mono tracking-wider uppercase font-semibold">
+                  {activeCommission.type}
+                </span>
+                <span className="text-stone-400 text-xs font-mono">·</span>
+                <span className="text-stone-500 text-xs font-mono flex items-center space-x-1">
+                  <Calendar className="w-3 h-3" />
+                  <span>{activeCommission.year}</span>
+                </span>
+              </div>
+
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900 leading-snug">
+                {activeCommission.title}
               </h2>
-              <p className="text-xs sm:text-sm text-ink-600 font-sans mt-1">
-                Swipe or use controls to browse selected civic monuments, corporate murals, and private installations ({pastCommissions.length} projects).
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono text-stone-600 pt-1">
+                <div className="flex items-center space-x-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                  <span className="truncate">{activeCommission.location}</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  <Building className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                  <span className="truncate">{activeCommission.client}</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  <Hammer className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                  <span className="truncate">{activeCommission.medium}</span>
+                </div>
+              </div>
+
+              <p className="text-xs sm:text-sm text-ink-700 font-sans leading-relaxed pt-1">
+                {activeCommission.description}
               </p>
             </div>
 
-            {/* Slider Navigation Arrows & Swipe Hint */}
-            <div className="flex items-center space-x-3 shrink-0">
-              <span className="text-[11px] font-mono text-stone-500 hidden md:inline">
-                Drag / Swipe to explore
-              </span>
+            {/* Actions for Current Commission */}
+            <div className="flex flex-row md:flex-col items-center gap-3 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 md:border-l border-stone-100 md:pl-6">
+              <a
+                href={getWhatsAppUrl(`Hello Sanjay Rai, I am inquiring regarding a commission similar to your project: "${activeCommission.title}" (${activeCommission.location}).`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 md:flex-none inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold shadow-sm transition-all hover:scale-105 active:scale-95"
+              >
+                <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
+                <span>Discuss on WhatsApp</span>
+              </a>
 
               <button
-                onClick={() => scroll('left')}
-                disabled={!canScrollLeft}
-                aria-label="Scroll left"
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                  canScrollLeft
-                    ? 'bg-white hover:bg-ink-900 hover:text-white text-ink-900 border border-stone-200 shadow-sm active:scale-95'
-                    : 'bg-stone-200/50 text-stone-400 border border-transparent cursor-not-allowed opacity-60'
-                }`}
+                onClick={() => {
+                  setLightboxIndex(currentIndex);
+                  setLightboxOpen(true);
+                }}
+                className="inline-flex items-center justify-center space-x-1.5 px-4 py-3 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 text-xs font-medium transition-all"
               >
-                <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-              </button>
-
-              <button
-                onClick={() => scroll('right')}
-                disabled={!canScrollRight}
-                aria-label="Scroll right"
-                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
-                  canScrollRight
-                    ? 'bg-white hover:bg-ink-900 hover:text-white text-ink-900 border border-stone-200 shadow-sm active:scale-95'
-                    : 'bg-stone-200/50 text-stone-400 border border-transparent cursor-not-allowed opacity-60'
-                }`}
-              >
-                <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                <Eye className="w-3.5 h-3.5" />
+                <span>Zoom Image</span>
               </button>
             </div>
-          </div>
 
-          {/* HORIZONTAL SCROLL TRACK (SEAMLESS - SAME BACKGROUND, NO BOX CONFINEMENT) */}
-          <div
-            ref={scrollContainerRef}
-            onScroll={checkScrollability}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUpOrLeave}
-            onMouseLeave={handleMouseUpOrLeave}
-            className={`flex items-stretch gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 scrollbar-none scroll-smooth snap-x snap-mandatory ${
-              isMouseDown ? 'cursor-grabbing select-none' : 'cursor-grab'
-            }`}
-          >
-            {pastCommissions.map((commission, idx) => (
-              <div
-                key={commission.id}
-                className="w-[84vw] sm:w-[420px] md:w-[460px] lg:w-[480px] shrink-0 snap-start flex flex-col justify-between rounded-3xl bg-white border border-stone-200/70 p-5 sm:p-6 shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
-              >
-                {/* Artwork Image Container */}
-                <div>
-                  <div
-                    onClick={() => handleCardImageClick(idx)}
-                    className="group/img relative aspect-[16/11] rounded-2xl overflow-hidden bg-[#F5F2EB] cursor-pointer mb-5"
-                  >
-                    <SmartImage
-                      src={commission.image}
-                      alt={commission.title}
-                      objectFit="cover"
-                      className="w-full h-full"
-                      imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover/img:scale-105"
-                    />
-
-                    {/* Floating Year Badge */}
-                    <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-ink-900/85 backdrop-blur-md text-[11px] font-mono text-white shadow-sm flex items-center space-x-1">
-                      <Calendar className="w-3 h-3 text-amber-300" />
-                      <span>{commission.year}</span>
-                    </div>
-
-                    {/* Type Badge */}
-                    <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono uppercase tracking-wider text-ink-900 font-semibold shadow-xs">
-                      {commission.type}
-                    </div>
-
-                    {/* Hover Inspect Indicator */}
-                    <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="px-3.5 py-1.5 rounded-full bg-white/95 text-ink-900 text-xs font-semibold flex items-center space-x-1.5 shadow-lg transform translate-y-2 group-hover/img:translate-y-0 transition-transform">
-                        <Eye className="w-3.5 h-3.5" />
-                        <span>Inspect Full View</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Commission Title */}
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-ink-900 leading-snug mb-3">
-                    {commission.title}
-                  </h3>
-
-                  {/* Metadata: Location, Client, Medium */}
-                  <div className="space-y-1.5 text-xs font-mono text-stone-600 mb-4 bg-[#FAF8F5] p-3 rounded-xl border border-stone-200/50">
-                    <div className="flex items-center space-x-2">
-                      <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                      <span className="truncate">{commission.location}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Building className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                      <span className="truncate">Client: {commission.client}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Hammer className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                      <span className="truncate">Medium: {commission.medium}</span>
-                    </div>
-                  </div>
-
-                  {/* Narrative Description */}
-                  <p className="text-xs sm:text-sm text-ink-700 font-sans leading-relaxed line-clamp-3">
-                    {commission.description}
-                  </p>
-                </div>
-
-                {/* Footer Actions */}
-                <div className="pt-5 mt-4 border-t border-stone-100 flex items-center justify-between gap-3">
-                  <a
-                    href={getWhatsAppUrl(`Hello Sanjay Rai, I would like to inquire about a commission similar to your project: "${commission.title}" (${commission.location}).`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1 inline-flex items-center justify-center space-x-2 px-4 py-2.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
-                  >
-                    <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
-                    <span>Discuss Similar Work</span>
-                  </a>
-
-                  <button
-                    onClick={() => handleCardImageClick(idx)}
-                    aria-label="Inspect artwork image"
-                    className="p-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 transition-all hover:scale-105 active:scale-95"
-                    title="View Fullscreen"
-                  >
-                    <Eye className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
-        {/* COMMISSION METHODOLOGY & ARCHIVAL INTEGRITY */}
-        <div className="py-8 border-y border-stone-200/70">
-          <div className="text-center max-w-2xl mx-auto mb-10 space-y-2">
+        {/* COMMISSION METHODOLOGY (4 CLEAN STEPS) */}
+        <div className="py-6 border-y border-stone-200/70">
+          <div className="text-center max-w-2xl mx-auto mb-8 space-y-1.5">
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
               The Commission Journey
             </h2>
@@ -319,9 +418,9 @@ export const CommissionWork: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-mono font-bold text-sm">
+              <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-mono font-bold text-xs">
                 01
               </div>
               <h3 className="font-serif font-bold text-ink-900 text-base">Space & Ethos Dialogue</h3>
@@ -331,7 +430,7 @@ export const CommissionWork: React.FC = () => {
             </div>
 
             <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-mono font-bold text-sm">
+              <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-mono font-bold text-xs">
                 02
               </div>
               <h3 className="font-serif font-bold text-ink-900 text-base">Maquettes & Studies</h3>
@@ -341,7 +440,7 @@ export const CommissionWork: React.FC = () => {
             </div>
 
             <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-mono font-bold text-sm">
+              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-mono font-bold text-xs">
                 03
               </div>
               <h3 className="font-serif font-bold text-ink-900 text-base">Direct Studio Execution</h3>
@@ -351,7 +450,7 @@ export const CommissionWork: React.FC = () => {
             </div>
 
             <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-9 h-9 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center font-mono font-bold text-sm">
+              <div className="w-8 h-8 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center font-mono font-bold text-xs">
                 04
               </div>
               <h3 className="font-serif font-bold text-ink-900 text-base">Installation & Certificate</h3>
@@ -362,7 +461,7 @@ export const CommissionWork: React.FC = () => {
           </div>
         </div>
 
-        {/* COMMISSION ENQUIRY FORM (BLENDED NATURALLY WITH SAME BACKGROUND) */}
+        {/* COMMISSION ENQUIRY FORM */}
         <div className="max-w-2xl mx-auto rounded-3xl bg-white/90 backdrop-blur-md p-6 sm:p-10 border border-stone-200/70 shadow-sm space-y-6">
           
           <div className="text-center space-y-2">
