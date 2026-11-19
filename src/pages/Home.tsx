@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Layers, Compass, Palette, Hammer, PenTool } from 'lucide-react';
+import { ArrowRight, BookOpen, Layers, Compass, Palette, Hammer, PenTool, ChevronDown, ChevronUp, Sparkles, Quote } from 'lucide-react';
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
 
 export const Home: React.FC = () => {
+  const [statementExpanded, setStatementExpanded] = useState(false);
+
   return (
     <div className="space-y-0">
       
@@ -136,12 +138,17 @@ export const Home: React.FC = () => {
       </section>
 
       {/* SECTION 2: ARTIST STATEMENT — Professional Editorial Layout */}
-      <section className="py-14 sm:py-20 md:py-32 relative bg-white border-t border-stone-200/60 overflow-hidden">
+      <section className="py-12 sm:py-20 md:py-32 relative bg-white border-t border-stone-200/60 overflow-hidden">
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* ── Heading + Decorative Rule ──────────────────────── */}
-          <div className="mb-8 sm:mb-10">
+          <div className="mb-6 sm:mb-10">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[10px] sm:text-[11px] font-mono tracking-widest uppercase mb-3">
+              <Sparkles className="w-3 h-3 text-sky-600" />
+              <span>PHILOSOPHY &amp; ETHOS</span>
+            </div>
+
             <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight mb-4 sm:mb-6">
               Artist Statement
             </h2>
@@ -151,39 +158,82 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* ── Pull Quote ─────────────────────────────────────── */}
-          <div className="relative mb-8 sm:mb-14 pl-4 sm:pl-6 border-l-3 sm:border-l-4 border-sky-500">
-            <p className="font-serif italic text-lg sm:text-2xl md:text-3xl text-ink-800 leading-snug">
-              "For me, colours are a language through which the diverse experiences and possibilities of life are expressed."
-            </p>
-            <span className="block mt-2 sm:mt-3 text-[10px] font-mono text-stone-400 tracking-widest uppercase">— Sanjay Rai (Bantawa)</span>
+          {/* ── Mobile-Friendly Concept Tags (Instant Visual Clarity) ── */}
+          <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
+            <span className="px-3 py-1 rounded-full bg-sky-50 border border-sky-100 text-sky-800 text-[11px] font-mono font-medium">
+              🌿 Kirat Nature Philosophy
+            </span>
+            <span className="px-3 py-1 rounded-full bg-amber-50 border border-amber-100 text-amber-900 text-[11px] font-mono font-medium">
+              🎨 Language of Colours
+            </span>
+            <span className="px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 text-[11px] font-mono font-medium">
+              🏛️ Cultural Memory &amp; Myths
+            </span>
           </div>
 
-          {/* ── Body Text — 2-col on desktop ───────────────────── */}
-          <div className="columns-1 lg:columns-2 gap-8 lg:gap-12 text-sm sm:text-[15px] text-ink-700 leading-relaxed sm:leading-[1.85] font-sans space-y-4 sm:space-y-5 [column-rule:1px_solid_#e7e5e4]">
+          {/* ── Pull Quote Card ─────────────────────────────────── */}
+          <div className="relative mb-6 sm:mb-12 p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#FAF8F5] border border-stone-200/80 shadow-2xs">
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="w-8 h-8 rounded-full bg-sky-100 text-sky-700 flex items-center justify-center shrink-0 mt-0.5">
+                <Quote className="w-4 h-4" />
+              </div>
+              <div className="space-y-1.5 sm:space-y-2">
+                <p className="font-serif italic text-base sm:text-2xl md:text-3xl text-ink-900 leading-snug">
+                  "For me, colours are a language through which the diverse experiences and possibilities of life are expressed."
+                </p>
+                <span className="block text-[10px] sm:text-[11px] font-mono text-stone-500 tracking-wider uppercase">— Sanjay Rai (Bantawa)</span>
+              </div>
+            </div>
+          </div>
 
-            {/* Para 1 — drop cap */}
-            <p className="break-inside-avoid">
-              <span className="float-left font-serif text-[3.5rem] sm:text-[4.5rem] leading-[0.75] mr-2.5 sm:mr-3 mt-1 text-ink-900 font-bold">F</span>
-              or me, art is not merely a medium for expressing the emotions, thoughts, and experiences that arise within me. It is also a process of intellectual and philosophical reflection, through which emotions and ideas are explored and transformed into meaningful artistic forms. My fascination with colours began in childhood, when I would become so absorbed in playing with colours that I lost track of time. This natural attraction gradually led me towards painting. My life experiences, social surroundings, and personal circumstances have continuously inspired and shaped my artistic journey.
-            </p>
+          {/* ── Body Text — Adaptive Reader: Collapsible on Mobile, Full 2-col on Desktop ── */}
+          <div className="relative">
+            <div 
+              className={`columns-1 lg:columns-2 gap-8 lg:gap-12 text-sm sm:text-[15px] text-ink-700 leading-relaxed sm:leading-[1.85] font-sans space-y-4 sm:space-y-5 [column-rule:1px_solid_#e7e5e4] ${
+                !statementExpanded ? 'max-h-[300px] lg:max-h-none overflow-hidden' : ''
+              }`}
+            >
 
-            <p className="break-inside-avoid">
-              Throughout my studies and artistic practice, I have explored various subjects, mediums, and styles. In the early stages of my career, I depicted rural landscapes, natural environments, and everyday village life. Later, I moved towards symbolic compositions and portraiture. Following my postgraduate studies, my artistic lines became more dynamic and expressive. Through the figures of horses and women, I began exploring themes of strength, struggle, energy, resistance, and the journey of life. Gradually, I incorporated horse figures into compositions featuring monasteries, temples, and traditional architecture, seeking to explore the relationship between time, movement, and cultural continuity.
-            </p>
+              {/* Para 1 — drop cap */}
+              <p className="break-inside-avoid">
+                <span className="float-left font-serif text-[3.5rem] sm:text-[4.5rem] leading-[0.75] mr-2.5 sm:mr-3 mt-1 text-ink-900 font-bold">F</span>
+                or me, art is not merely a medium for expressing the emotions, thoughts, and experiences that arise within me. It is also a process of intellectual and philosophical reflection, through which emotions and ideas are explored and transformed into meaningful artistic forms. My fascination with colours began in childhood, when I would become so absorbed in playing with colours that I lost track of time. This natural attraction gradually led me towards painting. My life experiences, social surroundings, and personal circumstances have continuously inspired and shaped my artistic journey.
+              </p>
 
-            <p className="break-inside-avoid">
-              In recent years, Nepali traditional culture, cultural memory, and mythology have become central to my artistic practice. In particular, I have been exploring the disappearing cultural symbols, traditions, and myths of Nepal’s indigenous Kirat communities through the language of contemporary painting. The Kirat community’s deep respect for nature, understanding of cultural identity, and philosophy of life, which considers nature an inseparable part of human existence, have profoundly influenced my work. I do not view this cultural heritage merely as a memory of the past, but as a living artistic resource capable of engaging in dialogue with contemporary society.
-            </p>
+              <p className="break-inside-avoid">
+                Throughout my studies and artistic practice, I have explored various subjects, mediums, and styles. In the early stages of my career, I depicted rural landscapes, natural environments, and everyday village life. Later, I moved towards symbolic compositions and portraiture. Following my postgraduate studies, my artistic lines became more dynamic and expressive. Through the figures of horses and women, I began exploring themes of strength, struggle, energy, resistance, and the journey of life. Gradually, I incorporated horse figures into compositions featuring monasteries, temples, and traditional architecture, seeking to explore the relationship between time, movement, and cultural continuity.
+              </p>
 
-            <p className="break-inside-avoid">
-              I believe that lines play a particularly significant role in painting. Lines do not simply construct forms; they also communicate movement, emotions, and ideas. For me, colours are a language through which the diverse experiences and possibilities of life are expressed. Combining traditional symbols with new compositions, lines, colours, and contemporary artistic approaches is an essential part of my creative practice, allowing me to discover new meanings and perspectives within cultural heritage.
-            </p>
+              <p className="break-inside-avoid">
+                In recent years, Nepali traditional culture, cultural memory, and mythology have become central to my artistic practice. In particular, I have been exploring the disappearing cultural symbols, traditions, and myths of Nepal’s indigenous Kirat communities through the language of contemporary painting. The Kirat community’s deep respect for nature, understanding of cultural identity, and philosophy of life, which considers nature an inseparable part of human existence, have profoundly influenced my work. I do not view this cultural heritage merely as a memory of the past, but as a living artistic resource capable of engaging in dialogue with contemporary society.
+              </p>
 
-            <p className="break-inside-avoid">
-              I do not believe that art should be limited to the creation of beautiful objects. In my view, art is an independent space for creative freedom, ideas, and critical reflection. Through my paintings, I hope to encourage viewers to think in new ways, reconsider their own cultural identities, and understand the relationship between tradition and contemporary society from fresh perspectives. For me, painting is an ongoing process of exploration, self-expression, and a means of keeping cultural memory alive through new artistic interpretations.
-            </p>
+              <p className="break-inside-avoid">
+                I believe that lines play a particularly significant role in painting. Lines do not simply construct forms; they also communicate movement, emotions, and ideas. For me, colours are a language through which the diverse experiences and possibilities of life are expressed. Combining traditional symbols with new compositions, lines, colours, and contemporary artistic approaches is an essential part of my creative practice, allowing me to discover new meanings and perspectives within cultural heritage.
+              </p>
 
+              <p className="break-inside-avoid">
+                I do not believe that art should be limited to the creation of beautiful objects. In my view, art is an independent space for creative freedom, ideas, and critical reflection. Through my paintings, I hope to encourage viewers to think in new ways, reconsider their own cultural identities, and understand the relationship between tradition and contemporary society from fresh perspectives. For me, painting is an ongoing process of exploration, self-expression, and a means of keeping cultural memory alive through new artistic interpretations.
+              </p>
+
+            </div>
+
+            {/* Mobile Gradient Fade Out */}
+            {!statementExpanded && (
+              <div className="lg:hidden absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-white via-white/85 to-transparent pointer-events-none" />
+            )}
+
+            {/* Mobile Expand / Collapse Button */}
+            <div className="lg:hidden mt-4 relative z-10 flex justify-center">
+              <button
+                type="button"
+                onClick={() => setStatementExpanded(!statementExpanded)}
+                className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-stone-900 hover:bg-black text-white text-xs font-semibold tracking-wider uppercase shadow-md transition-all active:scale-95 cursor-pointer"
+              >
+                <span>{statementExpanded ? 'Show Less' : 'Read Full Statement (3 More Paras)'}</span>
+                {statementExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            </div>
           </div>
 
           {/* ── Footer Actions ─────────────────────────────────── */}
