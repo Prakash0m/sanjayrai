@@ -63,13 +63,13 @@ export const CommissionWork: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + totalCommissions) % totalCommissions);
   }, [totalCommissions]);
 
-  // AUTOMATIC AUTO-RUN / SPIN SLIDESHOW (Faster & Brisk Pace)
+  // AUTOMATIC AUTO-RUN / SPIN SLIDESHOW (Velvety Smooth Gliding Pace)
   useEffect(() => {
     if (!isAutoPlaying || isHovered || isDragging || lightboxOpen) return;
 
     const interval = setInterval(() => {
       handleNext();
-    }, 1700);
+    }, 2800);
 
     return () => clearInterval(interval);
   }, [handleNext, isAutoPlaying, isHovered, isDragging, lightboxOpen]);
@@ -248,45 +248,50 @@ export const CommissionWork: React.FC = () => {
               if (offset < -totalCommissions / 2) offset += totalCommissions;
 
               const isCenter = offset === 0;
-              const isVisible = Math.abs(offset) <= 3;
-
-              if (!isVisible) return null;
+              const absOffset = Math.abs(offset);
+              const isVisible = absOffset <= 3.8;
 
               const translateX = offset * cardSpacing + (isDragging ? dragDelta : 0);
-              const rotateY = offset > 0 ? -18 : offset < 0 ? 18 : 0;
-              const scale = isCenter ? 1.04 : Math.max(0.72, 0.88 - Math.abs(offset) * 0.1);
-              const zIndex = 30 - Math.abs(offset) * 5;
-              const opacity = isCenter ? 1 : Math.max(0.4, 0.85 - Math.abs(offset) * 0.2);
+              const rotateY = offset > 0 ? -12 : offset < 0 ? 12 : 0;
+              const scale = isCenter ? 1.04 : Math.max(0.74, 0.9 - absOffset * 0.08);
+              const zIndex = 30 - Math.round(absOffset * 5);
+              const opacity = isCenter 
+                ? 1 
+                : !isVisible 
+                  ? 0 
+                  : Math.max(0, 0.88 - absOffset * 0.22);
 
               return (
                 <div
                   key={commission.id}
                   onClick={() => handleCardClick(idx)}
-                  className={`group absolute w-[230px] h-[300px] sm:w-[270px] sm:h-[355px] md:w-[310px] md:h-[400px] rounded-3xl overflow-hidden cursor-pointer ${
-                    isDragging ? 'transition-none' : 'transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)]'
+                  className={`group absolute w-[230px] h-[300px] sm:w-[270px] sm:h-[355px] md:w-[310px] md:h-[400px] rounded-3xl overflow-hidden cursor-pointer select-none ${
+                    isDragging ? 'transition-none' : 'transition-all duration-800 ease-[cubic-bezier(0.25,1,0.5,1)]'
                   }`}
                   style={{
                     transform: `translateX(${translateX}px) rotateY(${rotateY}deg) scale(${scale})`,
                     zIndex,
                     opacity,
-                    filter: isCenter ? 'drop-shadow(0 16px 30px rgba(15,23,42,0.15))' : 'grayscale(15%)',
+                    filter: isCenter ? 'drop-shadow(0 18px 32px rgba(15,23,42,0.14))' : 'grayscale(10%)',
+                    pointerEvents: isVisible ? 'auto' : 'none',
+                    willChange: 'transform, opacity',
                   }}
                 >
                   {/* BOX VITRA ONLY IMAGE (PURE ARTWORK PRESENTATION) */}
                   <div
-                    className={`w-full h-full rounded-3xl overflow-hidden bg-white border p-3 flex items-center justify-center transition-all ${
+                    className={`w-full h-full rounded-3xl overflow-hidden bg-white border p-3 flex items-center justify-center transition-all duration-800 ${
                       isCenter
                         ? 'border-stone-300 shadow-xl ring-2 ring-stone-900/10'
                         : 'border-stone-200/70 shadow-md'
                     }`}
                   >
-                    <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#FAF8F5] flex items-center justify-center p-2">
+                    <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#FAF8F5] flex items-center justify-center p-2.5">
                       <SmartImage
                         src={commission.image}
                         alt={commission.title}
                         objectFit="contain"
                         className="w-full h-full flex items-center justify-center bg-transparent"
-                        imgClassName="object-contain w-full h-full filter drop-shadow-xs transition-transform duration-500 group-hover:scale-105"
+                        imgClassName="object-contain w-full h-full filter drop-shadow-xs transition-all duration-700 ease-out group-hover:scale-105"
                         priority={isCenter}
                       />
 
@@ -318,7 +323,7 @@ export const CommissionWork: React.FC = () => {
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
                 aria-label={`Jump to commission ${idx + 1}`}
-                className={`transition-all duration-300 rounded-full ${
+                className={`transition-all duration-500 rounded-full ${
                   idx === currentIndex
                     ? 'w-6 h-1.5 bg-ink-900'
                     : 'w-1.5 h-1.5 bg-stone-300 hover:bg-stone-400'
@@ -331,7 +336,7 @@ export const CommissionWork: React.FC = () => {
 
         {/* ACTIVE COMMISSION DETAILS PANEL (OUTSIDE THE BOXES, CLEAN & INFORMATIVE) */}
         <div className="max-w-4xl mx-auto rounded-3xl bg-white/90 backdrop-blur-md border border-stone-200/70 p-6 sm:p-8 shadow-sm transition-all">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div key={activeCommission.id} className="animate-soft-fade flex flex-col md:flex-row md:items-center justify-between gap-6">
             
             <div className="space-y-3 flex-1">
               <div className="flex flex-wrap items-center gap-2">
