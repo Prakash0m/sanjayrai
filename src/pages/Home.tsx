@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Palette, Hammer, PenTool, ChevronDown, ChevronUp, Quote } from 'lucide-react';
+import { ArrowRight, Compass, Palette, Hammer, PenTool, ChevronDown, ChevronUp, Quote } from 'lucide-react';
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
@@ -34,33 +34,25 @@ export const Home: React.FC = () => {
                 </p>
               </div>
 
-              {/* Short Bio Block (Optimized for Mobile & Desktop) */}
-              <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/95 backdrop-blur-xl border border-stone-200/80 shadow-sm space-y-3.5 text-left">
-                <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono tracking-wider text-stone-600 uppercase font-semibold">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0" />
+              {/* Short Bio Block */}
+              <div className="p-4 sm:p-6 rounded-2xl sm:rounded-3xl bg-white/90 backdrop-blur-xl border border-stone-200/80 shadow-sm space-y-3 text-left">
+                <div className="flex items-center space-x-2 text-[11px] sm:text-xs font-mono tracking-wider text-sky-700 uppercase font-semibold">
+                  <Compass className="w-3.5 h-3.5 text-sky-600 shrink-0" />
                   <span>Curatorial Biography</span>
                 </div>
-
                 <p className="text-[13px] sm:text-sm text-ink-800 leading-relaxed font-sans">
                   Born in Eastern Nepal and grounded in Kirat oral cosmology, Sanjay Rai (Bantawa) completed formative fine arts training at Lalit Kala Campus, Kathmandu. Over 30+ years of uninterrupted studio practice, his monumental granite monuments and introspective graphite life studies have been exhibited across Nepal, Japan, France, Germany, and the United States.
                 </p>
-
-                {/* Balanced 3-column stats bar on mobile & desktop */}
-                <div className="grid grid-cols-3 gap-2 pt-3 border-t border-stone-100 text-center">
-                  <div className="bg-[#FAF8F5] rounded-xl py-2 px-1 border border-stone-200/60 flex flex-col justify-center">
-                    <span className="font-serif font-bold text-ink-900 text-sm sm:text-base leading-tight">30+</span>
-                    <span className="text-[10px] text-stone-500 font-mono tracking-tight mt-0.5">Years Practice</span>
-                  </div>
-
-                  <div className="bg-[#FAF8F5] rounded-xl py-2 px-1 border border-stone-200/60 flex flex-col justify-center">
-                    <span className="font-serif font-bold text-ink-900 text-sm sm:text-base leading-tight">500+</span>
-                    <span className="text-[10px] text-stone-500 font-mono tracking-tight mt-0.5">Artworks</span>
-                  </div>
-
-                  <div className="bg-[#FAF8F5] rounded-xl py-2 px-1 border border-stone-200/60 flex flex-col justify-center">
-                    <span className="font-serif font-bold text-ink-900 text-sm sm:text-base leading-tight">42+</span>
-                    <span className="text-[10px] text-stone-500 font-mono tracking-tight mt-0.5">Exhibitions</span>
-                  </div>
+                <div className="flex flex-wrap gap-2 pt-2.5 border-t border-stone-100">
+                  <span className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200/70 text-[11px] sm:text-xs font-mono text-stone-700 font-medium">
+                    • 30+ Years Practice
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200/70 text-[11px] sm:text-xs font-mono text-stone-700 font-medium">
+                    • 500+ Documented Works
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-stone-50 border border-stone-200/70 text-[11px] sm:text-xs font-mono text-stone-700 font-medium">
+                    • 42+ Exhibitions
+                  </span>
                 </div>
               </div>
 
