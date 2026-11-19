@@ -253,67 +253,61 @@ export const Media: React.FC = () => {
             </div>
           </div>
 
-          <div className="rounded-3xl bg-gradient-to-br from-stone-900 via-ink-950 to-stone-900 text-white p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-sky-600/10 rounded-full blur-3xl pointer-events-none" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div className="rounded-3xl bg-white border border-stone-200 shadow-lg overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-12">
               
-              {/* Catalogue Cover Preview */}
-              <div className="lg:col-span-4 flex justify-center">
-                <div className="relative w-48 sm:w-56 aspect-[9/13.5] rounded-2xl overflow-hidden shadow-2xl border border-white/20 bg-stone-900 rotate-1 hover:rotate-0 transition-transform duration-500 p-2.5 flex items-center justify-center">
+              {/* Left — warm cream accent strip with book cover */}
+              <div className="lg:col-span-4 bg-[#F5EFE6] flex items-center justify-center py-10 px-8 border-b border-stone-200 lg:border-b-0 lg:border-r lg:border-stone-200">
+                <div className="relative w-44 sm:w-52 aspect-[9/13.5] rounded-xl overflow-hidden shadow-xl border border-stone-300 hover:scale-105 transition-transform duration-500">
                   <SmartImage
                     src={monographCatalogue.downloadUrl}
                     alt={monographCatalogue.title}
                     objectFit="contain"
-                    className="w-full h-full flex items-center justify-center bg-transparent"
+                    className="w-full h-full"
                     imgClassName="object-contain w-full h-full"
                   />
-                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/90 to-transparent text-white text-center">
-                    <span className="text-[10px] font-mono tracking-widest text-sky-300 uppercase block">
-                      OFFICIAL MONOGRAPH
-                    </span>
-                    <span className="font-serif text-xs font-bold block">
-                      1994 – 2024
-                    </span>
+                  <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-stone-900/90 to-transparent text-center">
+                    <span className="text-[9px] font-mono tracking-widest text-amber-300 uppercase block">OFFICIAL MONOGRAPH</span>
+                    <span className="font-serif text-[11px] font-bold text-white block">1994 – 2024</span>
                   </div>
                 </div>
               </div>
 
-              {/* Catalogue Metadata & Action Buttons */}
-              <div className="lg:col-span-8 space-y-5 text-center lg:text-left">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/10 text-sky-300 text-[10px] font-mono tracking-widest uppercase border border-white/10">
+              {/* Right — content area on clean white */}
+              <div className="lg:col-span-8 p-8 sm:p-10 space-y-5">
+                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-600 text-[10px] font-mono tracking-widest uppercase">
                   <span>CURATORIAL ARCHIVE</span>
                 </div>
 
-                <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
+                <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-stone-900 leading-tight">
                   {monographCatalogue.title}
                 </h3>
 
-                <p className="text-stone-300 text-xs sm:text-sm font-sans leading-relaxed max-w-2xl">
+                <p className="text-stone-600 text-sm font-sans leading-relaxed max-w-2xl">
                   {monographCatalogue.description}
                 </p>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-left py-2 font-mono text-xs text-stone-300">
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                    <span className="text-[10px] text-stone-400 block">FORMAT</span>
-                    <span className="font-semibold text-white">{monographCatalogue.pages}</span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 font-mono text-xs py-1">
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                    <span className="text-[10px] text-stone-400 block mb-1">FORMAT</span>
+                    <span className="font-semibold text-stone-800">{monographCatalogue.pages}</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10">
-                    <span className="text-[10px] text-stone-400 block">ISBN</span>
-                    <span className="font-semibold text-white">{monographCatalogue.isbn}</span>
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200">
+                    <span className="text-[10px] text-stone-400 block mb-1">ISBN</span>
+                    <span className="font-semibold text-stone-800">{monographCatalogue.isbn}</span>
                   </div>
-                  <div className="p-3 rounded-xl bg-white/5 border border-white/10 col-span-2 sm:col-span-1">
-                    <span className="text-[10px] text-stone-400 block">FILE SIZE</span>
-                    <span className="font-semibold text-white">{monographCatalogue.fileSize}</span>
+                  <div className="p-3 rounded-xl bg-stone-50 border border-stone-200 col-span-2 sm:col-span-1">
+                    <span className="text-[10px] text-stone-400 block mb-1">FILE SIZE</span>
+                    <span className="font-semibold text-stone-800">{monographCatalogue.fileSize}</span>
                   </div>
                 </div>
 
                 {/* Download / View Buttons */}
-                <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+                <div className="flex flex-wrap items-center gap-3 pt-1">
                   <a
                     href={monographCatalogue.downloadUrl}
                     download="Sanjay_Rai_Retrospective_Monograph.jpg"
-                    className="inline-flex items-center space-x-2 px-6 py-3.5 rounded-full bg-white hover:bg-stone-100 text-ink-950 text-xs sm:text-sm font-semibold shadow-lg transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-stone-900 hover:bg-black text-white text-xs sm:text-sm font-semibold shadow transition-all hover:scale-105 active:scale-95"
                   >
                     <Download className="w-4 h-4" />
                     <span>Download Archival PDF Catalogue</span>
@@ -323,13 +317,12 @@ export const Media: React.FC = () => {
                     href={getWhatsAppUrl(`Hello Sanjay Rai, I am requesting a printed/institutional hardbound copy of your Retrospective Monograph Catalogue "${monographCatalogue.title}".`)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center space-x-2 px-5 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow-md transition-all hover:scale-105"
+                    className="inline-flex items-center space-x-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs sm:text-sm font-semibold shadow transition-all hover:scale-105"
                   >
                     <WhatsAppIcon className="w-4 h-4 text-white" />
                     <span>Request Hardbound Monograph</span>
                   </a>
                 </div>
-
               </div>
 
             </div>
