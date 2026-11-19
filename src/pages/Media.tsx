@@ -256,19 +256,19 @@ export const Media: React.FC = () => {
           <div className="rounded-3xl bg-white border border-stone-200 shadow-lg overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-12">
               
-              {/* Left — warm cream accent strip with book cover */}
-              <div className="lg:col-span-4 bg-[#F5EFE6] flex items-center justify-center py-10 px-8 border-b border-stone-200 lg:border-b-0 lg:border-r lg:border-stone-200">
-                <div className="relative w-44 sm:w-52 aspect-[9/13.5] rounded-xl overflow-hidden shadow-xl border border-stone-300 hover:scale-105 transition-transform duration-500">
+              {/* Left — warm cream panel with large full-fit book cover */}
+              <div className="lg:col-span-4 bg-[#F5EFE6] flex items-stretch border-b border-stone-200 lg:border-b-0 lg:border-r lg:border-stone-200 min-h-[380px]">
+                <div className="relative w-full overflow-hidden rounded-tl-3xl rounded-bl-3xl rounded-tr-3xl rounded-br-3xl lg:rounded-tr-none lg:rounded-br-none">
                   <SmartImage
                     src={monographCatalogue.downloadUrl}
                     alt={monographCatalogue.title}
-                    objectFit="contain"
-                    className="w-full h-full"
-                    imgClassName="object-contain w-full h-full"
+                    objectFit="cover"
+                    className="w-full h-full absolute inset-0"
+                    imgClassName="object-cover object-top w-full h-full"
                   />
-                  <div className="absolute inset-x-0 bottom-0 p-2.5 bg-gradient-to-t from-stone-900/90 to-transparent text-center">
+                  <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-stone-900/90 via-stone-900/40 to-transparent text-center">
                     <span className="text-[9px] font-mono tracking-widest text-amber-300 uppercase block">OFFICIAL MONOGRAPH</span>
-                    <span className="font-serif text-[11px] font-bold text-white block">1994 – 2024</span>
+                    <span className="font-serif text-sm font-bold text-white block">1994 – 2024</span>
                   </div>
                 </div>
               </div>
