@@ -3,7 +3,7 @@ import { mediaVideos, mediaPublications, monographCatalogue } from '../data/port
 import { SmartImage } from '../components/SmartImage';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
-import { Video, BookOpen, FileText, Download, ExternalLink, Play, User, X, Sparkles } from 'lucide-react';
+import { Video, BookOpen, FileText, Download, ExternalLink, Play, User, X } from 'lucide-react';
 
 export const Media: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
@@ -47,14 +47,14 @@ export const Media: React.FC = () => {
 
           {/* Grand Featured Cinema Card */}
           {featuredVideo && (
-            <div className="group rounded-3xl sm:rounded-[32px] bg-white border border-stone-200/80 p-4 sm:p-7 shadow-xl shadow-stone-200/40 transition-all">
+            <div className="w-full">
               
-              {/* Cinema Screen Container (16:9 widescreen ratio) */}
-              <div className="relative aspect-video rounded-2xl sm:rounded-[24px] overflow-hidden bg-black shadow-2xl ring-1 ring-black/10">
+              {/* Cinema Screen Container (Widescreen Cinema Ratio) */}
+              <div className="relative w-full aspect-[21/9] min-h-[260px] max-h-[520px] rounded-2xl sm:rounded-[28px] overflow-hidden bg-black shadow-2xl ring-1 ring-black/10">
                 {activeVideo === featuredVideo.id ? (
                   <div className="relative w-full h-full">
                     <iframe
-                      src={`${featuredVideo.embedUrl}?autoplay=1&rel=0`}
+                      src={`${featuredVideo.embedUrl}?autoplay=1&mute=1&rel=0&modestbranding=1`}
                       title={featuredVideo.title}
                       className="w-full h-full border-0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -62,7 +62,7 @@ export const Media: React.FC = () => {
                     />
                     <button
                       onClick={() => setActiveVideo(null)}
-                      className="absolute top-4 right-4 z-20 flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-black/80 hover:bg-black text-white text-xs font-mono tracking-wider backdrop-blur-md transition-all shadow-lg hover:scale-105 active:scale-95"
+                      className="absolute top-4 right-4 z-20 flex items-center space-x-1.5 px-4 py-2 rounded-full bg-black/80 hover:bg-black text-white text-xs font-mono tracking-wider backdrop-blur-md transition-all shadow-lg hover:scale-105 active:scale-95 cursor-pointer"
                     >
                       <X className="w-3.5 h-3.5" />
                       <span>Close Screen</span>
@@ -80,45 +80,27 @@ export const Media: React.FC = () => {
                       className="w-full h-full object-cover group-hover/screen:scale-105 transition-transform duration-700 filter brightness-95"
                     />
 
-                    {/* Cinematic Vignette Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/40 group-hover/screen:via-black/15 transition-all duration-300" />
+                    {/* Subtle Vignette Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/30 group-hover/screen:via-black/10 transition-all duration-300" />
 
-                    {/* Top Badges */}
-                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                      <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[10px] sm:text-xs font-mono font-semibold tracking-wider text-ink-900 shadow-md">
-                        <Sparkles className="w-3 h-3 text-sky-600" />
-                        <span>MOMENT INVITATIONAL 2020 · SHORT FILM</span>
-                      </div>
-                      <div className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[10px] sm:text-xs font-mono text-white/90 font-medium">
-                        {featuredVideo.duration} · 1080P HD
-                      </div>
+                    {/* Centered Clean White Pill Button (Second Image Reference - Simple & Visible) */}
+                    <div className="absolute inset-0 flex items-center justify-center z-10">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveVideo(featuredVideo.id);
+                        }}
+                        className="inline-flex items-center space-x-2.5 px-7 py-3 rounded-full bg-white hover:bg-stone-100 text-ink-900 text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-2xl transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
+                      >
+                        <Play className="w-4 h-4 fill-current text-ink-900" />
+                        <span>Play Video</span>
+                      </button>
                     </div>
 
-                    {/* Centered Grand Glowing Play Button */}
-                    <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                      <div className="relative flex items-center justify-center">
-                        {/* Outer pulsing ring */}
-                        <div className="absolute w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/30 animate-ping pointer-events-none" />
-                        
-                        {/* Play button circle */}
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white text-ink-900 flex items-center justify-center shadow-2xl transition-all duration-300 group-hover/screen:scale-110 group-hover/screen:bg-sky-500 group-hover/screen:text-white">
-                          <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
-                        </div>
-                      </div>
-
-                      <span className="mt-4 px-4 py-1 rounded-full bg-black/60 backdrop-blur-md text-white font-mono text-xs tracking-widest uppercase opacity-90 group-hover/screen:opacity-100 transition-opacity">
-                        Click to Play Documentary
-                      </span>
-                    </div>
-
-                    {/* Bottom Preview Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 z-10 hidden sm:block">
-                      <h4 className="font-serif text-lg sm:text-xl font-bold text-white drop-shadow-md">
-                        {featuredVideo.title}
-                      </h4>
-                      <p className="text-xs text-stone-300 font-sans line-clamp-1 drop-shadow-sm">
-                        {featuredVideo.director}
-                      </p>
+                    {/* Clean duration chip at bottom-right corner */}
+                    <div className="absolute bottom-4 right-4 z-10 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-[11px] font-mono text-white/90 font-medium">
+                      {featuredVideo.duration} · HD
                     </div>
                   </div>
                 )}
