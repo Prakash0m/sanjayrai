@@ -65,9 +65,9 @@ Open `src/config/site.ts`:
 export const siteConfig = {
   artistName: "Sanjay Rai (Bantawa)",
   whatsAppNumber: "97798XXXXXXXX", // Replace with real phone number (with country code)
-  email: "studio@sanjayrai.art",
+  email: "sanjaybantawa222@gmail.com",
   instagramUrl: "https://instagram.com/sanjayrai_art",
-  facebookUrl: "https://facebook.com/sanjayrai.bantawa",
+  facebookUrl: "https://www.facebook.com/sanjay.bantawa.7",
   studioLocation: "Imadol, Lalitpur, Nepal",
   ...
 };

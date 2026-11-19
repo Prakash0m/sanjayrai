@@ -34,9 +34,9 @@ export const siteConfig: SiteConfig = {
   whatsAppNumber: "9779849826124", // Official WhatsApp number: 9849826124 (Nepal +977)
   phoneFormatted: "+977 9849826124",
   whatsAppDefaultMessage: "Hello, I am interested in your artwork. I would like to know more.",
-  email: "studio@sanjayrai.art",
+  email: "sanjaybantawa222@gmail.com",
   instagramUrl: "https://instagram.com/sanjayrai_art",
-  facebookUrl: "https://facebook.com/sanjayrai.bantawa",
+  facebookUrl: "https://www.facebook.com/sanjay.bantawa.7",
   studioLocation: "Imadol, Lalitpur, Nepal",
   studioHours: "Sunday – Friday: 10:00 AM – 5:00 PM (NPT)",
   websiteTitle: "Sanjay Rai (Bantawa) — Sculptor, Painter & Contemporary Nepali Artist",
