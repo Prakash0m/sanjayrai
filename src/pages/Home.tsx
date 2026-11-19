@@ -158,19 +158,6 @@ export const Home: React.FC = () => {
             </div>
           </div>
 
-          {/* ── Mobile-Friendly Concept Tags (Instant Visual Clarity) ── */}
-          <div className="flex flex-wrap gap-2 mb-6 sm:mb-8">
-            <span className="px-3 py-1 rounded-full bg-sky-50 border border-sky-100 text-sky-800 text-[11px] font-mono font-medium">
-              🌿 Kirat Nature Philosophy
-            </span>
-            <span className="px-3 py-1 rounded-full bg-amber-50 border border-amber-100 text-amber-900 text-[11px] font-mono font-medium">
-              🎨 Language of Colours
-            </span>
-            <span className="px-3 py-1 rounded-full bg-stone-100 border border-stone-200 text-stone-700 text-[11px] font-mono font-medium">
-              🏛️ Cultural Memory &amp; Myths
-            </span>
-          </div>
-
           {/* ── Pull Quote Card ─────────────────────────────────── */}
           <div className="relative mb-6 sm:mb-12 p-4 sm:p-7 rounded-2xl sm:rounded-3xl bg-[#FAF8F5] border border-stone-200/80 shadow-2xs">
             <div className="flex items-start gap-3 sm:gap-4">
