@@ -1,13 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Compass, Palette, Hammer, PenTool, ChevronDown, ChevronUp, Quote } from 'lucide-react';
+import { ArrowRight, Compass, ChevronDown, ChevronUp, Quote, Eye } from 'lucide-react';
 import { SmartImage } from '../components/SmartImage';
+import { ImageLightbox } from '../components/ImageLightbox';
+import { sketchPaintingSculptureArtworks, Artwork } from '../data/portfolio';
 import { getWhatsAppUrl } from '../config/site';
 import { WhatsAppIcon } from '../components/Icons';
 import { SEO } from '../components/SEO';
 
 export const Home: React.FC = () => {
   const [statementExpanded, setStatementExpanded] = useState(false);
+  const [selectedDiscipline, setSelectedDiscipline] = useState<'ALL' | 'SKETCH' | 'PAINTING' | 'SCULPTURE'>('ALL');
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeArtworkIndex, setActiveArtworkIndex] = useState(0);
+
+  const filteredStudies = selectedDiscipline === 'ALL'
+    ? sketchPaintingSculptureArtworks
+    : selectedDiscipline === 'SKETCH'
+    ? sketchPaintingSculptureArtworks.filter((a) => a.category === 'SKETCH & INK' || a.category === 'STUDIES & CHARCOAL')
+    : selectedDiscipline === 'PAINTING'
+    ? sketchPaintingSculptureArtworks.filter((a) => a.category === 'CANVAS & OIL')
+    : sketchPaintingSculptureArtworks.filter((a) => a.category === 'SCULPTURE');
+
+  const handleCardClick = (artwork: Artwork) => {
+    const originalIndex = sketchPaintingSculptureArtworks.findIndex((a) => a.id === artwork.id);
+    setActiveArtworkIndex(originalIndex !== -1 ? originalIndex : 0);
+    setLightboxOpen(true);
+  };
 
   return (
     <div className="space-y-0">
@@ -339,148 +358,141 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 4: SKETCH / PAINTING / SCULPTURE (Small 3-Category Gallery Preview) */}
-      <section className="py-20 md:py-32 relative bg-white border-t border-stone-200/60">
+      {/* SECTION 4: SKETCH / PAINTING / SCULPTURE (Foundational 11 Studies Archive) */}
+      <section id="sketch-painting-sculpture" className="py-20 md:py-32 relative bg-white border-t border-stone-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Section Header */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
             <div>
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[11px] font-mono tracking-widest uppercase mb-3 font-semibold">
+                <span>FOUNDATIONAL ARCHIVE · 1996 — 2001</span>
+              </div>
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-ink-900 tracking-tight leading-tight">
                 Sketch · Painting · Sculpture
               </h2>
-              <p className="mt-3 text-base text-ink-600 max-w-xl">
-                Explore the tripartite disciplines of Sanjay Rai. Click any category to view available original pieces and archival portfolios.
+              <p className="mt-3 text-base text-ink-600 max-w-2xl font-sans">
+                Explore the tripartite disciplines of Sanjay Rai: academic life drawings on hand-beaten Lokta paper, early expressionist paintings, and classical sculptural studies.
               </p>
             </div>
 
             <Link
               to="/original-works"
-              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 text-xs font-semibold tracking-wider uppercase transition-colors shrink-0"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-ink-900 hover:bg-black text-white text-xs font-semibold tracking-wider uppercase transition-colors shrink-0 shadow-sm"
             >
-              <span>View Full Gallery</span>
+              <span>Explore Original Paintings</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
-          {/* 3-Category Preview Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
-            {/* Category 1: Sketch & Life Studies */}
-            <Link
-              to="/original-works?category=SKETCH%20%26%20INK"
-              className="group block rounded-3xl bg-[#FAF8F5] p-5 border border-stone-200/70 hover:border-sky-300 transition-all hover:shadow-xl hover:-translate-y-1"
-            >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-white mb-5 shadow-xs">
-                <SmartImage
-                  src="/images/artworks/seated-woman-1999.jpg"
-                  alt="Sketch & Life Studies"
-                  objectFit="contain"
-                  className="w-full h-full p-3 bg-[#F5F2EB] group-hover:scale-102 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono text-ink-900 font-bold shadow-2xs">
-                  SKETCH & INK
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-sky-700">
-                    <PenTool className="w-4 h-4" />
-                    <span className="text-[11px] font-mono tracking-widest uppercase font-semibold">DISCIPLINE 01</span>
-                  </div>
-                  <span className="text-xs font-mono text-stone-500">4 Works Listed</span>
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                  Sketches & Life Studies
-                </h3>
-                <p className="text-xs text-ink-600 font-sans leading-relaxed line-clamp-2">
-                  Fastidious life drawings on hand-beaten Lokta bark paper capturing gesture, draping cloth, and serene human posture.
-                </p>
-                <div className="pt-3 flex items-center space-x-1.5 text-xs font-semibold text-ink-900 group-hover:text-sky-600 transition-colors">
-                  <span>Explore Sketches & Ink</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-
-            {/* Category 2: Canvas & Painting */}
-            <Link
-              to="/original-works?category=CANVAS%20%26%20OIL"
-              className="group block rounded-3xl bg-[#FAF8F5] p-5 border border-stone-200/70 hover:border-sky-300 transition-all hover:shadow-xl hover:-translate-y-1"
-            >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-white mb-5 shadow-xs">
-                <SmartImage
-                  src="/images/artworks/himalayan-conversation.jpg"
-                  alt="Canvas & Earth Pigments"
-                  objectFit="contain"
-                  className="w-full h-full p-3 bg-[#F5F2EB] group-hover:scale-102 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono text-ink-900 font-bold shadow-2xs">
-                  CANVAS & OIL
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-sky-700">
-                    <Palette className="w-4 h-4" />
-                    <span className="text-[11px] font-mono tracking-widest uppercase font-semibold">DISCIPLINE 02</span>
-                  </div>
-                  <span className="text-xs font-mono text-stone-500">3 Works Listed</span>
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                  Paintings & Earth Pigments
-                </h3>
-                <p className="text-xs text-ink-600 font-sans leading-relaxed line-clamp-2">
-                  Rich narrative canvases incorporating natural Himalayan earth colors, cyan pastels, and indigenous Kirat cosmological motifs.
-                </p>
-                <div className="pt-3 flex items-center space-x-1.5 text-xs font-semibold text-ink-900 group-hover:text-sky-600 transition-colors">
-                  <span>Explore Paintings</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-
-            {/* Category 3: Sculpture & Monuments */}
-            <Link
-              to="/commission"
-              className="group block rounded-3xl bg-[#FAF8F5] p-5 border border-stone-200/70 hover:border-sky-300 transition-all hover:shadow-xl hover:-translate-y-1"
-            >
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-white mb-5 shadow-xs">
-                <SmartImage
-                  src="/images/artworks/goddess-staff-1998.jpg"
-                  alt="Sculpture & Monuments"
-                  objectFit="contain"
-                  className="w-full h-full p-3 bg-[#F5F2EB] group-hover:scale-102 transition-transform duration-500"
-                />
-                <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md text-[10px] font-mono text-ink-900 font-bold shadow-2xs">
-                  SCULPTURE
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2 text-sky-700">
-                    <Hammer className="w-4 h-4" />
-                    <span className="text-[11px] font-mono tracking-widest uppercase font-semibold">DISCIPLINE 03</span>
-                  </div>
-                  <span className="text-xs font-mono text-stone-500">Commissions</span>
-                </div>
-                <h3 className="font-serif text-2xl font-bold text-ink-900 group-hover:text-sky-600 transition-colors">
-                  Sculptures & Monuments
-                </h3>
-                <p className="text-xs text-ink-600 font-sans leading-relaxed line-clamp-2">
-                  Chiseled black granite monuments, lost-wax cast bronze figures, and high-fired architectural terracotta reliefs.
-                </p>
-                <div className="pt-3 flex items-center space-x-1.5 text-xs font-semibold text-ink-900 group-hover:text-sky-600 transition-colors">
-                  <span>View Commission Portfolios</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-
+          {/* Discipline Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2 mb-10">
+            {[
+              { id: 'ALL' as const, label: 'All Works', count: sketchPaintingSculptureArtworks.length },
+              { id: 'SKETCH' as const, label: 'Sketches & Ink', count: sketchPaintingSculptureArtworks.filter(a => a.category === 'SKETCH & INK' || a.category === 'STUDIES & CHARCOAL').length },
+              { id: 'PAINTING' as const, label: 'Paintings', count: sketchPaintingSculptureArtworks.filter(a => a.category === 'CANVAS & OIL').length },
+              { id: 'SCULPTURE' as const, label: 'Sculptural Studies', count: sketchPaintingSculptureArtworks.filter(a => a.category === 'SCULPTURE').length },
+            ].map((tab) => {
+              const isSelected = selectedDiscipline === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setSelectedDiscipline(tab.id)}
+                  className={`px-4 py-2 rounded-full text-xs font-mono font-medium tracking-wide uppercase transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-ink-900 text-white shadow-sm'
+                      : 'bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200/60'
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                  <span className={`ml-1.5 text-[10px] ${isSelected ? 'text-stone-300' : 'text-stone-400'}`}>
+                    ({tab.count})
+                  </span>
+                </button>
+              );
+            })}
           </div>
+
+          {/* 11 Artworks Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredStudies.map((artwork) => (
+              <div
+                key={artwork.id}
+                onClick={() => handleCardClick(artwork)}
+                className="group cursor-pointer rounded-3xl bg-[#FAF8F5] border border-stone-200/70 p-4 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-sky-300"
+              >
+                {/* Artwork Image Container */}
+                <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white mb-4 flex items-center justify-center p-3 shadow-2xs">
+                  <SmartImage
+                    src={artwork.image}
+                    fallbackSrc={artwork.fallbackImage}
+                    alt={artwork.title}
+                    category={artwork.category}
+                    objectFit="contain"
+                    className="w-full h-full flex items-center justify-center bg-transparent"
+                    imgClassName="object-contain w-full h-full filter drop-shadow-xs group-hover:scale-102 transition-transform duration-500"
+                  />
+
+                  {/* Year Tag */}
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-ink-900/80 backdrop-blur-md text-[9px] font-mono text-white">
+                    {artwork.year}
+                  </div>
+
+                  {/* Category Pill */}
+                  <div className="absolute top-3 left-3 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-md text-[9px] font-mono tracking-wider uppercase text-ink-900 shadow-2xs">
+                    {artwork.category}
+                  </div>
+
+                  {/* Hover Inspect Pill */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-xs">
+                    <div className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-white text-ink-900 text-xs font-semibold shadow-md scale-95 group-hover:scale-100 transition-transform">
+                      <Eye className="w-3.5 h-3.5" />
+                      <span>Zoom Artwork</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Editorial Info */}
+                <div className="space-y-1.5">
+                  <h3 className="font-serif text-base sm:text-lg font-bold text-ink-900 group-hover:text-sky-600 transition-colors leading-snug line-clamp-1">
+                    {artwork.title}
+                  </h3>
+                  <p className="text-xs text-stone-500 font-sans line-clamp-1">
+                    {artwork.medium}
+                  </p>
+                  <p className="text-[11px] font-mono text-stone-400">
+                    {artwork.dimensions}
+                  </p>
+
+                  <div className="pt-2.5 border-t border-stone-200/60 flex items-center justify-between">
+                    <span className="font-serif text-sm font-bold text-emerald-800">
+                      {artwork.price}
+                    </span>
+                    <a
+                      href={getWhatsAppUrl(`Hello Sanjay Rai, I am inquiring regarding the study "${artwork.title}" (${artwork.year}). Is this piece available for acquisition?`)}
+                      onClick={(e) => e.stopPropagation()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-[11px] font-medium border border-emerald-200 transition-all"
+                    >
+                      <WhatsAppIcon className="w-3 h-3 text-emerald-600" />
+                      <span>Inquire</span>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+          {/* Lightbox Modal for Fullscreen View */}
+          <ImageLightbox
+            artworks={sketchPaintingSculptureArtworks}
+            currentIndex={activeArtworkIndex}
+            isOpen={lightboxOpen}
+            onClose={() => setLightboxOpen(false)}
+            onNavigate={(idx) => setActiveArtworkIndex(idx)}
+          />
 
         </div>
       </section>

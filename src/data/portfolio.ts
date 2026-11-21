@@ -90,7 +90,8 @@ export const artworkCategories = [
 
 export type ArtworkCategory = typeof artworkCategories[number];
 
-export const portfolioArtworks: Artwork[] = [
+// 11 Foundational Studies (Sketches, Paintings, Sculptures) displayed on Home Page under "Sketch · Painting · Sculpture"
+export const sketchPaintingSculptureArtworks: Artwork[] = [
   {
     id: "art-1",
     title: "Study of Seated Woman in Salwar",
@@ -236,6 +237,10 @@ export const portfolioArtworks: Artwork[] = [
     aspectRatio: "tall",
     description: "Sculptural study inspired by ancient Licchavi and Kirat terracotta iconography, emphasizing volume and graceful tribhanga posture. Signed 'Bantawa 1999'.",
   },
+];
+
+// Original Works & Paintings (displayed on /original-works page)
+export const portfolioArtworks: Artwork[] = [
   {
     id: "art-12",
     title: "Kathmandu Valley Festival & Dhime Rhythms",
