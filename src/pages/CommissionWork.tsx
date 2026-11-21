@@ -408,60 +408,6 @@ export const CommissionWork: React.FC = () => {
           </div>
         </div>
 
-        {/* COMMISSION METHODOLOGY (4 CLEAN STEPS) */}
-        <div className="py-6 border-y border-stone-200/70">
-          <div className="text-center max-w-2xl mx-auto mb-8 space-y-1.5">
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900">
-              The Commission Journey
-            </h2>
-            <p className="text-xs sm:text-sm text-ink-600 font-sans">
-              From site orientation and clay maquettes to permanent architectural anchoring.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-mono font-bold text-xs">
-                01
-              </div>
-              <h3 className="font-serif font-bold text-ink-900 text-base">Space & Ethos Dialogue</h3>
-              <p className="text-xs text-ink-600 font-sans leading-relaxed">
-                Initial curatorial consultation examining spatial light, architectural context, and cultural narrative.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-8 h-8 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center font-mono font-bold text-xs">
-                02
-              </div>
-              <h3 className="font-serif font-bold text-ink-900 text-base">Maquettes & Studies</h3>
-              <p className="text-xs text-ink-600 font-sans leading-relaxed">
-                Scaled graphite studies and terracotta maquettes sculpted for architectural approval.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-mono font-bold text-xs">
-                03
-              </div>
-              <h3 className="font-serif font-bold text-ink-900 text-base">Direct Studio Execution</h3>
-              <p className="text-xs text-ink-600 font-sans leading-relaxed">
-                Sanjay Rai personally chisels, molds, or paints the work at his studio in Imadol, Lalitpur.
-              </p>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-white border border-stone-200/60 space-y-2">
-              <div className="w-8 h-8 rounded-xl bg-stone-100 text-stone-700 flex items-center justify-center font-mono font-bold text-xs">
-                04
-              </div>
-              <h3 className="font-serif font-bold text-ink-900 text-base">Installation & Certificate</h3>
-              <p className="text-xs text-ink-600 font-sans leading-relaxed">
-                White-glove delivery, structural mounting, and a signed Archival Authenticity Certificate.
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* COMMISSION ENQUIRY FORM */}
         <div className="max-w-2xl mx-auto rounded-3xl bg-white/90 backdrop-blur-md p-6 sm:p-10 border border-stone-200/70 shadow-sm space-y-6">
           
