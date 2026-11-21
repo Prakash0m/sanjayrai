@@ -380,7 +380,7 @@ export const Home: React.FC = () => {
               to="/original-works"
               className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-ink-900 hover:bg-black text-white text-xs font-semibold tracking-wider uppercase transition-colors shrink-0 shadow-sm"
             >
-              <span>Explore Original Paintings</span>
+              <span>Explore Original Works</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

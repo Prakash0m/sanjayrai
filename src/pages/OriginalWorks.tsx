@@ -49,9 +49,9 @@ export const OriginalWorks: React.FC = () => {
   return (
     <div className="pt-24 pb-16 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
       <SEO
-        title="Original Paintings & Life Studies — Sanjay Rai (Bantawa) | Studio Acquisitions"
-        description="Acquire original paintings, Lokta paper drawings, and studies directly from Sanjay Rai's studio in Imadol, Lalitpur, Nepal. Featuring Mundhum mythology, figurative studies, and equine series."
-        keywords="Sanjay Rai Original Paintings, Lokta Paper Art, Nepali Fine Art Acquisitions, Imadol Lalitpur Art Studio, Kirat Art, Himalayan Horses Series, #SanjayRai, #NepaliArt, #StudioAcquisitions"
+        title="Original Works — Sanjay Rai (Bantawa) | Studio Acquisitions"
+        description="Acquire original artworks, canvases, and studies directly from Sanjay Rai's studio in Imadol, Lalitpur, Nepal. Featuring Mundhum mythology and equine series."
+        keywords="Sanjay Rai Original Works, Original Paintings Nepal, Fine Art Acquisitions, Imadol Lalitpur Art Studio, Kirat Art, Himalayan Horses Series, #SanjayRai, #NepaliArt, #StudioAcquisitions"
         canonicalPath="/original-works"
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,7 +59,7 @@ export const OriginalWorks: React.FC = () => {
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-4">
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink-900 leading-tight">
-            Original Works & Paintings
+            Original Works
           </h1>
 
           <p className="text-sm sm:text-base text-ink-600 max-w-2xl mx-auto font-sans leading-relaxed">
