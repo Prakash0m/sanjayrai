@@ -3,18 +3,13 @@ import { pastCommissions, Artwork } from '../data/portfolio';
 import { SmartImage } from '../components/SmartImage';
 import { ImageLightbox } from '../components/ImageLightbox';
 import { getWhatsAppUrl } from '../config/site';
-import { WhatsAppIcon } from '../components/Icons';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  Hammer, 
-  MapPin, 
-  Building, 
   Check, 
   Send, 
   AlertCircle, 
   Eye, 
-  Calendar,
   Play,
   Pause
 } from 'lucide-react';
@@ -171,7 +166,6 @@ export const CommissionWork: React.FC = () => {
 
   // Responsive spacing between card centers in 3D perspective
   const cardSpacing = windowWidth < 640 ? 170 : windowWidth < 1024 ? 220 : 260;
-  const activeCommission = pastCommissions[currentIndex];
 
   return (
     <div className="pt-24 pb-20 sm:pt-36 sm:pb-32 bg-[#FAF8F5] min-h-screen">
@@ -339,73 +333,6 @@ export const CommissionWork: React.FC = () => {
             ))}
           </div>
 
-        </div>
-
-        {/* ACTIVE COMMISSION DETAILS PANEL (OUTSIDE THE BOXES, CLEAN & INFORMATIVE) */}
-        <div className="max-w-4xl mx-auto rounded-3xl bg-white/90 backdrop-blur-md border border-stone-200/70 p-6 sm:p-8 shadow-sm transition-all">
-          <div key={activeCommission.id} className="animate-soft-fade flex flex-col md:flex-row md:items-center justify-between gap-6">
-            
-            <div className="space-y-3 flex-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 text-[10px] font-mono tracking-wider uppercase font-semibold">
-                  {activeCommission.type}
-                </span>
-                <span className="text-stone-400 text-xs font-mono">·</span>
-                <span className="text-stone-500 text-xs font-mono flex items-center space-x-1">
-                  <Calendar className="w-3 h-3" />
-                  <span>{activeCommission.year}</span>
-                </span>
-              </div>
-
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-ink-900 leading-snug">
-                {activeCommission.title}
-              </h2>
-
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mono text-stone-600 pt-1">
-                <div className="flex items-center space-x-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                  <span className="truncate">{activeCommission.location}</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <Building className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                  <span className="truncate">{activeCommission.client}</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  <Hammer className="w-3.5 h-3.5 text-stone-400 shrink-0" />
-                  <span className="truncate">{activeCommission.medium}</span>
-                </div>
-              </div>
-
-              <p className="text-xs sm:text-sm text-ink-700 font-sans leading-relaxed pt-1">
-                {activeCommission.description}
-              </p>
-            </div>
-
-            {/* Actions for Current Commission */}
-            <div className="flex flex-row md:flex-col items-center gap-3 shrink-0 pt-2 md:pt-0 border-t md:border-t-0 md:border-l border-stone-100 md:pl-6">
-              <a
-                href={getWhatsAppUrl(`Hello Sanjay Rai, I am inquiring regarding a commission similar to your project: "${activeCommission.title}" (${activeCommission.location}).`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 md:flex-none inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20BD5A] text-white text-xs font-semibold shadow-sm transition-all hover:scale-105 active:scale-95"
-              >
-                <WhatsAppIcon className="w-3.5 h-3.5 text-white" />
-                <span>Discuss on WhatsApp</span>
-              </a>
-
-              <button
-                onClick={() => {
-                  setLightboxIndex(currentIndex);
-                  setLightboxOpen(true);
-                }}
-                className="inline-flex items-center justify-center space-x-1.5 px-4 py-3 rounded-full bg-stone-100 hover:bg-stone-200 text-ink-900 text-xs font-medium transition-all"
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>Zoom Image</span>
-              </button>
-            </div>
-
-          </div>
         </div>
 
         {/* COMMISSION ENQUIRY FORM */}
